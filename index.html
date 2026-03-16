@@ -499,7 +499,7 @@ footer{
     <a href="#experience">Parcours</a>
     <a href="#contact">Contact</a>
   </div>
-  <a href="assets/cv/CV_SEAN_THOMAS_EKANG_NSOLEY.pdf" download class="nav-cta">Télécharger CV</a>
+  <a href="assets/CV SEAN THOMAS EKANG NSOLEY.pdf" download class="nav-cta">Télécharger CV</a>
 </nav>
 
 <!-- ══ HERO ══ -->
@@ -955,7 +955,7 @@ footer{
               <div class="contact-link-value">github.com/thomasnsoley</div>
             </div>
           </a>
-          <a href="C:\Users\LENOVO\portfolio-thomas\assets\CV SEAN THOMAS EKANG NSOLEY.pdf" download class="contact-link">
+          <a href="assets/CV SEAN THOMAS EKANG NSOLEY.pdf" download class="contact-link">
             <div class="contact-link-icon" style="background:var(--red)">
               <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             </div>
@@ -1008,7 +1008,15 @@ window.addEventListener('scroll',()=>{
 
 /* Form */
 function handleForm(){
-  alert('Merci pour votre message ! Je vous répondrai dans les 24h.');
+  const nom = document.querySelector('input[placeholder="Votre nom"]').value;
+  const email = document.querySelector('input[placeholder="votre@email.com"]').value;
+  const sujet = document.querySelector('input[placeholder="Projet, opportunité, question…"]').value;
+  const message = document.querySelector('textarea[placeholder="Décrivez votre projet ou question…"]').value;
+  
+  const subject = encodeURIComponent(sujet || 'Nouveau message depuis le portfolio');
+  const body = encodeURIComponent(`Nom: ${nom}\nEmail: ${email}\n\nMessage:\n${message}`);
+  
+  window.location.href = `mailto:nsoleypro20@gmail.com?subject=${subject}&body=${body}`;
 }
 
 /* Skill bars animate on hero visible */
