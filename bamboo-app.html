@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>BAMBOO EMF — Application</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root{
+      --white:#fff;
+      --off:#f8f9fa;
+      --g50:#f9fafb;--g100:#f3f4f6;--g200:#e5e7eb;--g300:#d1d5db;
+      --g400:#9ca3af;--g500:#6b7280;--g600:#4b5563;--g700:#374151;--g900:#111827;
+      --green:#16a34a;--green-l:#22c55e;--green-50:#f0fdf4;--green-100:#dcfce7;--green-600:#15803d;
+      --blue:#2563eb;--blue-l:#3b82f6;--blue-50:#eff6ff;
+      --red:#dc2626;--red-50:#fef2f2;
+      --amber:#d97706;--amber-50:#fffbeb;
+      --border:#e5e7eb;--border-focus:rgba(22,163,74,.4);
+      --shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.05);
+      --shadow-md:0 4px 6px -1px rgba(0,0,0,.08);
+      --shadow-lg:0 10px 15px -3px rgba(0,0,0,.07);
+      --font-display:'Fraunces',serif;
+      --font:'Plus Jakarta Sans',-apple-system,sans-serif;
+      --sidebar:240px;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{height:100%}
+    body{font-family:var(--font);background:#fff;color:var(--g900);height:100%;overflow:hidden;display:flex;flex-direction:column}
+
+    /* ──── AUTH SCREEN ──── */
+    #auth-screen{
+      display:flex;flex:1;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--green-50) 0%,#fff 60%,var(--blue-50) 100%);
+      min-height:100vh;
+    }
+    .auth-box{
+      background:#fff;border:1px solid var(--border);border-radius:20px;
+      padding:3rem;width:420px;max-width:95vw;box-shadow:var(--shadow-lg);
+    }
+    .auth-logo{display:flex;align-items:center;gap:.75rem;margin-bottom:2.5rem;justify-content:center}
+    .auth-logo-icon{
+      width:44px;height:44px;background:var(--green);border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .auth-logo-icon svg{width:24px;height:24px;stroke:#fff;fill:none}
+    .auth-logo-text{font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--g900)}
+    .auth-logo-text span{color:var(--green)}
+    .auth-tabs{display:flex;background:var(--g100);border-radius:10px;padding:.25rem;margin-bottom:2rem;gap:.25rem}
+    .auth-tab{
+      flex:1;padding:.6rem;text-align:center;font-size:.85rem;font-weight:600;
+      border-radius:8px;cursor:pointer;transition:all .15s;color:var(--g500);border:none;background:none;
+    }
+    .auth-tab.active{background:#fff;color:var(--g900);box-shadow:var(--shadow)}
+    .auth-form{display:flex;flex-direction:column;gap:1.1rem}
+    .auth-form.hidden{display:none}
+    .form-group{display:flex;flex-direction:column;gap:.4rem}
+    .form-label{font-size:.8rem;font-weight:600;color:var(--g700)}
+    .form-input{
+      padding:.7rem 1rem;border:1.5px solid var(--border);border-radius:9px;
+      font-family:var(--font);font-size:.88rem;color:var(--g900);background:#fff;
+      transition:border-color .15s,box-shadow .15s;outline:none;
+    }
+    .form-input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(22,163,74,.1)}
+    .form-input::placeholder{color:var(--g400)}
+    .auth-btn{
+      padding:.8rem;background:var(--green);color:#fff;font-family:var(--font);
+      font-weight:700;font-size:.9rem;border:none;border-radius:9px;cursor:pointer;
+      transition:background .15s,transform .1s;display:flex;align-items:center;justify-content:center;gap:.5rem;
+    }
+    .auth-btn:hover{background:var(--green-600);transform:translateY(-1px)}
+    .auth-btn svg{width:16px;height:16px;stroke:#fff;fill:none}
+    .auth-demo-hint{
+      text-align:center;font-size:.75rem;color:var(--g400);margin-top:.5rem;
+      padding:.6rem;background:var(--g50);border-radius:7px;
+    }
+    .auth-demo-hint strong{color:var(--green)}
+    .auth-error{
+      padding:.6rem .9rem;background:var(--red-50);border:1px solid rgba(220,38,38,.2);
+      border-radius:7px;font-size:.8rem;color:var(--red);display:none;align-items:center;gap:.5rem;
+    }
+    .auth-error svg{width:14px;height:14px;stroke:var(--red);fill:none;flex-shrink:0}
+
+    /* ──── APP SHELL ──── */
+    #app-shell{display:none;flex:1;height:100vh;overflow:hidden}
+    #app-shell.visible{display:flex}
+
+    /* ──── SIDEBAR ──── */
+    .sidebar{
+      width:var(--sidebar);flex-shrink:0;background:#fff;
+      border-right:1px solid var(--border);display:flex;flex-direction:column;
+      height:100vh;overflow-y:auto;
+    }
+    .sidebar-header{
+      padding:1.25rem 1.25rem 1rem;border-bottom:1px solid var(--border);
+      display:flex;align-items:center;gap:.75rem;
+    }
+    .sidebar-logo-icon{
+      width:34px;height:34px;background:var(--green);border-radius:8px;
+      display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    }
+    .sidebar-logo-icon svg{width:18px;height:18px;stroke:#fff;fill:none}
+    .sidebar-logo-text{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--g900);line-height:1.2}
+    .sidebar-logo-text span{color:var(--green)}
+    .sidebar-logo-sub{font-size:.68rem;color:var(--g400)}
+    .sidebar-nav{padding:.75rem;flex:1}
+    .nav-section-label{
+      font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--g400);padding:.3rem .6rem;margin-bottom:.25rem;margin-top:.5rem;
+    }
+    .nav-item{
+      display:flex;align-items:center;gap:.7rem;padding:.6rem .75rem;
+      border-radius:8px;font-size:.83rem;font-weight:500;color:var(--g600);
+      cursor:pointer;transition:all .15s;margin-bottom:.15rem;border:none;background:none;width:100%;text-align:left;
+    }
+    .nav-item svg{width:16px;height:16px;stroke:currentColor;fill:none;flex-shrink:0}
+    .nav-item:hover{background:var(--g100);color:var(--g900)}
+    .nav-item.active{background:var(--green-50);color:var(--green);font-weight:600}
+    .nav-item.active svg{stroke:var(--green)}
+    .nav-item .badge-count{
+      margin-left:auto;background:var(--green);color:#fff;
+      font-size:.6rem;font-weight:700;border-radius:100px;padding:.1rem .4rem;
+    }
+    .sidebar-user{
+      padding:1rem 1.25rem;border-top:1px solid var(--border);
+      display:flex;align-items:center;gap:.75rem;
+    }
+    .user-avatar{
+      width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue-l));
+      display:flex;align-items:center;justify-content:center;
+      font-size:.75rem;font-weight:700;color:#fff;flex-shrink:0;
+    }
+    .user-name{font-size:.82rem;font-weight:600;color:var(--g900)}
+    .user-role{font-size:.7rem;color:var(--g400)}
+    .user-logout{
+      margin-left:auto;width:28px;height:28px;border-radius:7px;
+      border:1px solid var(--border);background:none;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;transition:all .15s;
+    }
+    .user-logout:hover{background:var(--red-50);border-color:rgba(220,38,38,.2)}
+    .user-logout svg{width:14px;height:14px;stroke:var(--g400)}
+    .user-logout:hover svg{stroke:var(--red)}
+
+    /* ──── MAIN ──── */
+    .main{flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+    .topbar{
+      padding:.9rem 1.75rem;border-bottom:1px solid var(--border);background:#fff;
+      display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
+    }
+    .topbar-left{display:flex;align-items:center;gap:.5rem}
+    .topbar-title{font-weight:700;font-size:1rem;color:var(--g900)}
+    .topbar-sep{color:var(--g300);font-size:.85rem}
+    .topbar-sub{font-size:.82rem;color:var(--g400)}
+    .topbar-right{display:flex;align-items:center;gap:.75rem}
+    .search-wrap{
+      display:flex;align-items:center;gap:.5rem;background:var(--g100);
+      border-radius:8px;padding:.45rem .85rem;border:1.5px solid transparent;transition:all .15s;
+    }
+    .search-wrap:focus-within{background:#fff;border-color:var(--green);box-shadow:0 0 0 3px rgba(22,163,74,.08)}
+    .search-wrap svg{width:14px;height:14px;stroke:var(--g400);fill:none;flex-shrink:0}
+    .search-wrap input{border:none;background:none;outline:none;font-family:var(--font);font-size:.82rem;color:var(--g900);width:180px}
+    .search-wrap input::placeholder{color:var(--g400)}
+    .icon-btn{
+      width:34px;height:34px;border-radius:8px;border:1px solid var(--border);
+      background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
+      transition:all .15s;position:relative;
+    }
+    .icon-btn:hover{background:var(--g100)}
+    .icon-btn svg{width:15px;height:15px;stroke:var(--g600);fill:none}
+    .notif-dot{
+      position:absolute;top:6px;right:6px;width:7px;height:7px;
+      background:var(--red);border-radius:50%;border:1.5px solid #fff;
+    }
+
+    /* Content area */
+    .content{flex:1;overflow-y:auto;padding:1.5rem 1.75rem;background:var(--g50)}
+
+    /* ──── VIEWS ──── */
+    .view{display:none}
+    .view.active{display:block}
+
+    /* ──── DASHBOARD ──── */
+    .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+    .kpi-card{
+      background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.25rem;
+      transition:box-shadow .2s,transform .2s;
+    }
+    .kpi-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+    .kpi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
+    .kpi-icon{
+      width:38px;height:38px;border-radius:9px;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .kpi-icon svg{width:18px;height:18px;fill:none}
+    .kpi-icon.green{background:var(--green-100)} .kpi-icon.green svg{stroke:var(--green)}
+    .kpi-icon.blue{background:var(--blue-50)} .kpi-icon.blue svg{stroke:var(--blue)}
+    .kpi-icon.amber{background:var(--amber-50)} .kpi-icon.amber svg{stroke:var(--amber)}
+    .kpi-icon.red{background:var(--red-50)} .kpi-icon.red svg{stroke:var(--red)}
+    .kpi-trend{font-size:.72rem;font-weight:600;padding:.15rem .5rem;border-radius:5px}
+    .kpi-trend.up{background:var(--green-100);color:var(--green-600)}
+    .kpi-trend.down{background:var(--red-50);color:var(--red)}
+    .kpi-val{font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--g900);line-height:1}
+    .kpi-lbl{font-size:.78rem;color:var(--g400);margin-top:.25rem}
+    .charts-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:1rem;margin-bottom:1.5rem}
+    .chart-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+    .chart-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+    .chart-title{font-weight:700;font-size:.88rem;color:var(--g900)}
+    .chart-actions{display:flex;gap:.3rem}
+    .chart-period-btn{
+      padding:.25rem .6rem;font-size:.68rem;font-weight:600;border-radius:5px;
+      border:1px solid var(--border);background:#fff;color:var(--g400);cursor:pointer;transition:all .15s;
+    }
+    .chart-period-btn.active{background:var(--green-50);border-color:rgba(22,163,74,.3);color:var(--green)}
+    .chart-canvas-wrap{position:relative;height:200px}
+
+    /* Recent employees table */
+    .table-card{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .table-card-header{
+      padding:1rem 1.25rem;border-bottom:1px solid var(--border);
+      display:flex;align-items:center;justify-content:space-between;
+    }
+    .table-card-title{font-weight:700;font-size:.88rem;color:var(--g900)}
+    .btn-small{
+      padding:.35rem .85rem;font-size:.75rem;font-weight:600;border-radius:7px;
+      border:1px solid var(--border);background:#fff;color:var(--g700);cursor:pointer;
+      transition:all .15s;display:flex;align-items:center;gap:.4rem;
+    }
+    .btn-small:hover{background:var(--g100)}
+    .btn-small svg{width:13px;height:13px;stroke:currentColor;fill:none}
+    .btn-small.primary{background:var(--green);border-color:var(--green);color:#fff}
+    .btn-small.primary:hover{background:var(--green-600)}
+    table{width:100%;border-collapse:collapse}
+    thead th{
+      padding:.7rem 1rem;text-align:left;font-size:.72rem;font-weight:700;
+      text-transform:uppercase;letter-spacing:.06em;color:var(--g400);
+      border-bottom:1px solid var(--border);background:var(--g50);
+    }
+    tbody tr{transition:background .1s}
+    tbody tr:hover{background:var(--g50)}
+    tbody td{padding:.75rem 1rem;font-size:.83rem;border-bottom:1px solid var(--g100)}
+    tbody tr:last-child td{border-bottom:none}
+    .emp-cell{display:flex;align-items:center;gap:.65rem}
+    .emp-avatar{
+      width:30px;height:30px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:.65rem;font-weight:700;color:#fff;flex-shrink:0;
+    }
+    .emp-name{font-weight:600;color:var(--g900)}
+    .emp-email{font-size:.7rem;color:var(--g400)}
+    .badge{
+      display:inline-flex;align-items:center;gap:.25rem;
+      padding:.2rem .6rem;border-radius:5px;font-size:.7rem;font-weight:600;
+    }
+    .badge svg{width:10px;height:10px;stroke:currentColor;fill:none}
+    .badge-green{background:var(--green-100);color:var(--green-600)}
+    .badge-blue{background:var(--blue-50);color:var(--blue)}
+    .badge-amber{background:var(--amber-50);color:var(--amber)}
+    .badge-red{background:var(--red-50);color:var(--red)}
+    .badge-gray{background:var(--g100);color:var(--g600)}
+    .action-btns{display:flex;gap:.4rem}
+    .action-btn{
+      width:28px;height:28px;border-radius:6px;border:1px solid var(--border);
+      background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
+      transition:all .15s;
+    }
+    .action-btn:hover{background:var(--g100)}
+    .action-btn svg{width:13px;height:13px;stroke:var(--g500);fill:none}
+    .action-btn.danger:hover{background:var(--red-50);border-color:rgba(220,38,38,.2)}
+    .action-btn.danger:hover svg{stroke:var(--red)}
+
+    /* ──── EMPLOYEES VIEW ──── */
+    .view-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
+    .view-title{font-weight:700;font-size:1.05rem;color:var(--g900)}
+    .view-actions{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+    .filter-select{
+      padding:.4rem .75rem;border:1.5px solid var(--border);border-radius:8px;
+      font-family:var(--font);font-size:.8rem;color:var(--g700);background:#fff;
+      outline:none;cursor:pointer;transition:border-color .15s;
+    }
+    .filter-select:focus{border-color:var(--green)}
+    .employees-grid{
+      display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;
+    }
+    .emp-card{
+      background:#fff;border:1px solid var(--border);border-radius:12px;
+      padding:1.5rem;text-align:center;transition:box-shadow .2s,transform .2s;
+    }
+    .emp-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+    .emp-card-avatar{
+      width:60px;height:60px;border-radius:50%;margin:0 auto .75rem;
+      display:flex;align-items:center;justify-content:center;
+      font-size:1.2rem;font-weight:700;color:#fff;
+    }
+    .emp-card-name{font-weight:700;font-size:.92rem;color:var(--g900);margin-bottom:.2rem}
+    .emp-card-dept{font-size:.78rem;color:var(--g400);margin-bottom:.75rem}
+    .emp-card-info{display:flex;flex-direction:column;gap:.3rem;text-align:left;margin-bottom:1rem}
+    .emp-info-row{display:flex;align-items:center;gap:.5rem;font-size:.75rem;color:var(--g500)}
+    .emp-info-row svg{width:13px;height:13px;stroke:var(--g400);fill:none;flex-shrink:0}
+    .emp-card-actions{display:flex;gap:.5rem;justify-content:center}
+
+    /* ──── ATTENDANCE VIEW ──── */
+    .attendance-list{display:flex;flex-direction:column;gap:.75rem}
+    .attendance-row{
+      background:#fff;border:1px solid var(--border);border-radius:10px;
+      padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;
+      transition:box-shadow .15s;
+    }
+    .attendance-row:hover{box-shadow:var(--shadow)}
+    .att-info{flex:1}
+    .att-name{font-weight:600;font-size:.88rem;color:var(--g900)}
+    .att-dept{font-size:.74rem;color:var(--g400)}
+    .att-toggle{
+      padding:.4rem 1rem;border-radius:7px;font-size:.78rem;font-weight:600;
+      border:1.5px solid;cursor:pointer;transition:all .15s;background:none;font-family:var(--font);
+    }
+    .att-toggle.present{border-color:rgba(22,163,74,.3);color:var(--green-600);background:var(--green-50)}
+    .att-toggle.present:hover{background:var(--red-50);border-color:rgba(220,38,38,.3);color:var(--red)}
+    .att-toggle.absent{border-color:rgba(220,38,38,.3);color:var(--red);background:var(--red-50)}
+    .att-toggle.absent:hover{background:var(--green-50);border-color:rgba(22,163,74,.3);color:var(--green-600)}
+
+    /* ──── MODAL ──── */
+    .modal-overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1000;
+      display:none;align-items:center;justify-content:center;
+      backdrop-filter:blur(3px);
+    }
+    .modal-overlay.open{display:flex}
+    .modal{
+      background:#fff;border-radius:16px;width:520px;max-width:94vw;max-height:90vh;
+      overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,.15);
+    }
+    .modal-header{
+      padding:1.5rem 1.5rem 1rem;display:flex;align-items:center;justify-content:space-between;
+      border-bottom:1px solid var(--border);
+    }
+    .modal-title{font-weight:700;font-size:1rem;color:var(--g900);display:flex;align-items:center;gap:.6rem}
+    .modal-title svg{width:18px;height:18px;stroke:var(--green);fill:none}
+    .modal-close{
+      width:30px;height:30px;border-radius:7px;border:1px solid var(--border);
+      background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;
+    }
+    .modal-close:hover{background:var(--g100)}
+    .modal-close svg{width:14px;height:14px;stroke:var(--g500);fill:none}
+    .modal-body{padding:1.5rem}
+    .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .modal-footer{
+      padding:1rem 1.5rem;border-top:1px solid var(--border);
+      display:flex;justify-content:flex-end;gap:.6rem;
+    }
+    .btn-cancel{
+      padding:.65rem 1.25rem;border:1.5px solid var(--border);border-radius:9px;
+      background:#fff;color:var(--g700);font-family:var(--font);font-weight:600;font-size:.85rem;cursor:pointer;transition:all .15s;
+    }
+    .btn-cancel:hover{background:var(--g100)}
+    .btn-save{
+      padding:.65rem 1.5rem;background:var(--green);color:#fff;border:none;border-radius:9px;
+      font-family:var(--font);font-weight:700;font-size:.85rem;cursor:pointer;
+      transition:all .15s;display:flex;align-items:center;gap:.4rem;
+    }
+    .btn-save:hover{background:var(--green-600)}
+    .btn-save svg{width:14px;height:14px;stroke:#fff;fill:none}
+
+    /* ──── TOAST ──── */
+    #toast{
+      position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;
+      background:var(--g900);color:#fff;padding:.8rem 1.2rem;border-radius:10px;
+      font-size:.82rem;font-weight:500;display:flex;align-items:center;gap:.6rem;
+      box-shadow:0 10px 25px rgba(0,0,0,.2);transform:translateY(8px);opacity:0;
+      transition:all .3s;pointer-events:none;max-width:300px;
+    }
+    #toast.show{transform:translateY(0);opacity:1}
+    #toast svg{width:16px;height:16px;stroke:var(--green-l);fill:none;flex-shrink:0}
+
+    /* ──── PERFORMANCES ──── */
+    .perf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+    .perf-card{
+      background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.5rem;
+      transition:box-shadow .2s,transform .2s;
+    }
+    .perf-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+    .perf-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem}
+    .perf-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#fff}
+    .perf-name{font-weight:700;font-size:.88rem;color:var(--g900)}
+    .perf-dept{font-size:.72rem;color:var(--g400)}
+    .perf-bar-wrap{margin-bottom:.5rem}
+    .perf-bar-label{display:flex;justify-content:space-between;font-size:.73rem;color:var(--g500);margin-bottom:.35rem}
+    .perf-bar{background:var(--g100);border-radius:100px;height:6px;overflow:hidden}
+    .perf-bar-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--green),var(--green-l));transition:width .5s ease}
+
+    /* ──── REPORTS ──── */
+    .reports-list{display:flex;flex-direction:column;gap:.75rem}
+    .report-row{
+      background:#fff;border:1px solid var(--border);border-radius:10px;
+      padding:1.1rem 1.25rem;display:flex;align-items:center;gap:1rem;
+      transition:box-shadow .15s;
+    }
+    .report-row:hover{box-shadow:var(--shadow)}
+    .report-icon{
+      width:40px;height:40px;background:var(--g100);border-radius:9px;
+      display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    }
+    .report-icon svg{width:20px;height:20px;stroke:var(--g600);fill:none}
+    .report-info{flex:1}
+    .report-name{font-weight:600;font-size:.88rem;color:var(--g900)}
+    .report-date{font-size:.73rem;color:var(--g400)}
+
+    /* ──── PROFILE ──── */
+    .profile-card{
+      background:#fff;border:1px solid var(--border);border-radius:14px;
+      max-width:600px;overflow:hidden;
+    }
+    .profile-banner{height:100px;background:linear-gradient(135deg,var(--green),var(--blue-l))}
+    .profile-body{padding:1.5rem}
+    .profile-av-wrap{margin-top:-40px;margin-bottom:1rem}
+    .profile-av{
+      width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue-l));
+      display:flex;align-items:center;justify-content:center;
+      font-size:1.5rem;font-weight:700;color:#fff;border:4px solid #fff;box-shadow:var(--shadow-md);
+    }
+    .profile-name{font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--g900)}
+    .profile-role{font-size:.82rem;color:var(--g400);margin-bottom:1.5rem}
+    .profile-fields{display:flex;flex-direction:column;gap:1rem}
+
+    /* ──── DEPARTMENTS ──── */
+    .dept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+    .dept-card{
+      background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.5rem;
+      text-align:center;transition:box-shadow .2s,transform .2s;
+    }
+    .dept-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+    .dept-icon{
+      width:52px;height:52px;border-radius:12px;background:var(--green-50);
+      display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;
+    }
+    .dept-icon svg{width:26px;height:26px;stroke:var(--green);fill:none}
+    .dept-name{font-weight:700;font-size:.92rem;color:var(--g900);margin-bottom:.3rem}
+    .dept-count{font-size:.78rem;color:var(--g400)}
+
+    /* ──── ROLES ──── */
+    .roles-list{display:flex;flex-direction:column;gap:.75rem}
+    .role-row{
+      background:#fff;border:1px solid var(--border);border-radius:10px;
+      padding:1.1rem 1.25rem;display:flex;align-items:center;gap:1rem;transition:box-shadow .15s;
+    }
+    .role-row:hover{box-shadow:var(--shadow)}
+    .role-icon{width:36px;height:36px;background:var(--blue-50);border-radius:8px;display:flex;align-items:center;justify-content:center}
+    .role-icon svg{width:18px;height:18px;stroke:var(--blue);fill:none}
+
+    /* ──── SETTINGS ──── */
+    .settings-card{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;max-width:600px}
+    .settings-section{padding:1.5rem;border-bottom:1px solid var(--border)}
+    .settings-section:last-child{border-bottom:none}
+    .settings-section-title{font-weight:700;font-size:.88rem;color:var(--g900);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+    .settings-section-title svg{width:16px;height:16px;stroke:var(--green);fill:none}
+    .toggle-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
+    .toggle-label{font-size:.83rem;color:var(--g700)}
+    .toggle{width:40px;height:22px;background:var(--green);border-radius:11px;position:relative;cursor:pointer;transition:background .2s}
+    .toggle.off{background:var(--g300)}
+    .toggle::after{content:'';position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;top:2px;left:calc(100% - 20px);transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+    .toggle.off::after{left:2px}
+
+    /* ──── RESPONSIVE ──── */
+    @media(max-width:768px){
+      :root{--sidebar:0px}
+      .sidebar{display:none}
+      .kpi-grid{grid-template-columns:repeat(2,1fr)}
+      .charts-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:480px){
+      .kpi-grid{grid-template-columns:1fr 1fr}
+      .employees-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<!-- AUTH SCREEN -->
+<div id="auth-screen">
+  <div class="auth-box">
+    <div class="auth-logo">
+      <div class="auth-logo-icon">
+        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 2L3 7l9 5 9-5-9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg>
+      </div>
+      <div>
+        <div class="auth-logo-text"><span>BAMBOO</span> EMF</div>
+        <div style="font-size:.68rem;color:var(--g400)">Gestion de Personnel SFE</div>
+      </div>
+    </div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchTab('login')">Connexion</button>
+      <button class="auth-tab" onclick="switchTab('signup')">Inscription</button>
+    </div>
+
+    <!-- LOGIN -->
+    <form class="auth-form" id="login-form" onsubmit="handleLogin(event)">
+      <div class="auth-error" id="login-error">
+        <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="login-error-msg">Identifiants incorrects</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nom d'utilisateur</label>
+        <input class="form-input" id="login-user" placeholder="Entrez votre nom" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mot de passe</label>
+        <input class="form-input" id="login-pass" type="password" placeholder="••••••••" required/>
+      </div>
+      <button class="auth-btn" type="submit">
+        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Se connecter
+      </button>
+      <div class="auth-demo-hint">Démo : <strong>admin</strong> / <strong>admin123</strong></div>
+    </form>
+
+    <!-- SIGNUP -->
+    <form class="auth-form hidden" id="signup-form" onsubmit="handleSignup(event)">
+      <div class="form-group">
+        <label class="form-label">Nom d'utilisateur</label>
+        <input class="form-input" id="su-user" placeholder="Choisissez un nom" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" id="su-email" type="email" placeholder="vous@exemple.com" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mot de passe</label>
+        <input class="form-input" id="su-pass" type="password" placeholder="Min. 6 caractères" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Confirmer le mot de passe</label>
+        <input class="form-input" id="su-confirm" type="password" placeholder="Répétez le mot de passe" required/>
+      </div>
+      <button class="auth-btn" type="submit">
+        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        Créer mon compte
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- APP SHELL -->
+<div id="app-shell">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo-icon">
+        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 2L3 7l9 5 9-5-9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg>
+      </div>
+      <div>
+        <div class="sidebar-logo-text"><span>BAMBOO</span> EMF</div>
+        <div class="sidebar-logo-sub">Gestion RH · SFE</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Principal</div>
+      <button class="nav-item active" onclick="navigate('dashboard')">
+        <svg viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </button>
+      <button class="nav-item" onclick="navigate('employees')">
+        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Employés
+      </button>
+      <button class="nav-item" onclick="navigate('departments')">
+        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Départements
+      </button>
+      <button class="nav-item" onclick="navigate('roles')">
+        <svg viewBox="0 0 24 24" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        Rôles
+      </button>
+
+      <div class="nav-section-label">Gestion</div>
+      <button class="nav-item" onclick="navigate('attendance')">
+        <svg viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Présence
+        <span class="badge-count">3</span>
+      </button>
+      <button class="nav-item" onclick="navigate('performance')">
+        <svg viewBox="0 0 24 24" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Performances
+      </button>
+      <button class="nav-item" onclick="navigate('reports')">
+        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Rapports
+      </button>
+
+      <div class="nav-section-label">Compte</div>
+      <button class="nav-item" onclick="navigate('profile')">
+        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Mon Profil
+      </button>
+      <button class="nav-item" onclick="navigate('settings')">
+        <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        Paramètres
+      </button>
+    </nav>
+
+    <div class="sidebar-user">
+      <div class="user-avatar" id="user-avatar-text">A</div>
+      <div>
+        <div class="user-name" id="user-display-name">Admin</div>
+        <div class="user-role">Administrateur</div>
+      </div>
+      <button class="user-logout" onclick="logout()" title="Déconnexion">
+        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN AREA -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <span class="topbar-title" id="topbar-title">Dashboard</span>
+        <span class="topbar-sep">/</span>
+        <span class="topbar-sub" id="topbar-sub">Vue générale</span>
+      </div>
+      <div class="topbar-right">
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input placeholder="Rechercher..." id="global-search"/>
+        </div>
+        <button class="icon-btn" onclick="navigate('attendance')" title="Notifications">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="notif-dot"></span>
+        </button>
+        <button class="icon-btn" onclick="navigate('profile')" title="Profil">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div class="view active" id="view-dashboard">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-icon green"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+              <span class="kpi-trend up">+12</span>
+            </div>
+            <div class="kpi-val">247</div>
+            <div class="kpi-lbl">Employés actifs</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-icon blue"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+              <span class="kpi-trend up">+1</span>
+            </div>
+            <div class="kpi-val">8</div>
+            <div class="kpi-lbl">Départements</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-icon green"><svg viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+              <span class="kpi-trend up">+2%</span>
+            </div>
+            <div class="kpi-val">94%</div>
+            <div class="kpi-lbl">Taux de présence</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-icon amber"><svg viewBox="0 0 24 24" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+              <span class="kpi-trend down">-3</span>
+            </div>
+            <div class="kpi-val">87%</div>
+            <div class="kpi-lbl">Performance moy.</div>
+          </div>
+        </div>
+
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Présence hebdomadaire</div>
+              <div class="chart-actions">
+                <button class="chart-period-btn active">Sem</button>
+                <button class="chart-period-btn">Mois</button>
+              </div>
+            </div>
+            <div class="chart-canvas-wrap"><canvas id="chart-attendance"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Répartition Départements</div>
+            </div>
+            <div class="chart-canvas-wrap"><canvas id="chart-dept"></canvas></div>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-card-header">
+            <div class="table-card-title">Derniers employés</div>
+            <button class="btn-small primary" onclick="navigate('employees')">
+              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              Voir tout
+            </button>
+          </div>
+          <table>
+            <thead><tr><th>Employé</th><th>Département</th><th>Poste</th><th>Statut</th><th>Actions</th></tr></thead>
+            <tbody id="dashboard-table"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- EMPLOYEES -->
+      <div class="view" id="view-employees">
+        <div class="view-header">
+          <div class="view-title">Gestion des Employés</div>
+          <div class="view-actions">
+            <select class="filter-select" id="dept-filter" onchange="filterEmployees()">
+              <option value="">Tous les départements</option>
+              <option>Ressources Humaines</option>
+              <option>Finance</option>
+              <option>Informatique</option>
+              <option>Marketing</option>
+              <option>Logistique</option>
+            </select>
+            <button class="btn-small primary" onclick="openModal('add')">
+              <svg viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Ajouter
+            </button>
+            <button class="btn-small" onclick="exportCSV()">
+              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              CSV
+            </button>
+          </div>
+        </div>
+        <div class="employees-grid" id="employees-grid"></div>
+      </div>
+
+      <!-- DEPARTMENTS -->
+      <div class="view" id="view-departments">
+        <div class="view-header">
+          <div class="view-title">Départements</div>
+          <button class="btn-small primary">
+            <svg viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Nouveau
+          </button>
+        </div>
+        <div class="dept-grid" id="dept-grid"></div>
+      </div>
+
+      <!-- ROLES -->
+      <div class="view" id="view-roles">
+        <div class="view-header">
+          <div class="view-title">Rôles &amp; Permissions</div>
+          <button class="btn-small primary">
+            <svg viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Nouveau rôle
+          </button>
+        </div>
+        <div class="roles-list" id="roles-list"></div>
+      </div>
+
+      <!-- ATTENDANCE -->
+      <div class="view" id="view-attendance">
+        <div class="view-header">
+          <div class="view-title">Suivi de Présence — <span id="today-date" style="color:var(--green)"></span></div>
+          <div class="view-actions">
+            <span id="att-stats" style="font-size:.82rem;color:var(--g500)"></span>
+          </div>
+        </div>
+        <div class="attendance-list" id="attendance-list"></div>
+      </div>
+
+      <!-- PERFORMANCE -->
+      <div class="view" id="view-performance">
+        <div class="view-header">
+          <div class="view-title">Performances des Employés</div>
+        </div>
+        <div class="perf-grid" id="perf-grid"></div>
+      </div>
+
+      <!-- REPORTS -->
+      <div class="view" id="view-reports">
+        <div class="view-header">
+          <div class="view-title">Rapports</div>
+          <button class="btn-small primary" onclick="generateReport()">
+            <svg viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Générer un rapport
+          </button>
+        </div>
+        <div class="reports-list" id="reports-list"></div>
+      </div>
+
+      <!-- PROFILE -->
+      <div class="view" id="view-profile">
+        <div class="view-header"><div class="view-title">Mon Profil</div></div>
+        <div class="profile-card">
+          <div class="profile-banner"></div>
+          <div class="profile-body">
+            <div class="profile-av-wrap"><div class="profile-av" id="profile-av-text">A</div></div>
+            <div class="profile-name" id="profile-name-display">Admin</div>
+            <div class="profile-role">Administrateur · SFE</div>
+            <div class="profile-fields">
+              <div class="form-group"><label class="form-label">Nom d'utilisateur</label><input class="form-input" id="profile-username-input"/></div>
+              <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" id="profile-email-input" value="admin@sfe.com"/></div>
+              <div class="form-group"><label class="form-label">Département</label><input class="form-input" value="Direction Générale"/></div>
+              <div class="form-group"><label class="form-label">Poste</label><input class="form-input" value="Administrateur Système"/></div>
+              <button class="auth-btn" style="width:fit-content;padding:.7rem 1.5rem" onclick="saveProfile()">
+                <svg viewBox="0 0 24 24" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Enregistrer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="view" id="view-settings">
+        <div class="view-header"><div class="view-title">Paramètres</div></div>
+        <div class="settings-card">
+          <div class="settings-section">
+            <div class="settings-section-title">
+              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg>
+              Notifications
+            </div>
+            <div class="toggle-row"><span class="toggle-label">Nouvelles inscriptions</span><div class="toggle" onclick="this.classList.toggle('off')"></div></div>
+            <div class="toggle-row"><span class="toggle-label">Alertes d'absence</span><div class="toggle" onclick="this.classList.toggle('off')"></div></div>
+            <div class="toggle-row"><span class="toggle-label">Rapports automatiques</span><div class="toggle off" onclick="this.classList.toggle('off')"></div></div>
+          </div>
+          <div class="settings-section">
+            <div class="settings-section-title">
+              <svg viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Sécurité
+            </div>
+            <div class="toggle-row"><span class="toggle-label">Authentification à deux facteurs</span><div class="toggle off" onclick="this.classList.toggle('off')"></div></div>
+            <div class="toggle-row"><span class="toggle-label">Journalisation des accès</span><div class="toggle" onclick="this.classList.toggle('off')"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app-shell -->
+
+<!-- MODAL ADD/EDIT EMPLOYEE -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">
+        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        <span id="modal-title-text">Ajouter un employé</span>
+      </div>
+      <button class="modal-close" onclick="closeModal()">
+        <svg viewBox="0 0 24 24" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-grid">
+        <div class="form-group"><label class="form-label">Nom complet *</label><input class="form-input" id="m-name" placeholder="Jean Dupont"/></div>
+        <div class="form-group"><label class="form-label">Email *</label><input class="form-input" id="m-email" type="email" placeholder="jean@sfe.com"/></div>
+        <div class="form-group"><label class="form-label">Département *</label>
+          <select class="form-input" id="m-dept">
+            <option>Ressources Humaines</option><option>Finance</option><option>Informatique</option>
+            <option>Marketing</option><option>Logistique</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Poste</label><input class="form-input" id="m-poste" placeholder="Responsable"/></div>
+        <div class="form-group"><label class="form-label">Téléphone</label><input class="form-input" id="m-phone" placeholder="+241 XX XX XX XX"/></div>
+        <div class="form-group"><label class="form-label">Adresse</label><input class="form-input" id="m-address" placeholder="Libreville, Gabon"/></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Annuler</button>
+      <button class="btn-save" onclick="saveEmployee()">
+        <svg viewBox="0 0 24 24" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Enregistrer
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast">
+  <svg viewBox="0 0 24 24" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toast-msg">Action effectuée</span>
+</div>
+
+<script>
+// ── DATA ──
+let currentUser = null;
+let editingId = null;
+const AVATARS_COLORS = ['#16a34a','#2563eb','#9333ea','#dc2626','#ea580c','#0891b2','#be185d','#65a30d'];
+
+const users = [
+  {username:'admin',password:'admin123',email:'admin@sfe.com',role:'admin'},
+  {username:'manager',password:'manager123',email:'manager@sfe.com',role:'manager'},
+];
+
+let employees = [
+  {id:1,name:'Jean Dupont',email:'jean.dupont@sfe.com',dept:'Ressources Humaines',poste:'Responsable RH',phone:'+241 77 11 22 33',address:'Libreville',status:'present',perf:92},
+  {id:2,name:'Marie Durand',email:'marie.durand@sfe.com',dept:'Finance',poste:'Analyste Financier',phone:'+241 66 44 55 66',address:'Port-Gentil',status:'present',perf:88},
+  {id:3,name:'Paul Laurent',email:'paul.laurent@sfe.com',dept:'Informatique',poste:'Développeur Full-Stack',phone:'+241 77 33 44 55',address:'Franceville',status:'absent',perf:95},
+  {id:4,name:'Sophie Martin',email:'sophie.martin@sfe.com',dept:'Marketing',poste:'Responsable Marketing',phone:'+241 66 22 33 44',address:'Libreville',status:'present',perf:79},
+  {id:5,name:'Thomas Bernard',email:'thomas.bernard@sfe.com',dept:'Logistique',poste:'Chef de Projet',phone:'+241 77 55 66 77',address:'Oyem',status:'present',perf:83},
+  {id:6,name:'Aïsha Mboumba',email:'aisha.mboumba@sfe.com',dept:'Ressources Humaines',poste:'Chargée de Recrutement',phone:'+241 66 11 22 33',address:'Libreville',status:'absent',perf:91},
+  {id:7,name:'Kevin Nzamba',email:'kevin.nzamba@sfe.com',dept:'Informatique',poste:'Administrateur Réseau',phone:'+241 77 66 77 88',address:'Libreville',status:'present',perf:86},
+  {id:8,name:'Clarisse Ondo',email:'clarisse.ondo@sfe.com',dept:'Finance',poste:'Comptable',phone:'+241 66 99 00 11',address:'Port-Gentil',status:'present',perf:74},
+];
+
+const departments = [
+  {name:'Ressources Humaines',desc:'Gestion des talents et recrutement',count:2},
+  {name:'Finance',desc:'Comptabilité et analyses financières',count:2},
+  {name:'Informatique',desc:'Développement et infrastructure IT',count:2},
+  {name:'Marketing',desc:'Communication et développement commercial',count:1},
+  {name:'Logistique',desc:'Chaîne d'approvisionnement et livraisons',count:1},
+  {name:'Direction',desc:'Management et stratégie générale',count:1},
+];
+
+const roles = [
+  {name:'Administrateur',desc:'Accès complet à toutes les fonctionnalités',level:'Admin'},
+  {name:'Manager',desc:'Gestion des employés et rapports',level:'Manager'},
+  {name:'Employé',desc:'Accès lecture seule aux informations personnelles',level:'User'},
+  {name:'Responsable RH',desc:'Gestion des ressources humaines',level:'HR'},
+];
+
+const reports = [
+  {name:'Rapport Mensuel — Juin 2024',date:'30/06/2024',type:'Mensuel'},
+  {name:'Rapport Trimestriel — T2 2024',date:'30/06/2024',type:'Trimestriel'},
+  {name:'Rapport de Présence — Semaine 26',date:'28/06/2024',type:'Présence'},
+  {name:'Rapport Annuel 2023',date:'01/01/2024',type:'Annuel'},
+];
+
+let nextId = 9;
+
+// ── AUTH ──
+function switchTab(tab){
+  document.querySelectorAll('.auth-tab').forEach((t,i)=>t.classList.toggle('active',i===(tab==='login'?0:1)));
+  document.getElementById('login-form').classList.toggle('hidden',tab!=='login');
+  document.getElementById('signup-form').classList.toggle('hidden',tab!=='signup');
+}
+
+function handleLogin(e){
+  e.preventDefault();
+  const u=document.getElementById('login-user').value.trim();
+  const p=document.getElementById('login-pass').value;
+  const user=users.find(x=>x.username===u&&x.password===p);
+  const err=document.getElementById('login-error');
+  if(!user){
+    err.style.display='flex';
+    document.getElementById('login-error-msg').textContent='Nom d\'utilisateur ou mot de passe incorrect.';
+    return;
+  }
+  err.style.display='none';
+  currentUser=user;
+  loginSuccess();
+}
+
+function handleSignup(e){
+  e.preventDefault();
+  const u=document.getElementById('su-user').value.trim();
+  const em=document.getElementById('su-email').value.trim();
+  const p=document.getElementById('su-pass').value;
+  const c=document.getElementById('su-confirm').value;
+  if(p!==c){showToast('Les mots de passe ne correspondent pas','error');return;}
+  if(p.length<6){showToast('Le mot de passe doit faire au moins 6 caractères','error');return;}
+  users.push({username:u,email:em,password:p,role:'user'});
+  currentUser={username:u,email:em,role:'user'};
+  loginSuccess();
+}
+
+function loginSuccess(){
+  document.getElementById('auth-screen').style.display='none';
+  const app=document.getElementById('app-shell');
+  app.classList.add('visible');
+  const initials=(currentUser.username||'A').slice(0,1).toUpperCase();
+  document.getElementById('user-avatar-text').textContent=initials;
+  document.getElementById('user-display-name').textContent=currentUser.username;
+  document.getElementById('profile-av-text').textContent=initials;
+  document.getElementById('profile-name-display').textContent=currentUser.username;
+  document.getElementById('profile-username-input').value=currentUser.username;
+  document.getElementById('profile-email-input').value=currentUser.email||'';
+  initCharts();
+  renderDashboardTable();
+  renderEmployees();
+  renderDepartments();
+  renderRoles();
+  renderAttendance();
+  renderPerformance();
+  renderReports();
+  document.getElementById('today-date').textContent=new Date().toLocaleDateString('fr-FR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+}
+
+function logout(){
+  currentUser=null;
+  document.getElementById('app-shell').classList.remove('visible');
+  document.getElementById('auth-screen').style.display='flex';
+  document.getElementById('login-user').value='';
+  document.getElementById('login-pass').value='';
+}
+
+// ── NAVIGATION ──
+function navigate(view){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('view-'+view)?.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>{if(n.getAttribute('onclick')?.includes("'"+view+"'"))n.classList.add('active');});
+  const titles={dashboard:['Dashboard','Vue générale'],employees:['Employés','Gestion des effectifs'],departments:['Départements','Structure organisationnelle'],roles:['Rôles','Permissions et accès'],attendance:['Présence','Suivi quotidien'],performance:['Performances','Évaluations'],reports:['Rapports','Documents et exports'],profile:['Mon Profil','Informations personnelles'],settings:['Paramètres','Configuration']};
+  const t=titles[view]||[view,''];
+  document.getElementById('topbar-title').textContent=t[0];
+  document.getElementById('topbar-sub').textContent=t[1];
+}
+
+// ── CHARTS ──
+let charts={};
+function initCharts(){
+  const aCtx=document.getElementById('chart-attendance')?.getContext('2d');
+  const dCtx=document.getElementById('chart-dept')?.getContext('2d');
+  if(charts.att)charts.att.destroy();
+  if(charts.dept)charts.dept.destroy();
+  if(aCtx) charts.att=new Chart(aCtx,{type:'line',data:{labels:['Lun','Mar','Mer','Jeu','Ven','Sam'],datasets:[{label:'Présents',data:[7,8,6,8,7,5],borderColor:'#16a34a',backgroundColor:'rgba(22,163,74,.08)',borderWidth:2,tension:.4,fill:true,pointBackgroundColor:'#16a34a',pointRadius:4},{label:'Absents',data:[1,0,2,0,1,3],borderColor:'#dc2626',backgroundColor:'rgba(220,38,38,.06)',borderWidth:2,tension:.4,fill:true,pointBackgroundColor:'#dc2626',pointRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:11},usePointStyle:true,padding:16}}},scales:{x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:11}}},y:{beginAtZero:true,grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:11},stepSize:1}}}}});
+  if(dCtx) charts.dept=new Chart(dCtx,{type:'doughnut',data:{labels:departments.map(d=>d.name.split(' ')[0]),datasets:[{data:[32,28,24,9,7,5],backgroundColor:['#16a34a','#2563eb','#9333ea','#ea580c','#0891b2','#be185d'],borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:10},usePointStyle:true,padding:12}}},cutout:'65%'}});
+}
+
+// ── RENDER ──
+function getAvatarColor(name){return AVATARS_COLORS[name.charCodeAt(0)%AVATARS_COLORS.length]}
+function getInitials(name){return name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase()}
+function statusBadge(s){return s==='present'?`<span class="badge badge-green"><svg viewBox="0 0 24 24" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Présent</span>`:`<span class="badge badge-red"><svg viewBox="0 0 24 24" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Absent</span>`}
+
+function renderDashboardTable(){
+  const tb=document.getElementById('dashboard-table');
+  tb.innerHTML=employees.slice(0,5).map(e=>`<tr>
+    <td><div class="emp-cell"><div class="emp-avatar" style="background:${getAvatarColor(e.name)}">${getInitials(e.name)}</div><div><div class="emp-name">${e.name}</div><div class="emp-email">${e.email}</div></div></div></td>
+    <td><span style="font-size:.8rem;color:var(--g600)">${e.dept}</span></td>
+    <td><span style="font-size:.8rem;color:var(--g500)">${e.poste||'—'}</span></td>
+    <td>${statusBadge(e.status)}</td>
+    <td><div class="action-btns">
+      <button class="action-btn" onclick="editEmp(${e.id})" title="Modifier"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+      <button class="action-btn danger" onclick="deleteEmp(${e.id})" title="Supprimer"><svg viewBox="0 0 24 24" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg></button>
+    </div></td>
+  </tr>`).join('');
+}
+
+function renderEmployees(){
+  const g=document.getElementById('employees-grid');
+  const filter=document.getElementById('dept-filter')?.value||'';
+  const search=document.getElementById('global-search')?.value?.toLowerCase()||'';
+  const list=employees.filter(e=>(!filter||e.dept===filter)&&(!search||e.name.toLowerCase().includes(search)||e.dept.toLowerCase().includes(search)));
+  g.innerHTML=list.map(e=>`<div class="emp-card">
+    <div class="emp-card-avatar" style="background:${getAvatarColor(e.name)}">${getInitials(e.name)}</div>
+    <div class="emp-card-name">${e.name}</div>
+    <div class="emp-card-dept">${e.dept}</div>
+    <div class="emp-card-info">
+      <div class="emp-info-row"><svg viewBox="0 0 24 24" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>${e.email}</div>
+      <div class="emp-info-row"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.92 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>${e.phone||'—'}</div>
+      <div class="emp-info-row">${statusBadge(e.status)}</div>
+    </div>
+    <div class="emp-card-actions">
+      <button class="btn-small" onclick="editEmp(${e.id})"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Modifier</button>
+      <button class="btn-small" style="color:var(--red)" onclick="deleteEmp(${e.id})"><svg viewBox="0 0 24 24" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>Supprimer</button>
+    </div>
+  </div>`).join('');
+}
+
+function filterEmployees(){renderEmployees()}
+document.getElementById('global-search').addEventListener('input',()=>{if(document.getElementById('view-employees').classList.contains('active'))renderEmployees();});
+
+function renderDepartments(){
+  document.getElementById('dept-grid').innerHTML=departments.map(d=>`<div class="dept-card">
+    <div class="dept-icon"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+    <div class="dept-name">${d.name}</div>
+    <div class="dept-count">${d.count} employé${d.count>1?'s':''}</div>
+    <div style="font-size:.75rem;color:var(--g400);margin-top:.3rem">${d.desc}</div>
+  </div>`).join('');
+}
+
+function renderRoles(){
+  document.getElementById('roles-list').innerHTML=roles.map(r=>`<div class="role-row">
+    <div class="role-icon"><svg viewBox="0 0 24 24" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+    <div style="flex:1"><div style="font-weight:700;font-size:.88rem">${r.name}</div><div style="font-size:.75rem;color:var(--g400)">${r.desc}</div></div>
+    <span class="badge ${r.level==='Admin'?'badge-green':r.level==='Manager'?'badge-blue':'badge-gray'}">${r.level}</span>
+    <div class="action-btns">
+      <button class="action-btn"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+    </div>
+  </div>`).join('');
+}
+
+function renderAttendance(){
+  const list=document.getElementById('attendance-list');
+  list.innerHTML=employees.map(e=>`<div class="attendance-row" id="att-${e.id}">
+    <div class="emp-avatar" style="background:${getAvatarColor(e.name)};width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff;flex-shrink:0">${getInitials(e.name)}</div>
+    <div class="att-info"><div class="att-name">${e.name}</div><div class="att-dept">${e.dept} · ${e.poste||''}</div></div>
+    ${statusBadge(e.status)}
+    <button class="att-toggle ${e.status}" onclick="toggleAttendance(${e.id},this)">${e.status==='present'?'Marquer absent':'Marquer présent'}</button>
+  </div>`).join('');
+  updateAttStats();
+}
+
+function toggleAttendance(id,btn){
+  const emp=employees.find(e=>e.id===id);
+  if(!emp)return;
+  emp.status=emp.status==='present'?'absent':'present';
+  btn.className='att-toggle '+emp.status;
+  btn.textContent=emp.status==='present'?'Marquer absent':'Marquer présent';
+  const row=document.getElementById('att-'+id);
+  const badge=row.querySelector('.badge');
+  if(badge)badge.outerHTML=statusBadge(emp.status);
+  updateAttStats();
+  renderDashboardTable();
+  showToast(`${emp.name} marqué${emp.name.endsWith('e')?'e':''} ${emp.status==='present'?'présent(e)':'absent(e)'}`);
+}
+
+function updateAttStats(){
+  const present=employees.filter(e=>e.status==='present').length;
+  document.getElementById('att-stats').textContent=`${present} présent${present>1?'s':''} / ${employees.length-present} absent${employees.length-present>1?'s':''} — Taux : ${Math.round(present/employees.length*100)}%`;
+}
+
+function renderPerformance(){
+  document.getElementById('perf-grid').innerHTML=employees.map(e=>`<div class="perf-card">
+    <div class="perf-header">
+      <div class="perf-av" style="background:${getAvatarColor(e.name)}">${getInitials(e.name)}</div>
+      <div><div class="perf-name">${e.name}</div><div class="perf-dept">${e.dept}</div></div>
+    </div>
+    <div class="perf-bar-wrap">
+      <div class="perf-bar-label"><span>Performance globale</span><span style="font-weight:700;color:${e.perf>=85?'var(--green)':e.perf>=70?'var(--amber)':'var(--red)'}">${e.perf}%</span></div>
+      <div class="perf-bar"><div class="perf-bar-fill" style="width:${e.perf}%;background:${e.perf>=85?'linear-gradient(90deg,#16a34a,#22c55e)':e.perf>=70?'linear-gradient(90deg,#d97706,#fbbf24)':'linear-gradient(90deg,#dc2626,#f87171)'}"></div></div>
+    </div>
+    <div style="margin-top:.75rem"><span class="badge ${e.perf>=85?'badge-green':e.perf>=70?'badge-amber':'badge-red'}">${e.perf>=85?'Excellent':e.perf>=70?'Satisfaisant':'À améliorer'}</span></div>
+  </div>`).join('');
+}
+
+function renderReports(){
+  document.getElementById('reports-list').innerHTML=reports.map((r,i)=>`<div class="report-row">
+    <div class="report-icon"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+    <div class="report-info"><div class="report-name">${r.name}</div><div class="report-date">Généré le ${r.date}</div></div>
+    <span class="badge badge-gray">${r.type}</span>
+    <div class="action-btns">
+      <button class="action-btn" onclick="showToast('Téléchargement de «${r.name}»')"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
+    </div>
+  </div>`).join('');
+}
+
+// ── EMPLOYEE CRUD ──
+function openModal(mode,emp=null){
+  editingId=mode==='edit'&&emp?emp.id:null;
+  document.getElementById('modal-title-text').textContent=mode==='edit'?'Modifier l\'employé':'Ajouter un employé';
+  document.getElementById('m-name').value=emp?.name||'';
+  document.getElementById('m-email').value=emp?.email||'';
+  document.getElementById('m-dept').value=emp?.dept||'Ressources Humaines';
+  document.getElementById('m-poste').value=emp?.poste||'';
+  document.getElementById('m-phone').value=emp?.phone||'';
+  document.getElementById('m-address').value=emp?.address||'';
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal(){document.getElementById('modal-overlay').classList.remove('open');editingId=null}
+
+function saveEmployee(){
+  const name=document.getElementById('m-name').value.trim();
+  const email=document.getElementById('m-email').value.trim();
+  if(!name||!email){showToast('Le nom et l\'email sont requis','error');return;}
+  if(editingId){
+    const emp=employees.find(e=>e.id===editingId);
+    if(emp){emp.name=name;emp.email=email;emp.dept=document.getElementById('m-dept').value;emp.poste=document.getElementById('m-poste').value;emp.phone=document.getElementById('m-phone').value;emp.address=document.getElementById('m-address').value;}
+    showToast('Employé modifié avec succès');
+  }else{
+    employees.push({id:nextId++,name,email,dept:document.getElementById('m-dept').value,poste:document.getElementById('m-poste').value,phone:document.getElementById('m-phone').value,address:document.getElementById('m-address').value,status:'present',perf:Math.floor(Math.random()*20)+75});
+    showToast('Employé ajouté avec succès');
+  }
+  closeModal();renderEmployees();renderDashboardTable();renderAttendance();renderPerformance();
+}
+
+function editEmp(id){const e=employees.find(x=>x.id===id);if(e)openModal('edit',e)}
+function deleteEmp(id){
+  const e=employees.find(x=>x.id===id);
+  if(!e)return;
+  if(!confirm(`Supprimer ${e.name} ?`))return;
+  employees=employees.filter(x=>x.id!==id);
+  renderEmployees();renderDashboardTable();renderAttendance();renderPerformance();
+  showToast(`${e.name} supprimé(e)`);
+}
+
+function exportCSV(){
+  const rows=[['Nom','Email','Département','Poste','Téléphone','Statut'],...employees.map(e=>[e.name,e.email,e.dept,e.poste||'',e.phone||'',e.status])];
+  const csv=rows.map(r=>r.map(v=>`"${v}"`).join(',')).join('\n');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent('\uFEFF'+csv);a.download='employes_bamboo_emf.csv';a.click();
+  showToast('Export CSV téléchargé');
+}
+
+function generateReport(){
+  const now=new Date();
+  const name=`Rapport Mensuel — ${now.toLocaleDateString('fr-FR',{month:'long',year:'numeric'})}`;
+  reports.unshift({name,date:now.toLocaleDateString('fr-FR'),type:'Mensuel'});
+  renderReports();showToast('Rapport généré avec succès');
+}
+
+function saveProfile(){
+  if(currentUser){currentUser.username=document.getElementById('profile-username-input').value;currentUser.email=document.getElementById('profile-email-input').value;}
+  const n=document.getElementById('profile-username-input').value;
+  document.getElementById('user-display-name').textContent=n;
+  document.getElementById('profile-name-display').textContent=n;
+  document.getElementById('user-avatar-text').textContent=n.slice(0,1).toUpperCase();
+  document.getElementById('profile-av-text').textContent=n.slice(0,1).toUpperCase();
+  showToast('Profil mis à jour');
+}
+
+// ── TOAST ──
+function showToast(msg,type='success'){
+  const t=document.getElementById('toast');const m=document.getElementById('toast-msg');
+  t.querySelector('svg').style.stroke=type==='error'?'#f87171':'#86efac';
+  m.textContent=msg;t.classList.add('show');
+  clearTimeout(t._to);t._to=setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ── MODAL CLOSE ON OVERLAY ──
+document.getElementById('modal-overlay').addEventListener('click',function(e){if(e.target===this)closeModal()});
+</script>
+</body>
+</html>
