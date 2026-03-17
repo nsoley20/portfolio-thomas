@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>WA NGAN — Raconte ton histoire, inspire le Gabon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --forest:#0a4a2e;
+  --forest2:#0d5c38;
+  --green:#16a34a;
+  --green-light:#22c55e;
+  --gold:#d4a017;
+  --gold-light:#f0c040;
+  --gold-pale:#fef9e7;
+  --cream:#faf7f0;
+  --warm:#1a0f00;
+  --brown:#3d1f00;
+  --ink:#0d0d0d;
+  --white:#ffffff;
+  --gray-100:#f5f0e8;
+  --gray-200:#e8e0d0;
+  --gray-400:#9a8f7a;
+  --gray-500:#6b5f4e;
+  --gray-600:#4a3f2f;
+  --font:'Outfit',sans-serif;
+  --display:'Playfair Display',serif;
+  --mono:'DM Mono',monospace;
+  --r:14px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font);background:var(--cream);color:var(--ink);overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+.cursor{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transition:transform .1s;mix-blend-mode:multiply}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transition:all .15s ease;mix-blend-mode:multiply}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:0 6%;height:70px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:all .3s;
+}
+nav.scrolled{background:rgba(10,74,46,.96);backdrop-filter:blur(20px)}
+.nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.nav-logo-mark{
+  width:38px;height:38px;background:var(--gold);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-size:1rem;font-weight:900;color:var(--forest);
+  font-style:italic;letter-spacing:-.02em;
+}
+.nav-logo-text{font-size:1.1rem;font-weight:800;color:var(--white);letter-spacing:.05em;text-transform:uppercase}
+.nav-links{display:flex;gap:2rem}
+.nav-links a{font-size:.82rem;font-weight:500;color:rgba(255,255,255,.65);text-decoration:none;transition:.15s;letter-spacing:.02em}
+.nav-links a:hover{color:var(--gold-light)}
+.nav-cta{
+  padding:.55rem 1.4rem;background:var(--gold);border-radius:9px;
+  font-size:.82rem;font-weight:700;color:var(--forest);text-decoration:none;
+  transition:all .2s;letter-spacing:.02em;
+}
+.nav-cta:hover{background:var(--gold-light);transform:translateY(-2px)}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  background:linear-gradient(160deg,var(--forest) 0%,var(--forest2) 40%,#0f2d1a 100%);
+  display:flex;align-items:center;
+  padding:7rem 6% 5rem;
+  position:relative;overflow:hidden;
+}
+/* Texture pattern */
+.hero-pattern{
+  position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle at 20% 80%,rgba(212,160,23,.12) 0%,transparent 50%),
+    radial-gradient(circle at 80% 20%,rgba(22,163,74,.1) 0%,transparent 50%),
+    radial-gradient(circle at 60% 60%,rgba(212,160,23,.06) 0%,transparent 40%);
+}
+/* Kente-inspired decorative lines */
+.hero-kente{
+  position:absolute;right:0;top:0;bottom:0;width:45%;
+  opacity:.06;
+  background-image:
+    repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 2px,transparent 2px,transparent 20px),
+    repeating-linear-gradient(-45deg,var(--green-light) 0,var(--green-light) 1px,transparent 1px,transparent 20px);
+}
+.hero-inner{
+  max-width:1200px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;
+  position:relative;z-index:1;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:rgba(212,160,23,.15);border:1px solid rgba(212,160,23,.3);
+  border-radius:100px;padding:.35rem 1rem;
+  font-family:var(--mono);font-size:.68rem;color:var(--gold-light);
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.8rem;
+  animation:fadeUp .6s ease both;
+}
+.hero-eyebrow::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(1.8)}}
+.hero-title{
+  font-family:var(--display);
+  font-size:clamp(3rem,6vw,5.2rem);
+  font-weight:900;line-height:.95;letter-spacing:-.03em;
+  color:var(--white);margin-bottom:1.5rem;
+  animation:fadeUp .7s .1s ease both;
+}
+.hero-title .cursive{font-style:italic;color:var(--gold-light)}
+.hero-title .line2{display:block;font-size:.65em;font-weight:700;color:rgba(255,255,255,.7);margin-top:.2em}
+.hero-desc{
+  font-size:1.05rem;color:rgba(255,255,255,.65);line-height:1.85;
+  max-width:460px;margin-bottom:2.5rem;
+  animation:fadeUp .7s .2s ease both;
+}
+.hero-desc strong{color:var(--gold-light);font-weight:600}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .7s .3s ease both}
+.btn-gold{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.9rem 2.2rem;background:var(--gold);border-radius:11px;
+  font-size:.9rem;font-weight:800;color:var(--forest);text-decoration:none;
+  box-shadow:0 6px 24px rgba(212,160,23,.4);transition:all .2s;letter-spacing:.02em;
+}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-3px);box-shadow:0 12px 36px rgba(212,160,23,.5)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.9rem 2rem;background:rgba(255,255,255,.08);
+  border:1.5px solid rgba(255,255,255,.2);border-radius:11px;
+  font-size:.9rem;font-weight:600;color:var(--white);text-decoration:none;
+  transition:all .2s;
+}
+.btn-ghost:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.4)}
+.btn-gold svg,.btn-ghost svg{width:16px;height:16px;stroke:currentColor;stroke-width:2.5;fill:none}
+
+.hero-stats{display:flex;gap:2rem;margin-top:2.5rem;animation:fadeUp .7s .4s ease both}
+.hstat{border-left:2px solid rgba(212,160,23,.3);padding-left:1rem}
+.hstat-num{font-family:var(--display);font-size:1.6rem;font-weight:900;color:var(--gold-light);line-height:1}
+.hstat-lbl{font-size:.72rem;color:rgba(255,255,255,.45);margin-top:.2rem;font-family:var(--mono)}
+
+/* HERO VISUAL */
+.hero-visual{position:relative;animation:fadeUp .8s .15s ease both}
+.phone-mockup{
+  width:300px;margin:0 auto;
+  background:#0d0d0d;border-radius:40px;
+  padding:12px;box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06);
+  position:relative;
+}
+.phone-screen{
+  background:var(--cream);border-radius:30px;overflow:hidden;height:580px;
+  position:relative;
+}
+.phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:100px;height:28px;background:#0d0d0d;border-radius:0 0 18px 18px;z-index:10}
+.phone-content{padding:36px 0 0;}
+.phone-header{
+  background:linear-gradient(135deg,var(--forest),var(--forest2));
+  padding:1rem 1.2rem .8rem;
+}
+.phone-brand{font-family:var(--display);font-size:1.1rem;font-weight:900;color:var(--gold-light);font-style:italic}
+.phone-sub{font-size:.65rem;color:rgba(255,255,255,.5);font-family:var(--mono)}
+.phone-story{margin:.5rem .8rem;background:var(--white);border-radius:12px;overflow:hidden}
+.phone-story-img{height:120px;background:linear-gradient(135deg,#1a4a2e,#2d7a4e);position:relative;display:flex;align-items:center;justify-content:center}
+.phone-story-img svg{width:36px;height:36px;stroke:rgba(255,255,255,.3);stroke-width:1;fill:none}
+.phone-story-play{
+  position:absolute;width:40px;height:40px;background:var(--gold);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+.phone-story-play svg{width:16px;height:16px;fill:var(--forest);stroke:none}
+.phone-story-body{padding:.7rem .8rem}
+.phone-story-user{display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem}
+.phone-av{width:22px;height:22px;border-radius:50%;flex-shrink:0}
+.phone-av.a{background:linear-gradient(135deg,var(--gold),var(--forest))}
+.phone-av.b{background:linear-gradient(135deg,#dc2626,var(--gold))}
+.phone-av.c{background:linear-gradient(135deg,var(--forest2),var(--gold-light))}
+.phone-story-name{font-size:.65rem;font-weight:700;color:var(--ink)}
+.phone-story-title{font-size:.72rem;font-weight:700;color:var(--ink);margin-bottom:.2rem;font-family:var(--display)}
+.phone-story-excerpt{font-size:.6rem;color:var(--gray-500);line-height:1.5}
+
+.phone-feed{padding:0 .8rem;display:flex;flex-direction:column;gap:.5rem;margin-top:.5rem}
+.feed-item{display:flex;gap:.6rem;align-items:flex-start;padding:.5rem .6rem;background:var(--gray-100);border-radius:8px}
+.feed-av{width:28px;height:28px;border-radius:50%;flex-shrink:0}
+.feed-text strong{display:block;font-size:.6rem;color:var(--ink);font-weight:700}
+.feed-text span{font-size:.58rem;color:var(--gray-500)}
+
+/* float badges around phone */
+.float-card{
+  position:absolute;background:var(--white);border-radius:12px;
+  padding:.6rem .9rem;box-shadow:0 8px 32px rgba(0,0,0,.2);
+  display:flex;align-items:center;gap:.5rem;
+  font-size:.72rem;font-weight:700;color:var(--ink);
+  border:1px solid var(--gray-200);
+}
+.float-card.f1{top:-10px;left:-50px;animation:fc1 4s ease-in-out infinite}
+.float-card.f2{bottom:40px;right:-40px;animation:fc2 5s ease-in-out infinite}
+.float-card svg{width:13px;height:13px;stroke-width:2;fill:none}
+@keyframes fc1{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(0deg)}}
+@keyframes fc2{0%,100%{transform:translateY(0) rotate(1deg)}50%{transform:translateY(8px) rotate(-1deg)}}
+
+/* DIVIDER */
+.divider-gold{
+  height:3px;
+  background:linear-gradient(90deg,transparent,var(--gold),var(--green),var(--gold),transparent);
+  opacity:.4;
+}
+
+/* ABOUT SECTION */
+.about-section{background:var(--cream);padding:7rem 6%}
+.sec-inner{max-width:1200px;margin:0 auto}
+.sec-eyebrow{font-family:var(--mono);font-size:.7rem;font-weight:500;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:.8rem}
+.sec-title{font-family:var(--display);font-size:clamp(2rem,4vw,3rem);font-weight:900;color:var(--ink);letter-spacing:-.03em;line-height:1.1;margin-bottom:1rem}
+.sec-title .it{font-style:italic;color:var(--forest)}
+.sec-sub{font-size:1rem;color:var(--gray-500);max-width:500px;line-height:1.8}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;margin-top:4rem;align-items:center}
+.about-text p{font-size:.95rem;color:var(--gray-500);line-height:1.9;margin-bottom:1.2rem}
+.about-text strong{color:var(--forest);font-weight:700}
+.about-values{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+.value-card{
+  background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r);
+  padding:1.3rem;transition:.25s;position:relative;overflow:hidden;
+}
+.value-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--green));transform:scaleX(0);transform-origin:left;transition:.3s}
+.value-card:hover{border-color:var(--gold);box-shadow:0 8px 32px rgba(0,0,0,.08);transform:translateY(-4px)}
+.value-card:hover::before{transform:scaleX(1)}
+.val-icon{width:40px;height:40px;border-radius:9px;margin-bottom:.8rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.val-icon svg{width:19px;height:19px;stroke:currentColor;stroke-width:2;fill:none}
+.val-title{font-size:.85rem;font-weight:800;color:var(--ink);margin-bottom:.3rem}
+.val-desc{font-size:.75rem;color:var(--gray-400);line-height:1.6}
+
+/* Big visual */
+.about-visual{
+  background:linear-gradient(145deg,var(--forest),#0d2a18);
+  border-radius:24px;padding:2.5rem;
+  box-shadow:0 24px 60px rgba(10,74,46,.25);
+}
+.av-quote{
+  font-family:var(--display);font-size:1.5rem;font-style:italic;
+  color:var(--white);line-height:1.5;margin-bottom:2rem;
+}
+.av-quote span{color:var(--gold-light)}
+.av-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.avs{text-align:center;padding:1rem .5rem;background:rgba(255,255,255,.06);border-radius:10px}
+.avs-num{font-family:var(--display);font-size:1.8rem;font-weight:900;color:var(--gold-light);line-height:1}
+.avs-lbl{font-size:.68rem;color:rgba(255,255,255,.45);font-family:var(--mono);margin-top:.3rem}
+.av-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
+.avtag{font-family:var(--mono);font-size:.65rem;padding:.25rem .7rem;border-radius:5px;font-weight:500}
+
+/* FEATURES */
+.features-section{background:var(--ink);padding:7rem 6%}
+.features-section .sec-eyebrow{color:var(--gold-light)}
+.features-section .sec-title{color:var(--white)}
+.features-section .sec-title .it{color:var(--gold-light)}
+.features-section .sec-sub{color:rgba(255,255,255,.45)}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:4rem}
+.feat-card{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--r);padding:1.8rem;transition:all .3s;
+  position:relative;overflow:hidden;
+}
+.feat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--gold),var(--green));
+  transform:scaleX(0);transform-origin:left;transition:.3s;
+}
+.feat-card:hover{background:rgba(255,255,255,.07);border-color:rgba(212,160,23,.25);transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.feat-card:hover::before{transform:scaleX(1)}
+.feat-icon{
+  width:46px;height:46px;border-radius:11px;margin-bottom:1.3rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.feat-icon svg{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none}
+.feat-card h3{font-size:.95rem;font-weight:700;color:var(--white);margin-bottom:.6rem}
+.feat-card p{font-size:.83rem;color:rgba(255,255,255,.45);line-height:1.7}
+
+/* STORIES SHOWCASE */
+.stories-section{background:var(--cream);padding:7rem 6%}
+.stories-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:4rem}
+.story-card{
+  background:var(--white);border:1px solid var(--gray-200);border-radius:18px;
+  overflow:hidden;transition:all .3s;cursor:pointer;
+}
+.story-card:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(0,0,0,.12);border-color:var(--gold)}
+.story-thumb{
+  height:200px;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.story-thumb svg{width:54px;height:54px;stroke:rgba(255,255,255,.25);stroke-width:1;fill:none}
+.story-play-btn{
+  position:absolute;width:50px;height:50px;background:var(--gold);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(212,160,23,.5);
+}
+.story-play-btn svg{width:20px;height:20px;fill:var(--forest);stroke:none;margin-left:3px}
+.story-duration{position:absolute;bottom:.7rem;right:.7rem;background:rgba(0,0,0,.65);color:#fff;font-family:var(--mono);font-size:.65rem;padding:.2rem .5rem;border-radius:4px}
+.story-body{padding:1.2rem}
+.story-author{display:flex;align-items:center;gap:.6rem;margin-bottom:.7rem}
+.sauthor-av{width:32px;height:32px;border-radius:50%;flex-shrink:0}
+.sauthor-name{font-size:.8rem;font-weight:700;color:var(--ink)}
+.sauthor-loc{font-size:.68rem;color:var(--gray-400);font-family:var(--mono)}
+.story-title{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:.4rem;line-height:1.3}
+.story-excerpt{font-size:.78rem;color:var(--gray-500);line-height:1.6;margin-bottom:.8rem}
+.story-meta{display:flex;align-items:center;justify-content:space-between}
+.story-likes{display:flex;align-items:center;gap:.3rem;font-size:.72rem;color:var(--gray-400)}
+.story-likes svg{width:13px;height:13px;stroke:var(--gold);stroke-width:2;fill:none}
+.story-tag{font-family:var(--mono);font-size:.62rem;padding:.2rem .6rem;border-radius:4px;background:var(--gold-pale);color:var(--gold);border:1px solid rgba(212,160,23,.25)}
+
+/* CTA */
+.cta-section{
+  background:linear-gradient(135deg,var(--forest) 0%,#0d2a18 50%,var(--warm) 100%);
+  padding:7rem 6%;text-align:center;position:relative;overflow:hidden;
+}
+.cta-section::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle at 30% 50%,rgba(212,160,23,.12),transparent 60%),
+    radial-gradient(circle at 70% 50%,rgba(22,163,74,.1),transparent 60%);
+}
+.cta-inner{position:relative;z-index:1;max-width:700px;margin:0 auto}
+.cta-title{font-family:var(--display);font-size:clamp(2.2rem,5vw,3.5rem);font-weight:900;color:var(--white);margin-bottom:1.2rem;letter-spacing:-.03em;line-height:1.1}
+.cta-title .it{font-style:italic;color:var(--gold-light)}
+.cta-sub{font-size:1.05rem;color:rgba(255,255,255,.55);margin-bottom:2.5rem;line-height:1.8}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+/* FOOTER */
+footer{background:var(--ink);padding:3rem 6%}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-brand{font-family:var(--display);font-style:italic;font-size:1.1rem;color:var(--gold-light)}
+.footer-copy{font-family:var(--mono);font-size:.7rem;color:rgba(255,255,255,.25)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-size:.78rem;color:rgba(255,255,255,.35);text-decoration:none;transition:.15s}
+.footer-links a:hover{color:var(--gold-light)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .hero-inner,.about-grid{grid-template-columns:1fr}
+  .hero-visual{display:none}
+  .features-grid,.stories-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  nav{padding:0 4%}.nav-links{display:none}
+  .hero{padding:6rem 4% 4rem}
+  .about-section,.features-section,.stories-section,.cta-section{padding:5rem 4%}
+  .features-grid,.stories-grid,.about-values{grid-template-columns:1fr}
+  .hero-stats{gap:1.2rem}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">W</div>
+    <span class="nav-logo-text">WA NGAN</span>
+  </a>
+  <div class="nav-links">
+    <a href="#about">À propos</a>
+    <a href="#features">Fonctionnalités</a>
+    <a href="#stories">Histoires</a>
+  </div>
+  <a href="wa-ngan-app.html" class="nav-cta">Commencer</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-kente"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Plateforme de vlogging gabonaise</div>
+      <h1 class="hero-title">
+        Raconte<br/>
+        <span class="cursive">ton histoire</span>
+        <span class="line2">inspire le Gabon</span>
+      </h1>
+      <p class="hero-desc">
+        <strong>WA NGAN</strong> — "parole" en langue locale — est la plateforme où chaque Gabonais peut créer son vlog, raconter son vécu, partager sa culture et inspirer sa communauté.
+      </p>
+      <div class="hero-btns">
+        <a href="wa-ngan-app.html" class="btn-gold">
+          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Créer mon vlog
+        </a>
+        <a href="#stories" class="btn-ghost">
+          Découvrir les histoires
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="hstat-num">100%</div><div class="hstat-lbl">Gabonais</div></div>
+        <div class="hstat"><div class="hstat-num">Libre</div><div class="hstat-lbl">Expression</div></div>
+        <div class="hstat"><div class="hstat-num">Export</div><div class="hstat-lbl">PDF · JSON</div></div>
+      </div>
+    </div>
+
+    <!-- Phone mockup -->
+    <div class="hero-visual">
+      <div class="float-card f1">
+        <svg viewBox="0 0 24 24" style="stroke:var(--gold)"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        +2.4k inspirations
+      </div>
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="phone-content">
+            <div class="phone-header">
+              <div class="phone-brand">Wa Ngan</div>
+              <div class="phone-sub">Raconte · Inspire · Exporte</div>
+            </div>
+            <div class="phone-story">
+              <div class="phone-story-img">
+                <svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.82v6.36a1 1 0 0 1-1.447.89L15 14M3 8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                <div class="phone-story-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              </div>
+              <div class="phone-story-body">
+                <div class="phone-story-user">
+                  <div class="phone-av a"></div>
+                  <span style="font-size:.62rem;font-weight:700;color:var(--ink)">Amina Nzamba · Libreville</span>
+                </div>
+                <div class="phone-story-title">Ma vie à Port-Gentil</div>
+                <div class="phone-story-excerpt">Du quartier Lalala à mon premier emploi...</div>
+              </div>
+            </div>
+            <div class="phone-feed">
+              <div class="feed-item">
+                <div class="feed-av a phone-av"></div>
+                <div class="feed-text"><strong>Rostand M. — Oyem</strong><span>Mon village, ma fierté</span></div>
+              </div>
+              <div class="feed-item">
+                <div class="feed-av b phone-av"></div>
+                <div class="feed-text"><strong>Céleste B. — Franceville</strong><span>Cuisines du Gabon profond</span></div>
+              </div>
+              <div class="feed-item">
+                <div class="feed-av c phone-av"></div>
+                <div class="feed-text"><strong>Jean-Paul E. — Lbv</strong><span>Devenir développeur depuis zéro</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="float-card f2">
+        <svg viewBox="0 0 24 24" style="stroke:var(--green)"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        Export disponible
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-gold"></div>
+
+<!-- ABOUT -->
+<section id="about" class="about-section">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="sec-eyebrow">01 — Pourquoi WA NGAN ?</span>
+      <h2 class="sec-title">La parole <span class="it">gabonaise</span><br/>mérite sa scène</h2>
+      <p class="sec-sub">WA NGAN veut dire "parole" en langue locale. Parce que chaque histoire compte.</p>
+    </div>
+    <div class="about-grid">
+      <div class="reveal reveal-d1">
+        <div class="about-text">
+          <p>Le Gabon regorge d'histoires extraordinaires — des pêcheurs d'Omboué aux entrepreneurs de Libreville, des traditions des villages Fang aux innovations de la jeunesse. Ces histoires méritent d'être racontées, partagées et conservées.</p>
+          <p>WA NGAN est la première plateforme de <strong>vlogging authentiquement gabonaise</strong>, pensée pour les créateurs de contenu locaux qui veulent raconter leur vie, leur culture, leurs réussites et leurs luttes.</p>
+          <p>Créez votre profil, publiez vos vlogs, inspirez votre communauté et <strong>exportez votre contenu</strong> en PDF ou JSON pour le garder à vie.</p>
+        </div>
+        <div class="about-values">
+          <div class="value-card reveal reveal-d1">
+            <div class="val-icon" style="background:var(--gold-pale);border:1px solid rgba(212,160,23,.25)"><svg viewBox="0 0 24 24" style="stroke:var(--gold)"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <div class="val-title">Ton histoire</div>
+            <div class="val-desc">Écris, enregistre et partage ta vie, ta culture, ton parcours.</div>
+          </div>
+          <div class="value-card reveal reveal-d2">
+            <div class="val-icon" style="background:rgba(10,74,46,.08);border:1px solid rgba(10,74,46,.15)"><svg viewBox="0 0 24 24" style="stroke:var(--forest)"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+            <div class="val-title">Ton identité</div>
+            <div class="val-desc">Un profil qui te ressemble, ancré dans la culture gabonaise.</div>
+          </div>
+          <div class="value-card reveal reveal-d3">
+            <div class="val-icon" style="background:rgba(212,160,23,.1);border:1px solid rgba(212,160,23,.2)"><svg viewBox="0 0 24 24" style="stroke:var(--gold)"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+            <div class="val-title">L'inspiration</div>
+            <div class="val-desc">Découvre les histoires d'autres Gabonais qui avancent.</div>
+          </div>
+          <div class="value-card reveal reveal-d4">
+            <div class="val-icon" style="background:rgba(10,74,46,.08);border:1px solid rgba(10,74,46,.15)"><svg viewBox="0 0 24 24" style="stroke:var(--forest)"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+            <div class="val-title">L'export</div>
+            <div class="val-desc">Télécharge ton contenu en PDF ou JSON, il t'appartient.</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual reveal reveal-d2">
+        <div class="av-quote">"Chaque vie gabonaise est une histoire qui <span>mérite d'être lue.</span>"</div>
+        <div class="av-stats">
+          <div class="avs"><div class="avs-num">9</div><div class="avs-lbl">Provinces</div></div>
+          <div class="avs"><div class="avs-num">∞</div><div class="avs-lbl">Histoires</div></div>
+          <div class="avs"><div class="avs-num">1</div><div class="avs-lbl">Plateforme</div></div>
+        </div>
+        <div class="av-tags">
+          <span class="avtag" style="background:rgba(212,160,23,.15);color:var(--gold-light);border:1px solid rgba(212,160,23,.2)">Libreville</span>
+          <span class="avtag" style="background:rgba(212,160,23,.15);color:var(--gold-light);border:1px solid rgba(212,160,23,.2)">Port-Gentil</span>
+          <span class="avtag" style="background:rgba(212,160,23,.15);color:var(--gold-light);border:1px solid rgba(212,160,23,.2)">Oyem</span>
+          <span class="avtag" style="background:rgba(22,163,74,.15);color:var(--green-light);border:1px solid rgba(22,163,74,.2)">Franceville</span>
+          <span class="avtag" style="background:rgba(22,163,74,.15);color:var(--green-light);border:1px solid rgba(22,163,74,.2)">Lambaréné</span>
+          <span class="avtag" style="background:rgba(22,163,74,.15);color:var(--green-light);border:1px solid rgba(22,163,74,.2)">Mouila</span>
+          <span class="avtag" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1)">Tchibanga</span>
+          <span class="avtag" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1)">Makokou</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="features-section">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="sec-eyebrow">02 — Fonctionnalités</span>
+      <h2 class="sec-title">Tout pour <span class="it">créer et partager</span></h2>
+      <p class="sec-sub">Une suite complète d'outils pensée pour le créateur gabonais.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card reveal reveal-d1">
+        <div class="feat-icon" style="background:rgba(212,160,23,.12);border:1px solid rgba(212,160,23,.2)">
+          <svg viewBox="0 0 24 24" style="stroke:var(--gold-light)"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h3>Profil authentique</h3>
+        <p>Crée ton profil avec ta photo, ta ville, ta bio et tes liens. Montre qui tu es et d'où tu viens.</p>
+      </div>
+      <div class="feat-card reveal reveal-d2">
+        <div class="feat-icon" style="background:rgba(22,163,74,.12);border:1px solid rgba(22,163,74,.2)">
+          <svg viewBox="0 0 24 24" style="stroke:var(--green-light)"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.82v6.36a1 1 0 0 1-1.447.89L15 14M3 8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        </div>
+        <h3>Éditeur de vlogs</h3>
+        <p>Écris et formate ton histoire avec un éditeur riche — texte, chapitres, mise en forme expressive.</p>
+      </div>
+      <div class="feat-card reveal reveal-d3">
+        <div class="feat-icon" style="background:rgba(212,160,23,.12);border:1px solid rgba(212,160,23,.2)">
+          <svg viewBox="0 0 24 24" style="stroke:var(--gold-light)"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <h3>Export libre</h3>
+        <p>Télécharge tous tes vlogs en PDF ou JSON. Ton contenu t'appartient, pour toujours.</p>
+      </div>
+      <div class="feat-card reveal reveal-d1">
+        <div class="feat-icon" style="background:rgba(22,163,74,.12);border:1px solid rgba(22,163,74,.2)">
+          <svg viewBox="0 0 24 24" style="stroke:var(--green-light)"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Fil d'inspiration</h3>
+        <p>Découvre les histoires des autres, suis des créateurs et trouve l'inspiration dans les parcours gabonais.</p>
+      </div>
+      <div class="feat-card reveal reveal-d2">
+        <div class="feat-icon" style="background:rgba(212,160,23,.12);border:1px solid rgba(212,160,23,.2)">
+          <svg viewBox="0 0 24 24" style="stroke:var(--gold-light)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h3>Réactions & Commentaires</h3>
+        <p>Montre ton soutien, laisse un commentaire, partage les histoires qui t'ont touché.</p>
+      </div>
+      <div class="feat-card reveal reveal-d3">
+        <div class="feat-icon" style="background:rgba(22,163,74,.12);border:1px solid rgba(22,163,74,.2)">
+          <svg viewBox="0 0 24 24" style="stroke:var(--green-light)"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3>Catégories gabonaises</h3>
+        <p>Culture, Cuisine, Musique, Entreprise, Éducation, Voyage — des catégories pensées pour le Gabon.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORIES SHOWCASE -->
+<section id="stories" class="stories-section">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="sec-eyebrow">03 — Histoires</span>
+      <h2 class="sec-title">Des <span class="it">vraies vies</span><br/>des vraies histoires</h2>
+    </div>
+    <div class="stories-grid">
+      <div class="story-card reveal reveal-d1">
+        <div class="story-thumb" style="background:linear-gradient(135deg,#0a4a2e,#1a7a4e)">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+          <div class="story-play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          <div class="story-duration">12 min de lecture</div>
+        </div>
+        <div class="story-body">
+          <div class="story-author">
+            <div class="sauthor-av" style="background:linear-gradient(135deg,var(--gold),var(--forest))"></div>
+            <div>
+              <div class="sauthor-name">Amina Nzamba</div>
+              <div class="sauthor-loc">Libreville · Culture</div>
+            </div>
+          </div>
+          <div class="story-title">Ma vie à Port-Gentil — Du Lalala au bureau</div>
+          <div class="story-excerpt">Je suis née dans le quartier Lalala. Personne dans ma famille n'avait jamais mis les pieds dans un bureau...</div>
+          <div class="story-meta">
+            <div class="story-likes"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>247</div>
+            <span class="story-tag">Culture</span>
+          </div>
+        </div>
+      </div>
+      <div class="story-card reveal reveal-d2">
+        <div class="story-thumb" style="background:linear-gradient(135deg,#3d1a00,#8b4513)">
+          <svg viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+          <div class="story-play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          <div class="story-duration">8 min de lecture</div>
+        </div>
+        <div class="story-body">
+          <div class="story-author">
+            <div class="sauthor-av" style="background:linear-gradient(135deg,#dc2626,var(--gold))"></div>
+            <div>
+              <div class="sauthor-name">Rostand Moussavou</div>
+              <div class="sauthor-loc">Oyem · Traditions</div>
+            </div>
+          </div>
+          <div class="story-title">Les secrets de cuisine de ma grand-mère Fang</div>
+          <div class="story-excerpt">Elle préparait le nyembwe avec des gestes que je n'ai jamais vus ailleurs. Ses mains savaient ce que les mots ne pouvaient pas dire...</div>
+          <div class="story-meta">
+            <div class="story-likes"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>189</div>
+            <span class="story-tag">Cuisine</span>
+          </div>
+        </div>
+      </div>
+      <div class="story-card reveal reveal-d3">
+        <div class="story-thumb" style="background:linear-gradient(135deg,#0a1a4e,#1a3a8e)">
+          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <div class="story-play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          <div class="story-duration">15 min de lecture</div>
+        </div>
+        <div class="story-body">
+          <div class="story-author">
+            <div class="sauthor-av" style="background:linear-gradient(135deg,var(--forest2),var(--gold-light))"></div>
+            <div>
+              <div class="sauthor-name">Jean-Paul Ekang</div>
+              <div class="sauthor-loc">Libreville · Tech</div>
+            </div>
+          </div>
+          <div class="story-title">Comment je suis devenu développeur sans école spécialisée</div>
+          <div class="story-excerpt">J'avais 22 ans, un vieux laptop et une connexion internet instable. Voilà comment j'ai appris à coder depuis Libreville...</div>
+          <div class="story-meta">
+            <div class="story-likes"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>412</div>
+            <span class="story-tag">Inspiration</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <h2 class="cta-title">Prêt à raconter<br/><span class="it">ton histoire ?</span></h2>
+    <p class="cta-sub">Rejoins les Gabonais qui partagent leur vie, leur culture et leur vision. Gratuit, libre et pour toujours.</p>
+    <div class="cta-btns">
+      <a href="wa-ngan-app.html" class="btn-gold">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Créer mon compte
+      </a>
+      <a href="wa-ngan-app.html" class="btn-ghost">Explorer les vlogs</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-brand">Wa Ngan</span>
+    <div class="footer-links">
+      <a href="wa-ngan-app.html">Application</a>
+      <a href="#">À propos</a>
+      <a href="index.html">Portfolio</a>
+    </div>
+    <span class="footer-copy">© 2024 · Sean Thomas EKANG NSOLEY · Libreville, Gabon</span>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+document.addEventListener('mousemove',e=>{
+  cur.style.left=e.clientX-5+'px';cur.style.top=e.clientY-5+'px';
+  curR.style.left=e.clientX-18+'px';curR.style.top=e.clientY-18+'px';
+});
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{curR.style.transform='scale(1.8)';cur.style.transform='scale(0)'});
+  el.addEventListener('mouseleave',()=>{curR.style.transform='scale(1)';cur.style.transform='scale(1)'});
+});
+
+// Nav scroll
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>60));
+
+// Reveal
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(e=>obs.observe(e));
+</script>
+</body>
+</html>

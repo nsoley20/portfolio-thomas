@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>WA NGAN — Administration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --forest:#0a4a2e;--forest2:#0d5c38;--gold:#d4a017;--gold-light:#f0c040;--gold-pale:#fef9e7;
+  --red:#dc2626;--red-50:#fef2f2;--red-100:#fee2e2;
+  --blue:#2563eb;--blue-50:#eff6ff;--blue-100:#dbeafe;
+  --orange:#ea580c;--orange-50:#fff7ed;
+  --ink:#0d0d0d;--white:#ffffff;
+  --gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;
+  --gray-300:#cbd5e1;--gray-400:#94a3b8;--gray-500:#64748b;
+  --gray-600:#475569;--gray-700:#334155;--gray-800:#1e293b;
+  --sidebar:240px;--topbar:62px;
+  --font:'Outfit',sans-serif;--mono:'DM Mono',monospace;
+  --r:10px;
+  --sh:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --sh-md:0 4px 16px rgba(0,0,0,.07);
+  --sh-lg:0 20px 60px rgba(0,0,0,.1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px}
+body{font-family:var(--font);background:var(--gray-50);color:var(--gray-700);overflow-x:hidden}
+button,input,select,textarea{font-family:var(--font)}
+button{cursor:pointer}
+
+/* ══ SCREENS ══ */
+.screen{display:none}.screen.active{display:flex}
+
+/* ══ LOGIN ══ */
+#sc-login{
+  min-height:100vh;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--gray-800);position:relative;overflow:hidden;
+}
+#sc-login::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(10,74,46,.3),transparent 70%)}
+.admin-login-card{
+  position:relative;z-index:1;background:var(--white);border-radius:16px;
+  width:100%;max-width:400px;padding:2.5rem;box-shadow:var(--sh-lg);
+}
+.admin-brand{display:flex;align-items:center;gap:.7rem;margin-bottom:.5rem}
+.admin-mark{
+  width:38px;height:38px;background:var(--forest);border-radius:9px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.admin-mark svg{width:18px;height:18px;stroke:var(--gold-light);stroke-width:2;fill:none}
+.admin-brand-name{font-size:.95rem;font-weight:800;color:var(--gray-800)}
+.admin-brand-name span{color:var(--forest)}
+.admin-badge{
+  display:inline-block;font-family:var(--mono);font-size:.65rem;
+  background:var(--red-50);color:var(--red);border:1px solid var(--red-100);
+  border-radius:5px;padding:.15rem .5rem;font-weight:600;margin-bottom:1.5rem;
+}
+.admin-login-title{font-size:1.3rem;font-weight:800;color:var(--gray-800);margin-bottom:.25rem}
+.admin-login-sub{font-size:.82rem;color:var(--gray-400);margin-bottom:1.8rem}
+.fg{margin-bottom:1.1rem}
+.fl{display:block;font-size:.72rem;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem}
+.fi{width:100%;padding:.75rem 1rem;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:9px;font-size:.88rem;color:var(--gray-800);outline:none;transition:.15s}
+.fi:focus{border-color:var(--forest);background:var(--white);box-shadow:0 0 0 3px rgba(10,74,46,.1)}
+.fi::placeholder{color:var(--gray-300)}
+.btn-admin-login{
+  width:100%;padding:.85rem;background:var(--forest);border:none;border-radius:9px;
+  font-size:.9rem;font-weight:800;color:var(--white);transition:.2s;
+  box-shadow:0 4px 18px rgba(10,74,46,.3);
+}
+.btn-admin-login:hover{background:var(--forest2);transform:translateY(-1px)}
+.login-hint{font-size:.7rem;color:var(--gray-400);text-align:center;margin-top:1rem;font-family:var(--mono)}
+
+/* ══ LAYOUT ══ */
+#sc-app{flex-direction:row;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{
+  width:var(--sidebar);flex-shrink:0;background:var(--gray-800);
+  position:fixed;top:0;left:0;bottom:0;z-index:100;
+  display:flex;flex-direction:column;overflow-y:auto;
+}
+.sb-brand{
+  padding:1.1rem 1.3rem;min-height:var(--topbar);
+  display:flex;align-items:center;gap:.6rem;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.sb-mark{width:30px;height:30px;background:var(--forest);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sb-mark svg{width:14px;height:14px;stroke:var(--gold-light);stroke-width:2.5;fill:none}
+.sb-title{font-size:.82rem;font-weight:800;color:var(--white);letter-spacing:-.01em}
+.sb-title span{color:var(--gold-light)}
+.sb-subtitle{font-size:.6rem;color:rgba(255,255,255,.3);font-family:var(--mono)}
+.sb-sep{padding:.7rem 1rem .25rem;font-size:.6rem;font-weight:600;color:rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:.12em}
+.nav-btn{
+  display:flex;align-items:center;gap:.6rem;padding:.55rem .9rem;margin:0 .5rem .12rem;
+  border-radius:var(--r);font-size:.8rem;font-weight:500;color:rgba(255,255,255,.5);
+  cursor:pointer;transition:.15s;border:none;background:none;width:calc(100% - 1rem);text-align:left;
+}
+.nav-btn svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;flex-shrink:0}
+.nav-btn:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.85)}
+.nav-btn.active{background:rgba(212,160,23,.18);color:var(--gold-light)}
+.nav-btn.active svg{stroke:var(--gold-light)}
+.nav-btn .badge-num{margin-left:auto;background:var(--red);color:#fff;font-size:.6rem;font-weight:700;padding:.1rem .4rem;border-radius:100px;font-family:var(--mono)}
+.sb-footer{margin-top:auto;padding:.9rem;border-top:1px solid rgba(255,255,255,.07)}
+.sb-user{display:flex;align-items:center;gap:.6rem}
+.sb-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--forest2));display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;color:#fff;flex-shrink:0}
+.sb-uname{font-size:.72rem;font-weight:700;color:#fff}
+.sb-urole{font-size:.6rem;color:rgba(255,255,255,.35);font-family:var(--mono)}
+
+/* MAIN */
+.app-main{margin-left:var(--sidebar);flex:1;display:flex;flex-direction:column;min-height:100vh}
+
+/* TOPBAR */
+.topbar{
+  position:sticky;top:0;z-index:50;height:var(--topbar);
+  background:var(--white);border-bottom:1px solid var(--gray-200);
+  padding:0 2rem;display:flex;align-items:center;justify-content:space-between;
+  box-shadow:var(--sh);
+}
+.tb-left{display:flex;flex-direction:column}
+.tb-crumb{font-size:.68rem;color:var(--gray-400);font-family:var(--mono)}
+.tb-title{font-size:1.05rem;font-weight:800;color:var(--gray-800)}
+.tb-right{display:flex;align-items:center;gap:.7rem}
+.tb-btn{
+  display:flex;align-items:center;gap:.4rem;padding:.45rem 1rem;
+  border-radius:8px;font-size:.78rem;font-weight:600;cursor:pointer;transition:.15s;border:none;
+}
+.tb-btn-primary{background:var(--forest);color:var(--white)}
+.tb-btn-primary:hover{background:var(--forest2)}
+.tb-btn-ghost{background:var(--gray-100);color:var(--gray-600)}
+.tb-btn-ghost:hover{background:var(--gray-200)}
+.tb-btn svg{width:13px;height:13px;stroke:currentColor;stroke-width:2.5;fill:none}
+.site-status{display:flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:600;color:var(--forest);background:rgba(10,74,46,.08);border:1px solid rgba(10,74,46,.2);padding:.3rem .8rem;border-radius:100px}
+.site-status-dot{width:7px;height:7px;border-radius:50%;background:var(--forest);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* PAGE */
+.page-content{flex:1;padding:1.8rem 2rem}
+.view{display:none}.view.active{display:block}
+
+/* ══ KPI GRID ══ */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-bottom:1.8rem}
+.kpi{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r);padding:1.2rem;transition:.2s}
+.kpi:hover{box-shadow:var(--sh-md);border-color:var(--gray-300)}
+.kpi-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.8rem}
+.kpi-label{font-size:.7rem;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:.06em}
+.kpi-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.kpi-icon svg{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none}
+.kpi-val{font-size:1.9rem;font-weight:800;color:var(--gray-800);letter-spacing:-.03em;line-height:1}
+.kpi-trend{display:flex;align-items:center;gap:.3rem;font-size:.7rem;font-weight:600;margin-top:.3rem}
+.kpi-trend.up{color:#16a34a}.kpi-trend.down{color:var(--red)}
+.kpi-trend svg{width:11px;height:11px;stroke:currentColor;stroke-width:2.5;fill:none}
+
+/* ══ SECTIONS ══ */
+.admin-grid-2{display:grid;grid-template-columns:2fr 1fr;gap:1.2rem;margin-bottom:1.2rem}
+.admin-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:1.2rem}
+.card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r);overflow:hidden}
+.card-header{padding:.9rem 1.2rem;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:.85rem;font-weight:700;color:var(--gray-800)}
+.card-body{padding:1.1rem}
+
+/* ══ TABLE ══ */
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-size:.67rem;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:.07em;padding:.65rem 1rem;border-bottom:1px solid var(--gray-100);text-align:left;background:var(--gray-50);white-space:nowrap}
+.tbl td{padding:.75rem 1rem;border-bottom:1px solid var(--gray-50);font-size:.8rem;color:var(--gray-700);vertical-align:middle}
+.tbl tbody tr:hover{background:var(--gray-50)}
+.tbl tbody tr:last-child td{border-bottom:none}
+
+/* ══ BADGES ══ */
+.badge{display:inline-flex;align-items:center;gap:.25rem;padding:.18rem .55rem;border-radius:5px;font-size:.67rem;font-weight:600;white-space:nowrap}
+.badge svg{width:8px;height:8px;stroke:currentColor;stroke-width:2.5;fill:none}
+.badge-green{background:#dcfce7;color:#15803d}
+.badge-red{background:var(--red-50);color:var(--red)}
+.badge-yellow{background:var(--gold-pale);color:#92400e;border:1px solid rgba(212,160,23,.3)}
+.badge-blue{background:var(--blue-50);color:var(--blue)}
+.badge-gray{background:var(--gray-100);color:var(--gray-500)}
+.badge-orange{background:var(--orange-50);color:var(--orange)}
+
+/* ══ ACTION BTNS ══ */
+.act-btns{display:flex;gap:.3rem}
+.act-btn{width:27px;height:27px;border-radius:6px;border:1px solid var(--gray-200);background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
+.act-btn svg{width:12px;height:12px;stroke:var(--gray-400);stroke-width:2;fill:none}
+.act-btn:hover{border-color:var(--forest);background:rgba(10,74,46,.05)}
+.act-btn:hover svg{stroke:var(--forest)}
+.act-btn.del:hover{border-color:var(--red-100);background:var(--red-50)}
+.act-btn.del:hover svg{stroke:var(--red)}
+
+/* ══ FORMS ══ */
+.fg{margin-bottom:1rem}
+.fl{display:block;font-size:.7rem;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.38rem}
+.fi{width:100%;padding:.65rem .9rem;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:8px;font-size:.85rem;color:var(--gray-800);outline:none;transition:.15s}
+.fi:focus{border-color:var(--forest);background:var(--white);box-shadow:0 0 0 3px rgba(10,74,46,.08)}
+.fi::placeholder{color:var(--gray-300)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.btn-save{padding:.6rem 1.4rem;background:var(--forest);border:none;border-radius:8px;font-size:.8rem;font-weight:700;color:var(--white);cursor:pointer;transition:.15s}
+.btn-save:hover{background:var(--forest2)}
+.btn-danger{padding:.6rem 1.2rem;background:var(--red);border:none;border-radius:8px;font-size:.8rem;font-weight:700;color:var(--white);cursor:pointer;transition:.15s}
+.btn-danger:hover{background:#b91c1c}
+.btn-outline{padding:.55rem 1.1rem;background:var(--white);border:1.5px solid var(--gray-200);border-radius:8px;font-size:.78rem;font-weight:600;color:var(--gray-600);cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:.3rem}
+.btn-outline svg{width:12px;height:12px;stroke:currentColor;stroke-width:2.5;fill:none}
+.btn-outline:hover{border-color:var(--gray-300)}
+
+/* ══ TOOLBAR ══ */
+.toolbar{display:flex;align-items:center;gap:.7rem;margin-bottom:1.2rem;flex-wrap:wrap}
+.tb-search{display:flex;align-items:center;gap:.4rem;background:var(--white);border:1.5px solid var(--gray-200);border-radius:8px;padding:.5rem .85rem;flex:1;max-width:320px;transition:.2s}
+.tb-search:focus-within{border-color:var(--forest)}
+.tb-search svg{width:13px;height:13px;stroke:var(--gray-300);stroke-width:2;fill:none;flex-shrink:0}
+.tb-search input{background:none;border:none;outline:none;font-size:.8rem;color:var(--gray-700);width:100%}
+.tb-search input::placeholder{color:var(--gray-300)}
+.tb-sel{padding:.48rem .85rem;background:var(--white);border:1.5px solid var(--gray-200);border-radius:8px;font-size:.8rem;color:var(--gray-700);outline:none;cursor:pointer}
+.tb-sel:focus{border-color:var(--forest)}
+
+/* ══ TOGGLE ══ */
+.toggle{width:40px;height:21px;background:var(--gray-200);border-radius:100px;cursor:pointer;position:relative;transition:.2s;border:none;flex-shrink:0}
+.toggle.on{background:var(--forest)}
+.toggle::after{content:'';position:absolute;top:2.5px;left:2.5px;width:16px;height:16px;background:var(--white);border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle.on::after{left:21.5px}
+
+/* ══ CHART-LIKE BARS ══ */
+.mini-bar-row{display:flex;align-items:center;gap:.7rem;padding:.5rem 0;border-bottom:1px solid var(--gray-50)}
+.mini-bar-row:last-child{border-bottom:none}
+.mini-bar-label{font-size:.75rem;color:var(--gray-600);width:110px;flex-shrink:0}
+.mini-bar-track{flex:1;height:7px;background:var(--gray-100);border-radius:4px;overflow:hidden}
+.mini-bar-fill{height:100%;border-radius:4px}
+.mini-bar-val{font-size:.7rem;font-family:var(--mono);color:var(--gray-400);width:32px;text-align:right}
+
+/* ══ MEDIA MODERATION ══ */
+.media-mod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+.media-mod-item{border-radius:9px;overflow:hidden;position:relative;background:var(--gray-100);aspect-ratio:16/9}
+.media-mod-item img{width:100%;height:100%;object-fit:cover}
+.media-mod-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;transition:.2s;display:flex;align-items:center;justify-content:center;gap:.4rem}
+.media-mod-item:hover .media-mod-overlay{opacity:1}
+.media-mod-type{position:absolute;top:5px;left:5px;background:rgba(0,0,0,.6);color:#fff;font-family:var(--mono);font-size:.55rem;padding:.15rem .4rem;border-radius:3px}
+.media-mod-user{position:absolute;bottom:5px;left:5px;color:rgba(255,255,255,.8);font-size:.62rem;font-family:var(--mono)}
+
+/* ══ SETTINGS ROWS ══ */
+.setting-row{display:flex;align-items:center;justify-content:space-between;padding:.85rem 0;border-bottom:1px solid var(--gray-50)}
+.setting-row:last-child{border-bottom:none}
+.sr-label{font-size:.83rem;font-weight:600;color:var(--gray-700)}
+.sr-desc{font-size:.72rem;color:var(--gray-400);margin-top:.1rem;line-height:1.4}
+.sr-control{flex-shrink:0;margin-left:1.5rem}
+
+/* ══ ACTIVITY FEED ══ */
+.activity-item{display:flex;gap:.8rem;padding:.7rem 0;border-bottom:1px solid var(--gray-50)}
+.activity-item:last-child{border-bottom:none}
+.act-icon-wrap{width:30px;height:30px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.act-icon-wrap svg{width:13px;height:13px;stroke:currentColor;stroke-width:2;fill:none}
+.act-text{font-size:.78rem;color:var(--gray-700);line-height:1.5;flex:1}
+.act-text strong{font-weight:700;color:var(--gray-800)}
+.act-time{font-size:.65rem;color:var(--gray-400);font-family:var(--mono);white-space:nowrap;margin-top:.1rem}
+
+/* ══ MODAL ══ */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.4);backdrop-filter:blur(5px);align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:var(--white);border-radius:14px;width:100%;max-width:520px;box-shadow:var(--sh-lg);overflow:hidden;animation:mIn .2s ease}
+@keyframes mIn{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:scale(1)}}
+.modal-head{padding:1.1rem 1.3rem;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;justify-content:space-between}
+.modal-head h3{font-size:.9rem;font-weight:800;color:var(--gray-800)}
+.modal-close{width:26px;height:26px;border-radius:7px;border:1px solid var(--gray-200);background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.modal-close svg{width:12px;height:12px;stroke:var(--gray-400);stroke-width:2.5;fill:none}
+.modal-body{padding:1.3rem}
+.modal-footer{padding:1rem 1.3rem;border-top:1px solid var(--gray-100);display:flex;gap:.6rem;justify-content:flex-end}
+
+/* ══ TOAST ══ */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:500;background:var(--gray-800);color:#fff;border-radius:10px;padding:.75rem 1.1rem;font-size:.8rem;font-weight:500;display:flex;align-items:center;gap:.5rem;box-shadow:var(--sh-lg);transform:translateY(60px);opacity:0;transition:all .3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.toast svg{width:13px;height:13px;stroke:var(--gold-light);stroke-width:2.5;fill:none;flex-shrink:0}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+  :root{--sidebar:56px}
+  .sb-brand .sb-title,.sb-brand .sb-subtitle,.sb-sep,.nav-btn span,.nav-btn .badge-num,.sb-footer .sb-uname,.sb-footer .sb-urole{display:none}
+  .nav-btn{justify-content:center;padding:.6rem}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .admin-grid-2,.admin-grid-3{grid-template-columns:1fr}
+  .media-mod-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .page-content{padding:1rem}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .fgrid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══ -->
+<div id="sc-login" class="screen active">
+  <div class="admin-login-card">
+    <div class="admin-brand">
+      <div class="admin-mark"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div><div class="admin-brand-name">WA <span>NGAN</span></div></div>
+    </div>
+    <div class="admin-badge">PANNEAU ADMINISTRATEUR</div>
+    <div class="admin-login-title">Connexion Admin</div>
+    <div class="admin-login-sub">Accès réservé aux administrateurs du site</div>
+    <div class="fg"><label class="fl">Identifiant</label><input id="adminU" class="fi" placeholder="admin" value="admin"/></div>
+    <div class="fg"><label class="fl">Mot de passe</label><input id="adminP" class="fi" type="password" placeholder="••••••••" value="admin2024"/></div>
+    <button class="btn-admin-login" onclick="doLogin()">Accéder au panneau</button>
+    <div class="login-hint">Démo : admin / admin2024</div>
+  </div>
+</div>
+
+<!-- ══ APP ══ -->
+<div id="sc-app" class="screen">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-brand">
+      <div class="sb-mark"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div>
+        <div class="sb-title">WA <span>NGAN</span></div>
+        <div class="sb-subtitle">Administration</div>
+      </div>
+    </div>
+    <div class="sb-sep">Principal</div>
+    <button class="nav-btn active" onclick="showView('dashboard',this)">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span>Tableau de bord</span>
+    </button>
+    <div class="sb-sep">Contenu</div>
+    <button class="nav-btn" onclick="showView('vlogs',this)">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <span>Vlogs</span>
+      <span class="badge-num" id="nbVlogs">6</span>
+    </button>
+    <button class="nav-btn" onclick="showView('media',this)">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span>Médias</span>
+      <span class="badge-num" id="nbMedia">12</span>
+    </button>
+    <button class="nav-btn" onclick="showView('comments',this)">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>Commentaires</span>
+      <span class="badge-num" id="nbComments">3</span>
+    </button>
+    <div class="sb-sep">Utilisateurs</div>
+    <button class="nav-btn" onclick="showView('users',this)">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span>Utilisateurs</span>
+    </button>
+    <button class="nav-btn" onclick="showView('reports',this)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+      <span>Signalements</span>
+      <span class="badge-num" style="background:var(--red)" id="nbReports">2</span>
+    </button>
+    <div class="sb-sep">Système</div>
+    <button class="nav-btn" onclick="showView('analytics',this)">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <span>Analytics</span>
+    </button>
+    <button class="nav-btn" onclick="showView('settings',this)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      <span>Paramètres</span>
+    </button>
+    <div class="sb-footer">
+      <div class="sb-user">
+        <div class="sb-av">AD</div>
+        <div><div class="sb-uname">Administrateur</div><div class="sb-urole">Super Admin</div></div>
+        <button onclick="doLogout()" style="background:none;border:none;cursor:pointer;margin-left:auto" title="Déconnexion">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="app-main">
+    <div class="topbar">
+      <div class="tb-left">
+        <div class="tb-crumb" id="tbCrumb">ADMIN / Tableau de bord</div>
+        <div class="tb-title" id="tbTitle">Tableau de bord</div>
+      </div>
+      <div class="tb-right">
+        <div class="site-status"><div class="site-status-dot"></div>Site en ligne</div>
+        <a href="wa-ngan-app.html" target="_blank" class="btn-outline">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Voir le site
+        </a>
+        <button class="tb-btn tb-btn-primary" onclick="showToast('Rapport exporté')">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Exporter rapport
+        </button>
+      </div>
+    </div>
+
+    <div class="page-content">
+
+      <!-- ══ DASHBOARD ══ -->
+      <div class="view active" id="view-dashboard">
+        <div class="kpi-grid" id="kpiGrid"></div>
+        <div class="admin-grid-2">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Activité récente</div>
+              <button class="btn-outline" style="font-size:.72rem;padding:.3rem .75rem">Tout voir</button>
+            </div>
+            <div class="card-body" id="activityFeed"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Vlogs par catégorie</div></div>
+            <div class="card-body" id="catStats"></div>
+          </div>
+        </div>
+        <div class="admin-grid-3">
+          <div class="card">
+            <div class="card-header"><div class="card-title">Top 5 vlogs</div></div>
+            <div class="card-body" id="topVlogs"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Signalements en attente</div></div>
+            <div class="card-body" id="pendingReports"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Nouveaux utilisateurs</div></div>
+            <div class="card-body" id="newUsers"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ VLOGS ══ -->
+      <div class="view" id="view-vlogs">
+        <div class="toolbar">
+          <div class="tb-search">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input placeholder="Rechercher un vlog…" oninput="filterVlogs(this.value)"/>
+          </div>
+          <select class="tb-sel" onchange="filterVlogsByCat(this.value)">
+            <option value="">Toutes catégories</option>
+            <option>Culture & Identité</option><option>Cuisine</option><option>Musique & Arts</option>
+            <option>Entreprise & Réussite</option><option>Éducation & Tech</option><option>Voyage & Découverte</option>
+          </select>
+          <select class="tb-sel" onchange="filterVlogsByStatus(this.value)">
+            <option value="">Tous statuts</option><option>Publié</option><option>Brouillon</option><option>Signalé</option>
+          </select>
+          <button class="btn-outline" style="margin-left:auto" onclick="exportVlogsCSV()">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Exporter CSV
+          </button>
+        </div>
+        <div class="card">
+          <table class="tbl">
+            <thead><tr><th>Titre</th><th>Auteur</th><th>Catégorie</th><th>Likes</th><th>Date</th><th>Statut</th><th>Médias</th><th>Actions</th></tr></thead>
+            <tbody id="vlogsTbl"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══ MÉDIAS ══ -->
+      <div class="view" id="view-media">
+        <div class="toolbar">
+          <select class="tb-sel" onchange="filterMedia(this.value)">
+            <option value="">Tous types</option><option value="photo">Photos</option><option value="video">Vidéos</option>
+          </select>
+          <select class="tb-sel" onchange="filterMediaStatus(this.value)">
+            <option value="">Tous statuts</option><option>Approuvé</option><option>En attente</option><option>Rejeté</option>
+          </select>
+          <span style="font-size:.75rem;color:var(--gray-400);font-family:var(--mono);margin-left:auto" id="mediaCount">12 médias</span>
+        </div>
+        <div class="card" style="margin-bottom:1.2rem">
+          <div class="card-header">
+            <div class="card-title">Médias soumis par les utilisateurs</div>
+            <div style="display:flex;gap:.5rem">
+              <button class="btn-outline" onclick="approveAllPending()">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Tout approuver
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="media-mod-grid" id="mediaGrid"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Tous les médias — Table</div></div>
+          <table class="tbl">
+            <thead><tr><th>Aperçu</th><th>Nom</th><th>Type</th><th>Auteur</th><th>Taille</th><th>Vlog associé</th><th>Statut</th><th>Actions</th></tr></thead>
+            <tbody id="mediaTbl"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══ COMMENTAIRES ══ -->
+      <div class="view" id="view-comments">
+        <div class="toolbar">
+          <div class="tb-search">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input placeholder="Rechercher un commentaire…"/>
+          </div>
+          <select class="tb-sel">
+            <option>Tous</option><option>En attente</option><option>Approuvé</option><option>Signalé</option>
+          </select>
+        </div>
+        <div class="card">
+          <table class="tbl">
+            <thead><tr><th>Commentaire</th><th>Auteur</th><th>Vlog</th><th>Date</th><th>Statut</th><th>Actions</th></tr></thead>
+            <tbody id="commentsTbl"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══ UTILISATEURS ══ -->
+      <div class="view" id="view-users">
+        <div class="toolbar">
+          <div class="tb-search">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input placeholder="Rechercher un utilisateur…" oninput="filterUsers(this.value)"/>
+          </div>
+          <select class="tb-sel" onchange="filterUsersByRole(this.value)">
+            <option value="">Tous rôles</option><option>Utilisateur</option><option>Modérateur</option><option>Admin</option>
+          </select>
+          <select class="tb-sel">
+            <option>Tous statuts</option><option>Actif</option><option>Suspendu</option><option>Banni</option>
+          </select>
+        </div>
+        <div class="card">
+          <table class="tbl">
+            <thead><tr><th>Utilisateur</th><th>Ville</th><th>Vlogs</th><th>Likes reçus</th><th>Inscription</th><th>Rôle</th><th>Statut</th><th>Actions</th></tr></thead>
+            <tbody id="usersTbl"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══ SIGNALEMENTS ══ -->
+      <div class="view" id="view-reports">
+        <div class="card" style="margin-bottom:1.2rem">
+          <div class="card-header">
+            <div class="card-title">Signalements en attente de traitement</div>
+            <span class="badge badge-red" id="reportsCount">2 en attente</span>
+          </div>
+          <table class="tbl">
+            <thead><tr><th>Type</th><th>Contenu signalé</th><th>Signalé par</th><th>Motif</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="reportsTbl"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══ ANALYTICS ══ -->
+      <div class="view" id="view-analytics">
+        <div class="kpi-grid">
+          <div class="kpi">
+            <div class="kpi-top"><div class="kpi-label">Visites ce mois</div><div class="kpi-icon" style="background:var(--blue-50);border:1px solid var(--blue-100)"><svg viewBox="0 0 24 24" style="stroke:var(--blue)"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div></div>
+            <div class="kpi-val">4 821</div>
+            <div class="kpi-trend up"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>+34%</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-top"><div class="kpi-label">Lectures complètes</div><div class="kpi-icon" style="background:rgba(10,74,46,.08);border:1px solid rgba(10,74,46,.15)"><svg viewBox="0 0 24 24" style="stroke:var(--forest)"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div></div>
+            <div class="kpi-val">2 104</div>
+            <div class="kpi-trend up"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>+18%</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-top"><div class="kpi-label">Taux de rétention</div><div class="kpi-icon" style="background:var(--gold-pale);border:1px solid rgba(212,160,23,.25)"><svg viewBox="0 0 24 24" style="stroke:var(--gold)"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div></div>
+            <div class="kpi-val">67%</div>
+            <div class="kpi-trend up"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>+5%</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-top"><div class="kpi-label">Exports téléchargés</div><div class="kpi-icon" style="background:var(--orange-50);border:1px solid rgba(234,88,12,.2)"><svg viewBox="0 0 24 24" style="stroke:var(--orange)"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div></div>
+            <div class="kpi-val">312</div>
+            <div class="kpi-trend up"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>+22%</div>
+          </div>
+        </div>
+        <div class="admin-grid-2">
+          <div class="card">
+            <div class="card-header"><div class="card-title">Villes les plus actives</div></div>
+            <div class="card-body" id="cityStats"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Catégories populaires</div></div>
+            <div class="card-body" id="catStatsAlt"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Croissance mensuelle — Vlogs publiés</div></div>
+          <div class="card-body" id="monthlyStats"></div>
+        </div>
+      </div>
+
+      <!-- ══ PARAMÈTRES ══ -->
+      <div class="view" id="view-settings">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
+          <!-- Infos générales -->
+          <div class="card">
+            <div class="card-header"><div class="card-title">Informations du site</div></div>
+            <div class="card-body">
+              <div class="fg"><label class="fl">Nom du site</label><input class="fi" value="WA NGAN"/></div>
+              <div class="fg"><label class="fl">Slogan</label><input class="fi" value="Raconte ton histoire, inspire le Gabon"/></div>
+              <div class="fg"><label class="fl">Email de contact</label><input class="fi" type="email" value="contact@wangan.ga"/></div>
+              <div class="fg"><label class="fl">URL du site</label><input class="fi" value="https://wa-ngan.netlify.app"/></div>
+              <button class="btn-save" onclick="showToast('Informations sauvegardées')">Enregistrer</button>
+            </div>
+          </div>
+          <!-- Modération -->
+          <div class="card">
+            <div class="card-header"><div class="card-title">Modération du contenu</div></div>
+            <div class="card-body">
+              <div class="setting-row">
+                <div><div class="sr-label">Modération des vlogs</div><div class="sr-desc">Valider chaque vlog avant publication</div></div>
+                <div class="sr-control"><button class="toggle" onclick="this.classList.toggle('on')"></button></div>
+              </div>
+              <div class="setting-row">
+                <div><div class="sr-label">Modération des médias</div><div class="sr-desc">Valider photos et vidéos avant affichage</div></div>
+                <div class="sr-control"><button class="toggle on" onclick="this.classList.toggle('on')"></button></div>
+              </div>
+              <div class="setting-row">
+                <div><div class="sr-label">Commentaires automatiques</div><div class="sr-desc">Publier les commentaires sans validation</div></div>
+                <div class="sr-control"><button class="toggle on" onclick="this.classList.toggle('on')"></button></div>
+              </div>
+              <div class="setting-row">
+                <div><div class="sr-label">Filtre de mots interdits</div><div class="sr-desc">Bloquer automatiquement les contenus inappropriés</div></div>
+                <div class="sr-control"><button class="toggle on" onclick="this.classList.toggle('on')"></button></div>
+              </div>
+            </div>
+          </div>
+          <!-- Inscriptions -->
+          <div class="card">
+            <div class="card-header"><div class="card-title">Inscriptions & Accès</div></div>
+            <div class="card-body">
+              <div class="setting-row">
+                <div><div class="sr-label">Inscriptions ouvertes</div><div class="sr-desc">Permettre aux nouveaux utilisateurs de s'inscrire</div></div>
+                <div class="sr-control"><button class="toggle on" onclick="this.classList.toggle('on')"></button></div>
+              </div>
+              <div class="setting-row">
+                <div><div class="sr-label">Vérification email</div><div class="sr-desc">Exiger la vérification de l'adresse email</div></div>
+                <div class="sr-control"><button class="toggle" onclick="this.classList.toggle('on')"></button></div>
+              </div>
+              <div class="fg" style="margin-top:1rem"><label class="fl">Taille max fichier photo (Mo)</label><input class="fi" type="number" value="10"/></div>
+              <div class="fg"><label class="fl">Taille max fichier vidéo (Mo)</label><input class="fi" type="number" value="500"/></div>
+              <button class="btn-save" onclick="showToast('Paramètres d\'accès sauvegardés')">Enregistrer</button>
+            </div>
+          </div>
+          <!-- Administrateurs -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Administrateurs</div>
+              <button class="btn-outline" onclick="openAddAdminModal()">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Ajouter
+              </button>
+            </div>
+            <div class="card-body">
+              <table class="tbl">
+                <thead><tr><th>Nom</th><th>Email</th><th>Rôle</th><th>Actions</th></tr></thead>
+                <tbody id="adminsTbl"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- Zone dangereuse -->
+        <div class="card" style="margin-top:1.2rem;border-color:var(--red-100)">
+          <div class="card-header" style="background:var(--red-50)"><div class="card-title" style="color:var(--red)">Zone dangereuse</div></div>
+          <div class="card-body" style="display:flex;gap:1rem;flex-wrap:wrap">
+            <div style="flex:1;min-width:200px">
+              <div style="font-size:.83rem;font-weight:600;color:var(--gray-800);margin-bottom:.2rem">Vider le cache</div>
+              <div style="font-size:.73rem;color:var(--gray-400);margin-bottom:.7rem">Effacer tous les fichiers temporaires</div>
+              <button class="btn-outline" onclick="showToast('Cache vidé avec succès')">Vider le cache</button>
+            </div>
+            <div style="flex:1;min-width:200px">
+              <div style="font-size:.83rem;font-weight:600;color:var(--gray-800);margin-bottom:.2rem">Exporter la base de données</div>
+              <div style="font-size:.73rem;color:var(--gray-400);margin-bottom:.7rem">Télécharger un backup complet</div>
+              <button class="btn-outline" onclick="exportDB()">Exporter backup</button>
+            </div>
+            <div style="flex:1;min-width:200px">
+              <div style="font-size:.83rem;font-weight:600;color:var(--red);margin-bottom:.2rem">Mode maintenance</div>
+              <div style="font-size:.73rem;color:var(--gray-400);margin-bottom:.7rem">Rendre le site inaccessible aux visiteurs</div>
+              <button class="btn-danger" onclick="toggleMaintenance()">Activer maintenance</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ADD ADMIN -->
+<div class="modal-overlay" id="addAdminModal">
+  <div class="modal">
+    <div class="modal-head"><h3>Ajouter un administrateur</h3><button class="modal-close" onclick="closeModal('addAdminModal')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="modal-body">
+      <div class="fgrid">
+        <div class="fg"><label class="fl">Nom complet</label><input class="fi" placeholder="Thomas EKANG"/></div>
+        <div class="fg"><label class="fl">Email</label><input class="fi" type="email" placeholder="admin@wangan.ga"/></div>
+      </div>
+      <div class="fg"><label class="fl">Rôle</label><select class="fi"><option>Modérateur</option><option>Admin</option><option>Super Admin</option></select></div>
+      <div class="fg"><label class="fl">Mot de passe temporaire</label><input class="fi" type="password" placeholder="Généré automatiquement"/></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline" onclick="closeModal('addAdminModal')">Annuler</button>
+      <button class="btn-save" onclick="addAdmin()">Ajouter l'administrateur</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONFIRM DELETE -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal">
+    <div class="modal-head"><h3>Confirmer la suppression</h3><button class="modal-close" onclick="closeModal('confirmModal')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="modal-body">
+      <p style="font-size:.88rem;color:var(--gray-600);line-height:1.7" id="confirmMsg">Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline" onclick="closeModal('confirmModal')">Annuler</button>
+      <button class="btn-danger" onclick="confirmDelete()">Supprimer définitivement</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span id="toastMsg"></span></div>
+
+<script>
+/* ═══════════════ DATA ═══════════════ */
+const VLOGS_DATA=[
+  {id:1,title:"Ma vie à Port-Gentil",author:"Amina Nzamba",cat:"Culture & Identité",likes:247,date:"2024-11-15",status:"Publié",media:2,flagged:false},
+  {id:2,title:"Secrets de cuisine Fang",author:"Rostand Moussavou",cat:"Cuisine",likes:189,date:"2024-11-10",status:"Publié",media:5,flagged:false},
+  {id:3,title:"Devenir développeur depuis Libreville",author:"Jean-Paul Ekang",cat:"Éducation & Tech",likes:412,date:"2024-11-08",status:"Publié",media:0,flagged:false},
+  {id:4,title:"Voyage à la Lopé",author:"Céleste Bibang",cat:"Voyage & Découverte",likes:156,date:"2024-11-05",status:"Publié",media:8,flagged:false},
+  {id:5,title:"Ma startup gabonaise",author:"Franck Ndong",cat:"Entreprise & Réussite",likes:334,date:"2024-10-28",status:"Publié",media:1,flagged:true},
+  {id:6,title:"Chants traditionnels du Gabon",author:"Marie-Claire Ondo",cat:"Musique & Arts",likes:278,date:"2024-10-20",status:"Publié",media:3,flagged:false},
+  {id:7,title:"Mon premier vlog depuis Oyem",author:"Patrick Mba",cat:"Culture & Identité",likes:0,date:"2024-12-01",status:"Brouillon",media:0,flagged:false},
+];
+
+const USERS_DATA=[
+  {id:1,name:"Amina Nzamba",handle:"amina_nzamba",city:"Libreville",vlogs:3,likes:436,joined:"2024-09-12",role:"Utilisateur",status:"Actif",col:"ga"},
+  {id:2,name:"Rostand Moussavou",handle:"rostand_m",city:"Oyem",vlogs:2,likes:245,joined:"2024-09-18",role:"Utilisateur",status:"Actif",col:"gb"},
+  {id:3,name:"Jean-Paul Ekang",handle:"jp_ekang",city:"Libreville",vlogs:4,likes:890,joined:"2024-09-05",role:"Modérateur",status:"Actif",col:"gc"},
+  {id:4,name:"Céleste Bibang",handle:"celeste_b",city:"Lambaréné",vlogs:5,likes:512,joined:"2024-10-02",role:"Utilisateur",status:"Actif",col:"gd"},
+  {id:5,name:"Franck Ndong",handle:"franck_nd",city:"Libreville",vlogs:1,likes:334,joined:"2024-10-14",role:"Utilisateur",status:"Actif",col:"ge"},
+  {id:6,name:"Marie-Claire Ondo",handle:"mc_ondo",city:"Franceville",vlogs:2,likes:278,joined:"2024-10-20",role:"Utilisateur",status:"Actif",col:"ga"},
+  {id:7,name:"Patrick Mba",handle:"patrick_m",city:"Oyem",vlogs:0,likes:0,joined:"2024-12-01",role:"Utilisateur",status:"Actif",col:"gb"},
+];
+
+const MEDIA_DATA=[
+  {id:1,name:"photo_amina_01.jpg",type:"photo",author:"Amina Nzamba",size:"2.4 Mo",vlog:"Ma vie à Port-Gentil",status:"Approuvé"},
+  {id:2,name:"photo_amina_02.jpg",type:"photo",author:"Amina Nzamba",size:"1.8 Mo",vlog:"Ma vie à Port-Gentil",status:"Approuvé"},
+  {id:3,name:"video_cuisine_fang.mp4",type:"video",author:"Rostand Moussavou",size:"48.2 Mo",vlog:"Secrets de cuisine Fang",status:"Approuvé"},
+  {id:4,name:"photo_lope_01.jpg",type:"photo",author:"Céleste Bibang",size:"3.1 Mo",vlog:"Voyage à la Lopé",status:"En attente"},
+  {id:5,name:"photo_lope_gorille.jpg",type:"photo",author:"Céleste Bibang",size:"4.2 Mo",vlog:"Voyage à la Lopé",status:"En attente"},
+  {id:6,name:"video_lope_nature.mp4",type:"video",author:"Céleste Bibang",size:"112.5 Mo",vlog:"Voyage à la Lopé",status:"En attente"},
+  {id:7,name:"photo_startup_01.jpg",type:"photo",author:"Franck Ndong",size:"1.9 Mo",vlog:"Ma startup gabonaise",status:"Rejeté"},
+  {id:8,name:"photo_chant_01.jpg",type:"photo",author:"Marie-Claire Ondo",size:"2.7 Mo",vlog:"Chants traditionnels",status:"Approuvé"},
+];
+
+const COMMENTS_DATA=[
+  {id:1,text:"Ton histoire m'a vraiment touché, merci de partager ça",author:"Paul K.",vlog:"Ma vie à Port-Gentil",date:"2024-11-16",status:"Approuvé"},
+  {id:2,text:"Le nyembwe de ta grand-mère j'aurais adoré goûter !",author:"Sophie M.",vlog:"Secrets de cuisine Fang",date:"2024-11-11",status:"Approuvé"},
+  {id:3,text:"Contenu inapproprié à vérifier",author:"User_447",vlog:"Ma startup gabonaise",date:"2024-11-02",status:"Signalé"},
+  {id:4,text:"Très inspirant pour nous les jeunes développeurs gabonais",author:"Eric N.",vlog:"Devenir développeur",date:"2024-11-09",status:"En attente"},
+];
+
+const REPORTS_DATA=[
+  {id:1,type:"Vlog",content:"Ma startup gabonaise",reporter:"User_447",reason:"Contenu trompeur/faux",date:"2024-11-02",status:"En attente"},
+  {id:2,type:"Commentaire",content:"Commentaire #3",reporter:"Amina Nzamba",reason:"Contenu offensant",date:"2024-11-02",status:"En attente"},
+];
+
+const ADMINS_DATA=[
+  {name:"Thomas EKANG NSOLEY",email:"thomas@wangan.ga",role:"Super Admin"},
+  {name:"Jean-Paul Ekang",email:"jp@wangan.ga",role:"Modérateur"},
+];
+
+const COLORS={'ga':'linear-gradient(135deg,#d4a017,#0a4a2e)','gb':'linear-gradient(135deg,#dc2626,#d4a017)','gc':'linear-gradient(135deg,#0d5c38,#f0c040)','gd':'linear-gradient(135deg,#7c3aed,#d4a017)','ge':'linear-gradient(135deg,#0ea5e9,#0a4a2e)'};
+
+let pendingDeleteFn=null;
+let toastT;
+
+/* ═══════════════ AUTH ═══════════════ */
+function doLogin(){
+  const u=document.getElementById('adminU').value;
+  const p=document.getElementById('adminP').value;
+  if(!u||!p){showToast('Identifiants requis');return}
+  document.getElementById('sc-login').classList.remove('active');
+  document.getElementById('sc-app').classList.add('active');
+  initApp();
+}
+function doLogout(){
+  document.getElementById('sc-app').classList.remove('active');
+  document.getElementById('sc-login').classList.add('active');
+}
+
+/* ═══════════════ NAV ═══════════════ */
+const VIEW_META={
+  dashboard:{title:'Tableau de bord',crumb:'Dashboard'},
+  vlogs:{title:'Gestion des vlogs',crumb:'Vlogs'},
+  media:{title:'Gestion des médias',crumb:'Médias'},
+  comments:{title:'Commentaires',crumb:'Commentaires'},
+  users:{title:'Utilisateurs',crumb:'Utilisateurs'},
+  reports:{title:'Signalements',crumb:'Signalements'},
+  analytics:{title:'Analytics',crumb:'Analytics'},
+  settings:{title:'Paramètres du site',crumb:'Paramètres'},
+};
+function showView(name,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(n=>n.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  else document.querySelectorAll('.nav-btn').forEach(n=>{if(n.getAttribute('onclick')?.includes("'"+name+"'"))n.classList.add('active')});
+  const m=VIEW_META[name]||{title:name,crumb:name};
+  document.getElementById('tbTitle').textContent=m.title;
+  document.getElementById('tbCrumb').textContent='ADMIN / '+m.crumb;
+}
+
+/* ═══════════════ INIT ═══════════════ */
+function initApp(){
+  renderKPIs();renderActivity();renderCatStats();
+  renderTopVlogs();renderPendingReports();renderNewUsers();
+  renderVlogsTbl(VLOGS_DATA);renderUsersTbl(USERS_DATA);
+  renderMediaTbl(MEDIA_DATA);renderMediaGrid(MEDIA_DATA);
+  renderCommentsTbl(COMMENTS_DATA);renderReportsTbl(REPORTS_DATA);
+  renderAdminsTbl();renderCityStats();renderCatStatsAlt();renderMonthlyStats();
+}
+
+/* ═══════════════ DASHBOARD ═══════════════ */
+function renderKPIs(){
+  const kpis=[
+    {label:'Total vlogs',val:VLOGS_DATA.length,trend:'+2 cette semaine',up:true,bg:'rgba(10,74,46,.08)',bc:'rgba(10,74,46,.15)',ic:'var(--forest)',icon:`<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>`},
+    {label:'Utilisateurs',val:USERS_DATA.length,trend:'+1 aujourd\'hui',up:true,bg:'var(--blue-50)',bc:'var(--blue-100)',ic:'var(--blue)',icon:`<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>`},
+    {label:'Médias soumis',val:MEDIA_DATA.length,trend:'3 en attente',up:false,bg:'var(--gold-pale)',bc:'rgba(212,160,23,.25)',ic:'var(--gold)',icon:`<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>`},
+    {label:'Signalements',val:REPORTS_DATA.filter(r=>r.status==='En attente').length,trend:'À traiter',up:false,bg:'var(--red-50)',bc:'var(--red-100)',ic:'var(--red)',icon:`<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>`},
+  ];
+  document.getElementById('kpiGrid').innerHTML=kpis.map(k=>`
+    <div class="kpi">
+      <div class="kpi-top">
+        <div class="kpi-label">${k.label}</div>
+        <div class="kpi-icon" style="background:${k.bg};border:1px solid ${k.bc}">
+          <svg viewBox="0 0 24 24" fill="none" style="stroke:${k.ic};stroke-width:2">${k.icon}</svg>
+        </div>
+      </div>
+      <div class="kpi-val">${k.val}</div>
+      <div class="kpi-trend ${k.up?'up':'down'}">
+        <svg viewBox="0 0 24 24">${k.up?'<polyline points="18 15 12 9 6 15"/>':'<polyline points="6 9 12 15 18 9"/>'}</svg>
+        ${k.trend}
+      </div>
+    </div>`).join('');
+}
+
+function renderActivity(){
+  const acts=[
+    {icon:`<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>`,bg:'rgba(10,74,46,.1)',col:'var(--forest)',text:'<strong>Amina Nzamba</strong> a publié un nouveau vlog',time:'Il y a 5 min'},
+    {icon:`<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>`,bg:'var(--blue-50)',col:'var(--blue)',text:'<strong>Céleste Bibang</strong> a soumis 3 photos pour approbation',time:'Il y a 12 min'},
+    {icon:`<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>`,bg:'var(--gold-pale)',col:'var(--gold)',text:'Nouvel utilisateur inscrit : <strong>Patrick Mba</strong> depuis Oyem',time:'Il y a 1h'},
+    {icon:`<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/>`,bg:'var(--red-50)',col:'var(--red)',text:'Signalement reçu sur le vlog "<strong>Ma startup gabonaise</strong>"',time:'Il y a 3h'},
+    {icon:`<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>`,bg:'var(--gray-100)',col:'var(--gray-500)',text:'<strong>Eric N.</strong> a laissé un commentaire sur "Devenir développeur"',time:'Il y a 5h'},
+  ];
+  document.getElementById('activityFeed').innerHTML=acts.map(a=>`
+    <div class="activity-item">
+      <div class="act-icon-wrap" style="background:${a.bg}">
+        <svg viewBox="0 0 24 24" fill="none" style="stroke:${a.col};stroke-width:2">${a.icon}</svg>
+      </div>
+      <div><div class="act-text">${a.text}</div><div class="act-time">${a.time}</div></div>
+    </div>`).join('');
+}
+
+function renderCatStats(){
+  const cats=[
+    {name:'Culture & Identité',count:2,col:'var(--forest)'},
+    {name:'Éducation & Tech',count:2,col:'var(--blue)'},
+    {name:'Cuisine',count:1,col:'var(--gold)'},
+    {name:'Entreprise',count:1,col:'var(--orange)'},
+    {name:'Voyage',count:1,col:'#7c3aed'},
+  ];
+  const max=Math.max(...cats.map(c=>c.count));
+  document.getElementById('catStats').innerHTML=cats.map(c=>`
+    <div class="mini-bar-row">
+      <div class="mini-bar-label" style="font-size:.73rem">${c.name}</div>
+      <div class="mini-bar-track"><div class="mini-bar-fill" style="width:${c.count/max*100}%;background:${c.col}"></div></div>
+      <div class="mini-bar-val">${c.count}</div>
+    </div>`).join('');
+}
+
+function renderTopVlogs(){
+  const sorted=[...VLOGS_DATA].sort((a,b)=>b.likes-a.likes).slice(0,5);
+  document.getElementById('topVlogs').innerHTML=sorted.map((v,i)=>`
+    <div style="display:flex;align-items:center;gap:.7rem;padding:.5rem 0;border-bottom:1px solid var(--gray-50)">
+      <div style="width:22px;height:22px;border-radius:6px;background:${i===0?'var(--gold-pale)':'var(--gray-100)'};display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:${i===0?'var(--gold)':'var(--gray-400)'}">
+        ${i+1}
+      </div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:.78rem;font-weight:600;color:var(--gray-800);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${v.title}</div>
+        <div style="font-size:.65rem;color:var(--gray-400)">${v.author}</div>
+      </div>
+      <div style="font-size:.72rem;font-weight:700;color:var(--gold);font-family:var(--mono)">${v.likes}</div>
+    </div>`).join('');
+}
+
+function renderPendingReports(){
+  const pending=REPORTS_DATA.filter(r=>r.status==='En attente');
+  document.getElementById('pendingReports').innerHTML=pending.length?pending.map(r=>`
+    <div style="padding:.7rem 0;border-bottom:1px solid var(--gray-50)">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem">
+        <span class="badge badge-red">${r.type}</span>
+        <span style="font-size:.78rem;font-weight:600;color:var(--gray-800)">${r.content}</span>
+      </div>
+      <div style="font-size:.7rem;color:var(--gray-400)">${r.reason} · ${r.date}</div>
+      <div style="display:flex;gap:.4rem;margin-top:.5rem">
+        <button class="btn-outline" style="font-size:.68rem;padding:.25rem .65rem" onclick="resolveReport(${r.id})">Résoudre</button>
+        <button class="btn-danger" style="font-size:.68rem;padding:.25rem .65rem" onclick="removeReport(${r.id})">Supprimer</button>
+      </div>
+    </div>`).join(''):`<div style="font-size:.82rem;color:var(--gray-400);padding:1rem 0;text-align:center">Aucun signalement en attente</div>`;
+}
+
+function renderNewUsers(){
+  const recent=[...USERS_DATA].sort((a,b)=>new Date(b.joined)-new Date(a.joined)).slice(0,4);
+  document.getElementById('newUsers').innerHTML=recent.map(u=>`
+    <div style="display:flex;align-items:center;gap:.6rem;padding:.5rem 0;border-bottom:1px solid var(--gray-50)">
+      <div style="width:28px;height:28px;border-radius:50%;background:${COLORS[u.col]};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:800;color:#fff">${u.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:.78rem;font-weight:700;color:var(--gray-800)">${u.name}</div>
+        <div style="font-size:.65rem;color:var(--gray-400);font-family:var(--mono)">${u.city} · ${u.joined}</div>
+      </div>
+      <span class="badge badge-green">Actif</span>
+    </div>`).join('');
+}
+
+/* ═══════════════ VLOGS TABLE ═══════════════ */
+function renderVlogsTbl(data){
+  document.getElementById('vlogsTbl').innerHTML=data.map(v=>`
+    <tr>
+      <td style="max-width:200px">
+        <div style="font-weight:600;color:var(--gray-800);font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${v.title}</div>
+        <div style="font-size:.65rem;color:var(--gray-400);font-family:var(--mono)">#${v.id}</div>
+      </td>
+      <td>${v.author}</td>
+      <td><span class="badge badge-gray">${v.cat}</span></td>
+      <td style="font-family:var(--mono);font-size:.75rem;color:var(--gold);font-weight:600">${v.likes}</td>
+      <td style="font-family:var(--mono);font-size:.72rem;color:var(--gray-400)">${v.date}</td>
+      <td>${v.flagged?'<span class="badge badge-red">Signalé</span>':v.status==='Publié'?'<span class="badge badge-green">Publié</span>':'<span class="badge badge-yellow">Brouillon</span>'}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:.3rem">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gray-400)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
+          <span style="font-size:.72rem;color:var(--gray-500);font-family:var(--mono)">${v.media}</span>
+        </div>
+      </td>
+      <td>
+        <div class="act-btns">
+          <button class="act-btn" title="Voir" onclick="showToast('Ouverture du vlog #${v.id}')"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+          ${v.flagged?`<button class="act-btn" title="Dépublier" onclick="toggleVlogStatus(${v.id})"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></button>`:`<button class="act-btn" title="Modifier" onclick="showToast('Édition du vlog #${v.id}')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>`}
+          <button class="act-btn del" title="Supprimer" onclick="deleteVlog(${v.id})"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+function filterVlogs(q){renderVlogsTbl(q?VLOGS_DATA.filter(v=>v.title.toLowerCase().includes(q.toLowerCase())||v.author.toLowerCase().includes(q.toLowerCase())):VLOGS_DATA)}
+function filterVlogsByCat(cat){renderVlogsTbl(cat?VLOGS_DATA.filter(v=>v.cat===cat):VLOGS_DATA)}
+function filterVlogsByStatus(s){renderVlogsTbl(s?VLOGS_DATA.filter(v=>v.status===s||(s==='Signalé'&&v.flagged)):VLOGS_DATA)}
+function deleteVlog(id){
+  pendingDeleteFn=()=>{
+    const i=VLOGS_DATA.findIndex(v=>v.id===id);
+    if(i>-1)VLOGS_DATA.splice(i,1);
+    renderVlogsTbl(VLOGS_DATA);renderKPIs();renderTopVlogs();
+    document.getElementById('nbVlogs').textContent=VLOGS_DATA.length;
+    showToast('Vlog supprimé');closeModal('confirmModal');
+  };
+  document.getElementById('confirmMsg').textContent=`Voulez-vous supprimer ce vlog ? Cette action est irréversible.`;
+  document.getElementById('confirmModal').classList.add('open');
+}
+function toggleVlogStatus(id){
+  const v=VLOGS_DATA.find(x=>x.id===id);
+  if(v){v.flagged=false;renderVlogsTbl(VLOGS_DATA);showToast('Statut du vlog mis à jour')}
+}
+function exportVlogsCSV(){
+  const rows=['ID,Titre,Auteur,Catégorie,Likes,Date,Statut',...VLOGS_DATA.map(v=>`${v.id},"${v.title}","${v.author}","${v.cat}",${v.likes},${v.date},${v.status}`)];
+  const blob=new Blob([rows.join('\n')],{type:'text/csv'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='wa_ngan_vlogs.csv';a.click();
+  showToast('Export CSV téléchargé');
+}
+
+/* ═══════════════ MEDIA ═══════════════ */
+function renderMediaGrid(data){
+  const BG=['#0a4a2e','#3d1a00','#1a1a4e','#2d0a0a','#0a2a4e'];
+  document.getElementById('mediaGrid').innerHTML=data.slice(0,8).map((m,i)=>`
+    <div class="media-mod-item">
+      <div style="width:100%;height:100%;background:${BG[i%BG.length]};display:flex;align-items:center;justify-content:center">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1">${m.type==='video'?'<path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.82v6.36a1 1 0 0 1-1.447.89L15 14M3 8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>':'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>'}</svg>
+      </div>
+      <div class="media-mod-overlay">
+        ${m.status==='En attente'?`
+          <button onclick="approveMedia(${m.id})" style="padding:.3rem .7rem;background:var(--forest);border:none;border-radius:6px;color:#fff;font-size:.68rem;font-weight:700;cursor:pointer">Approuver</button>
+          <button onclick="rejectMedia(${m.id})" style="padding:.3rem .7rem;background:var(--red);border:none;border-radius:6px;color:#fff;font-size:.68rem;font-weight:700;cursor:pointer">Rejeter</button>
+        `:m.status==='Approuvé'?`<span style="background:rgba(10,74,46,.8);color:#fff;font-size:.68rem;padding:.2rem .6rem;border-radius:4px">Approuvé</span>`:`<span style="background:rgba(220,38,38,.8);color:#fff;font-size:.68rem;padding:.2rem .6rem;border-radius:4px">Rejeté</span>`}
+      </div>
+      <div class="media-mod-type">${m.type.toUpperCase()}</div>
+      <div class="media-mod-user">${m.author.split(' ')[0]}</div>
+    </div>`).join('');
+}
+function renderMediaTbl(data){
+  document.getElementById('mediaTbl').innerHTML=data.map(m=>`
+    <tr>
+      <td>
+        <div style="width:40px;height:30px;border-radius:5px;background:#1a1a4e;display:flex;align-items:center;justify-content:center">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1.5">${m.type==='video'?'<polygon points="5 3 19 12 5 21 5 3"/>':'<rect x="3" y="3" width="18" height="18" rx="2"/>'}</svg>
+        </div>
+      </td>
+      <td style="font-family:var(--mono);font-size:.72rem;color:var(--gray-600)">${m.name}</td>
+      <td><span class="badge ${m.type==='video'?'badge-blue':'badge-gray'}">${m.type}</span></td>
+      <td style="font-size:.78rem">${m.author}</td>
+      <td style="font-family:var(--mono);font-size:.72rem;color:var(--gray-400)">${m.size}</td>
+      <td style="font-size:.75rem;color:var(--gray-600)">${m.vlog}</td>
+      <td>${m.status==='Approuvé'?'<span class="badge badge-green">Approuvé</span>':m.status==='En attente'?'<span class="badge badge-yellow">En attente</span>':'<span class="badge badge-red">Rejeté</span>'}</td>
+      <td>
+        <div class="act-btns">
+          ${m.status==='En attente'?`<button class="act-btn" title="Approuver" onclick="approveMedia(${m.id})"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></button>`:''}
+          <button class="act-btn del" title="Supprimer" onclick="deleteMedia(${m.id})"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg></button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+function filterMedia(type){renderMediaGrid(type?MEDIA_DATA.filter(m=>m.type===type):MEDIA_DATA)}
+function filterMediaStatus(s){renderMediaTbl(s?MEDIA_DATA.filter(m=>m.status===s):MEDIA_DATA)}
+function approveMedia(id){
+  const m=MEDIA_DATA.find(x=>x.id===id);
+  if(m){m.status='Approuvé';renderMediaGrid(MEDIA_DATA);renderMediaTbl(MEDIA_DATA);showToast('Média approuvé')}
+}
+function rejectMedia(id){
+  const m=MEDIA_DATA.find(x=>x.id===id);
+  if(m){m.status='Rejeté';renderMediaGrid(MEDIA_DATA);renderMediaTbl(MEDIA_DATA);showToast('Média rejeté')}
+}
+function deleteMedia(id){
+  pendingDeleteFn=()=>{
+    const i=MEDIA_DATA.findIndex(x=>x.id===id);
+    if(i>-1)MEDIA_DATA.splice(i,1);
+    renderMediaGrid(MEDIA_DATA);renderMediaTbl(MEDIA_DATA);
+    document.getElementById('nbMedia').textContent=MEDIA_DATA.length;
+    showToast('Média supprimé');closeModal('confirmModal');
+  };
+  document.getElementById('confirmMsg').textContent='Supprimer définitivement ce média ?';
+  document.getElementById('confirmModal').classList.add('open');
+}
+function approveAllPending(){
+  MEDIA_DATA.filter(m=>m.status==='En attente').forEach(m=>m.status='Approuvé');
+  renderMediaGrid(MEDIA_DATA);renderMediaTbl(MEDIA_DATA);showToast('Tous les médias en attente ont été approuvés');
+}
+
+/* ═══════════════ COMMENTS ═══════════════ */
+function renderCommentsTbl(data){
+  document.getElementById('commentsTbl').innerHTML=data.map(c=>`
+    <tr>
+      <td style="max-width:240px"><div style="font-size:.8rem;color:var(--gray-700)">${c.text}</div></td>
+      <td style="font-size:.78rem">${c.author}</td>
+      <td style="font-size:.75rem;color:var(--gray-500)">${c.vlog}</td>
+      <td style="font-family:var(--mono);font-size:.7rem;color:var(--gray-400)">${c.date}</td>
+      <td>${c.status==='Approuvé'?'<span class="badge badge-green">Approuvé</span>':c.status==='Signalé'?'<span class="badge badge-red">Signalé</span>':'<span class="badge badge-yellow">En attente</span>'}</td>
+      <td>
+        <div class="act-btns">
+          ${c.status!=='Approuvé'?`<button class="act-btn" title="Approuver" onclick="approveComment(${c.id})"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></button>`:''}
+          <button class="act-btn del" title="Supprimer" onclick="showToast('Commentaire supprimé')"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button>
+        </div>
+      </td>
+    </tr>`).join('');
+  document.getElementById('nbComments').textContent=data.filter(c=>c.status==='En attente'||c.status==='Signalé').length||'';
+}
+function approveComment(id){
+  const c=COMMENTS_DATA.find(x=>x.id===id);
+  if(c){c.status='Approuvé';renderCommentsTbl(COMMENTS_DATA);showToast('Commentaire approuvé')}
+}
+
+/* ═══════════════ USERS ═══════════════ */
+function renderUsersTbl(data){
+  document.getElementById('usersTbl').innerHTML=data.map(u=>`
+    <tr>
+      <td>
+        <div style="display:flex;align-items:center;gap:.6rem">
+          <div style="width:30px;height:30px;border-radius:50%;background:${COLORS[u.col]};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;color:#fff">${u.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+          <div>
+            <div style="font-size:.8rem;font-weight:700;color:var(--gray-800)">${u.name}</div>
+            <div style="font-size:.65rem;color:var(--gray-400);font-family:var(--mono)">@${u.handle}</div>
+          </div>
+        </div>
+      </td>
+      <td style="font-size:.78rem;color:var(--gray-500)">${u.city}</td>
+      <td style="font-family:var(--mono);font-size:.75rem;font-weight:600;color:var(--gray-700)">${u.vlogs}</td>
+      <td style="font-family:var(--mono);font-size:.75rem;color:var(--gold);font-weight:600">${u.likes}</td>
+      <td style="font-family:var(--mono);font-size:.7rem;color:var(--gray-400)">${u.joined}</td>
+      <td><span class="badge ${u.role==='Super Admin'||u.role==='Modérateur'?'badge-blue':'badge-gray'}">${u.role}</span></td>
+      <td><span class="badge badge-green">${u.status}</span></td>
+      <td>
+        <div class="act-btns">
+          <button class="act-btn" title="Voir profil" onclick="showToast('Profil de ${u.name}')"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+          <button class="act-btn" title="Changer rôle" onclick="changeRole(${u.id})"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></button>
+          <button class="act-btn del" title="Suspendre" onclick="showToast('Utilisateur suspendu')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+function filterUsers(q){renderUsersTbl(q?USERS_DATA.filter(u=>u.name.toLowerCase().includes(q.toLowerCase())||u.city.toLowerCase().includes(q.toLowerCase())):USERS_DATA)}
+function filterUsersByRole(r){renderUsersTbl(r?USERS_DATA.filter(u=>u.role===r):USERS_DATA)}
+function changeRole(id){
+  const roles=['Utilisateur','Modérateur','Admin'];
+  const u=USERS_DATA.find(x=>x.id===id);
+  if(u){const idx=roles.indexOf(u.role);u.role=roles[(idx+1)%roles.length];renderUsersTbl(USERS_DATA);showToast(`Rôle de ${u.name} : ${u.role}`)}
+}
+
+/* ═══════════════ REPORTS ═══════════════ */
+function renderReportsTbl(data){
+  document.getElementById('reportsTbl').innerHTML=data.map(r=>`
+    <tr>
+      <td><span class="badge ${r.type==='Vlog'?'badge-blue':'badge-orange'}">${r.type}</span></td>
+      <td style="font-size:.8rem;font-weight:600;color:var(--gray-800)">${r.content}</td>
+      <td style="font-size:.78rem">${r.reporter}</td>
+      <td style="font-size:.75rem;color:var(--gray-500)">${r.reason}</td>
+      <td style="font-family:var(--mono);font-size:.7rem;color:var(--gray-400)">${r.date}</td>
+      <td>
+        <div class="act-btns">
+          <button class="act-btn" title="Résoudre" onclick="resolveReport(${r.id})"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></button>
+          <button class="act-btn del" title="Supprimer contenu" onclick="removeReport(${r.id})"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button>
+        </div>
+      </td>
+    </tr>`).join('');
+  document.getElementById('nbReports').textContent=data.filter(r=>r.status==='En attente').length||'';
+  document.getElementById('reportsCount').textContent=data.filter(r=>r.status==='En attente').length+' en attente';
+}
+function resolveReport(id){
+  const r=REPORTS_DATA.find(x=>x.id===id);
+  if(r){r.status='Résolu';renderReportsTbl(REPORTS_DATA);renderPendingReports();showToast('Signalement résolu')}
+}
+function removeReport(id){
+  const i=REPORTS_DATA.findIndex(x=>x.id===id);
+  if(i>-1){REPORTS_DATA.splice(i,1);renderReportsTbl(REPORTS_DATA);renderPendingReports();showToast('Signalement supprimé')}
+}
+
+/* ═══════════════ ANALYTICS ═══════════════ */
+function renderCityStats(){
+  const cities=[['Libreville',4200],['Port-Gentil',890],['Franceville',420],['Oyem',310],['Lambaréné',201]];
+  const max=cities[0][1];
+  document.getElementById('cityStats').innerHTML=cities.map(([c,v])=>`
+    <div class="mini-bar-row">
+      <div class="mini-bar-label">${c}</div>
+      <div class="mini-bar-track"><div class="mini-bar-fill" style="width:${v/max*100}%;background:var(--forest)"></div></div>
+      <div class="mini-bar-val">${v}</div>
+    </div>`).join('');
+}
+function renderCatStatsAlt(){
+  const cats=[['Culture & Identité',38],['Éducation & Tech',26],['Cuisine',18],['Entreprise',12],['Voyage',6]];
+  document.getElementById('catStatsAlt').innerHTML=cats.map(([c,v])=>`
+    <div class="mini-bar-row">
+      <div class="mini-bar-label" style="font-size:.72rem">${c}</div>
+      <div class="mini-bar-track"><div class="mini-bar-fill" style="width:${v}%;background:var(--gold)"></div></div>
+      <div class="mini-bar-val">${v}%</div>
+    </div>`).join('');
+}
+function renderMonthlyStats(){
+  const months=[['Jan',1],['Fév',2],['Mar',1],['Avr',3],['Mai',2],['Jun',4],['Jul',5],['Aoû',3],['Sep',6],['Oct',8],['Nov',7],['Déc',2]];
+  const max=Math.max(...months.map(m=>m[1]));
+  document.getElementById('monthlyStats').innerHTML=`
+    <div style="display:flex;align-items:flex-end;gap:.4rem;height:80px;padding:.5rem 0">
+      ${months.map(([m,v])=>`
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.3rem">
+          <div style="width:100%;background:var(--forest);border-radius:3px 3px 0 0;height:${v/max*60}px;transition:.3s;min-height:4px" title="${v} vlogs"></div>
+          <div style="font-size:.58rem;color:var(--gray-400);font-family:var(--mono)">${m}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+/* ═══════════════ SETTINGS ═══════════════ */
+function renderAdminsTbl(){
+  document.getElementById('adminsTbl').innerHTML=ADMINS_DATA.map((a,i)=>`
+    <tr>
+      <td style="font-size:.8rem;font-weight:600;color:var(--gray-800)">${a.name}</td>
+      <td style="font-family:var(--mono);font-size:.72rem;color:var(--gray-500)">${a.email}</td>
+      <td><span class="badge ${a.role==='Super Admin'?'badge-red':a.role==='Admin'?'badge-blue':'badge-gray'}">${a.role}</span></td>
+      <td>
+        <div class="act-btns">
+          ${i>0?`<button class="act-btn del" title="Retirer" onclick="showToast('Administrateur retiré')"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button>`:'<span style="font-size:.7rem;color:var(--gray-300)">—</span>'}
+        </div>
+      </td>
+    </tr>`).join('');
+}
+function addAdmin(){
+  showToast('Administrateur ajouté — email d\'invitation envoyé');
+  closeModal('addAdminModal');
+}
+function openAddAdminModal(){document.getElementById('addAdminModal').classList.add('open')}
+function exportDB(){
+  const data=JSON.stringify({vlogs:VLOGS_DATA,users:USERS_DATA,media:MEDIA_DATA,comments:COMMENTS_DATA},null,2);
+  const blob=new Blob([data],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='wa_ngan_backup.json';a.click();
+  showToast('Backup exporté');
+}
+let maintenanceOn=false;
+function toggleMaintenance(){
+  maintenanceOn=!maintenanceOn;
+  showToast(maintenanceOn?'Mode maintenance activé — site inaccessible aux visiteurs':'Mode maintenance désactivé — site en ligne');
+}
+
+/* ═══════════════ UTILS ═══════════════ */
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+function confirmDelete(){if(pendingDeleteFn)pendingDeleteFn()}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show');clearTimeout(toastT);
+  toastT=setTimeout(()=>t.classList.remove('show'),3200);
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&document.getElementById('sc-login').classList.contains('active'))doLogin();
+  if(e.key==='Escape'){document.querySelectorAll('.modal-overlay.open').forEach(m=>m.classList.remove('open'))}
+});
+document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
+</script>
+</body>
+</html>
