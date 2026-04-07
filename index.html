@@ -314,6 +314,7 @@ section{padding:6rem 5%}
 .proj-card.proj-blue::before{background:linear-gradient(90deg,var(--blue-light),#38bdf8)}
 .proj-card.proj-red::before{background:linear-gradient(90deg,var(--red-light),#f97316)}
 .proj-card.proj-mix::before{background:linear-gradient(90deg,var(--blue-light),var(--red-light))}
+.proj-card.proj-green::before{background:linear-gradient(90deg,#4ade80,#f7d117)}
 .proj-card:hover{
   background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15);
   transform:translateY(-7px);box-shadow:0 25px 60px rgba(0,0,0,.4);
@@ -482,9 +483,78 @@ footer{
   .projects-grid,.skills-layout,.certs-row,.form-row{grid-template-columns:1fr}
   .about-stats{grid-template-columns:1fr 1fr}
 }
+
+/* ══ SCROLL PROGRESS ══ */
+#scrollProgress{position:fixed;top:0;left:0;height:3px;z-index:400;background:linear-gradient(90deg,var(--blue),#8b5cf6,var(--red));width:0%;transition:width .08s linear;pointer-events:none}
+
+/* ══ MOBILE HAMBURGER ══ */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.5rem;background:none;border:none;outline:none;margin-left:.5rem}
+.hamburger span{display:block;width:22px;height:2px;background:var(--gray-700);border-radius:2px;transition:all .3s ease}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-overlay{display:none;position:fixed;top:66px;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);z-index:198;flex-direction:column;align-items:center;justify-content:center;gap:2rem;animation:fadeIn .2s ease}
+.mobile-overlay.open{display:flex}
+.mobile-overlay a{font-size:1.5rem;font-weight:800;color:var(--gray-800);text-decoration:none;letter-spacing:-.02em;transition:color .15s;position:relative}
+.mobile-overlay a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--blue);border-radius:1px;transition:width .2s}
+.mobile-overlay a:hover{color:var(--blue)}
+.mobile-overlay a:hover::after{width:100%}
+.mobile-overlay .mob-cv{font-size:.9rem;padding:.8rem 2rem;background:var(--blue);color:#fff;border-radius:10px;margin-top:1rem;box-shadow:0 4px 18px rgba(29,78,216,.3)}
+.mobile-overlay .mob-cv:hover{background:var(--blue-dark)}
+.mobile-overlay .mob-cv::after{display:none}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:768px){
+  .hamburger{display:flex}
+  .nav-links,.nav-cta{display:none}
+}
+
+/* ══ AURORA BLOBS ══ */
+.aurora{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.blob{position:absolute;border-radius:50%;filter:blur(100px);opacity:.13;animation:blobFloat 12s ease-in-out infinite}
+.blob1{width:650px;height:650px;background:var(--blue);top:-200px;right:-150px;animation-delay:0s}
+.blob2{width:500px;height:500px;background:var(--red);bottom:-150px;left:-150px;animation-delay:-6s}
+.blob3{width:400px;height:400px;background:#8b5cf6;top:30%;left:30%;animation-delay:-3s}
+@keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(50px,-40px) scale(1.07)}66%{transform:translate(-35px,35px) scale(.93)}}
+
+/* ══ BACK TO TOP ══ */
+.back-top{position:fixed;bottom:2rem;right:2rem;z-index:300;width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue-light));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(20px);transition:all .3s ease;box-shadow:0 4px 20px rgba(29,78,216,.4)}
+.back-top.visible{opacity:1;transform:translateY(0)}
+.back-top:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(29,78,216,.55)}
+.back-top svg{width:18px;height:18px;stroke:#fff;stroke-width:2.5;fill:none}
+
+/* ══ GABON FLAG (correct colors) ══ */
+.flag-seg.g{background:#009e60}
+.flag-seg.y{background:#f7d117}
+.flag-seg.b{background:#003082}
+
+/* ══ ENHANCED HERO ══ */
+.hero-card{box-shadow:var(--shadow-lg),0 0 80px rgba(29,78,216,.12)}
+.hero-card-header{background:linear-gradient(135deg,var(--blue-dark),var(--blue),#4f46e5)}
+
+/* ══ ACTIVE NAV LINK ══ */
+.nav-links a.active{color:var(--blue);font-weight:700}
+
+/* ══ ENHANCED PROJECT CARDS ══ */
+.proj-card:hover{box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 40px rgba(29,78,216,.08)}
+
+/* ══ SKILL CARD GLOW ON HOVER ══ */
+.skill-card:hover{box-shadow:0 8px 32px rgba(29,78,216,.12),0 4px 12px rgba(0,0,0,.06)}
+
+/* ══ CERTS RIGHT COLUMN ══ */
+.exp-right-title{font-size:.8rem;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1.5rem;font-family:var(--mono)}
+.lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1rem}
+.lang-item{background:var(--off);border:1px solid var(--gray-100);border-radius:var(--r);padding:1rem;transition:.2s;text-align:center}
+.lang-item:hover{border-color:var(--blue-200);transform:translateY(-2px)}
+.lang-flag{font-size:1.5rem;margin-bottom:.3rem}
+.lang-name{font-size:.82rem;font-weight:700;color:var(--gray-800)}
+.lang-level{font-size:.7rem;color:var(--gray-400);font-family:var(--mono)}
+.tools-list{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1rem}
+.tool-tag{font-family:var(--mono);font-size:.7rem;padding:.3rem .7rem;border-radius:6px;background:var(--white);border:1px solid var(--gray-200);color:var(--gray-600);transition:.15s;cursor:default}
+.tool-tag:hover{border-color:var(--blue-200);color:var(--blue);background:var(--blue-50);transform:scale(1.05)}
 </style>
 </head>
 <body>
+<div id="scrollProgress"></div>
 
 <!-- ══ NAV ══ -->
 <nav id="navbar">
@@ -500,10 +570,26 @@ footer{
     <a href="#contact">Contact</a>
   </div>
   <a href="assets/CV SEAN THOMAS EKANG NSOLEY.pdf" download class="nav-cta">Télécharger CV</a>
+  <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-overlay" id="mobileNav" role="navigation" aria-label="Menu mobile">
+  <a href="#about" onclick="closeMobileNav()">À propos</a>
+  <a href="#skills" onclick="closeMobileNav()">Compétences</a>
+  <a href="#projects" onclick="closeMobileNav()">Projets</a>
+  <a href="#experience" onclick="closeMobileNav()">Parcours</a>
+  <a href="#contact" onclick="closeMobileNav()">Contact</a>
+  <a href="assets/CV SEAN THOMAS EKANG NSOLEY.pdf" download class="mob-cv" onclick="closeMobileNav()">Télécharger CV</a>
+</div>
 
 <!-- ══ HERO ══ -->
 <section class="hero" id="home">
+  <div class="aurora">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
   <div class="hero-grid-bg"></div>
   <div class="hero-inner">
     <div class="hero-text">
@@ -758,7 +844,7 @@ footer{
     <div class="reveal">
       <span class="sec-eyebrow">05 — Projets</span>
       <h2 class="sec-title">Mes réalisations</h2>
-      <p class="sec-sub">Trois applications fullstack développées de bout en bout.</p>
+      <p class="sec-sub">Cinq applications développées de bout en bout — fullstack, billetterie, catalogue, aquapark et vlogging.</p>
     </div>
     <div class="projects-grid">
 
@@ -860,7 +946,7 @@ pour accéder aux stades.
           </div>
         </div>
       </div>
-       <!-- TSUNAMI-->
+      <!-- TSUNAMI-->
       <div class="proj-card proj-blue reveal reveal-delay-1">
         <div class="proj-banner" style="background:linear-gradient(135deg,#1e3a8a,#1d4ed8)">
           <svg class="banner-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -891,7 +977,7 @@ Toboggans géants, bassins cristallins, espace enfants sécurisé, restauration 
           <span class="proj-banner-label" style="background:rgba(212,160,23,.8);color:#0a4a2e;font-weight:800">Vlogging · Gabon</span>
         </div>
         <div class="proj-body">
-          <div class="proj-number">04 / 05</div>
+          <div class="proj-number">05 / 05</div>
           <div class="proj-title">WA NGAN — Plateforme de Vlogging Gabonaise</div>
           <div class="proj-desc">Plateforme de vlogging à l'identité 100% gabonaise. Chaque utilisateur crée son profil, raconte son histoire, publie ses vlogs, inspire sa communauté et exporte son contenu en PDF ou JSON.</div>
           <div class="proj-tags">
@@ -967,6 +1053,78 @@ Toboggans géants, bassins cristallins, espace enfants sécurisé, restauration 
           </div>
         </div>
       </div>
+      <!-- RIGHT COLUMN -->
+      <div class="reveal reveal-delay-2">
+        <h3 class="exp-right-title">Certifications &amp; Formation</h3>
+        <div class="certs-row">
+          <div class="cert-item">
+            <div class="cert-icon" style="background:var(--blue-50);border:1px solid var(--blue-100)">
+              <svg viewBox="0 0 24 24" style="stroke:var(--blue)"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+            </div>
+            <div>
+              <div class="cert-name">Cisco — Networking Basics</div>
+              <div class="cert-status">En cours · 2025</div>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-icon" style="background:var(--blue-50);border:1px solid var(--blue-100)">
+              <svg viewBox="0 0 24 24" style="stroke:var(--blue)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <div class="cert-name">OWASP Top 10</div>
+              <div class="cert-status">Sécurité applicative</div>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-icon" style="background:var(--red-50);border:1px solid var(--red-100)">
+              <svg viewBox="0 0 24 24" style="stroke:var(--red)"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div>
+              <div class="cert-name">Linux Essentials</div>
+              <div class="cert-status">Ubuntu · CentOS · Bash</div>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-icon" style="background:var(--gray-100)">
+              <svg viewBox="0 0 24 24" style="stroke:var(--gray-600)"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <div>
+              <div class="cert-name">JavaScript / Node.js</div>
+              <div class="cert-status">Autodidacte · 3 ans</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="exp-right-title" style="margin-top:2rem">Langues</h3>
+        <div class="lang-grid">
+          <div class="lang-item">
+            <div class="lang-flag">🇫🇷</div>
+            <div class="lang-name">Français</div>
+            <div class="lang-level">Natif</div>
+          </div>
+          <div class="lang-item">
+            <div class="lang-flag">🇬🇧</div>
+            <div class="lang-name">Anglais</div>
+            <div class="lang-level">Intermédiaire</div>
+          </div>
+        </div>
+
+        <h3 class="exp-right-title" style="margin-top:2rem">Outils &amp; Environnements</h3>
+        <div class="tools-list">
+          <span class="tool-tag">VS Code</span>
+          <span class="tool-tag">Git</span>
+          <span class="tool-tag">GitHub</span>
+          <span class="tool-tag">Postman</span>
+          <span class="tool-tag">MongoDB Atlas</span>
+          <span class="tool-tag">Docker</span>
+          <span class="tool-tag">Vercel</span>
+          <span class="tool-tag">Netlify</span>
+          <span class="tool-tag">Figma</span>
+          <span class="tool-tag">Linux CLI</span>
+          <span class="tool-tag">Cisco Packet Tracer</span>
+          <span class="tool-tag">Wireshark</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1038,6 +1196,11 @@ Toboggans géants, bassins cristallins, espace enfants sécurisé, restauration 
   </div>
 </section>
 
+<!-- ══ BACK TO TOP ══ -->
+<button class="back-top" id="backTop" aria-label="Retour en haut" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
 <!-- ══ FOOTER ══ -->
 <footer>
   <div class="footer-inner">
@@ -1052,29 +1215,71 @@ Toboggans géants, bassins cristallins, espace enfants sécurisé, restauration 
 </footer>
 
 <script>
-/* Scroll reveal */
+/* ── Scroll reveal ── */
 const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')}),{threshold:.1});
 document.querySelectorAll('.reveal').forEach(e=>obs.observe(e));
 
-/* Nav scroll */
-window.addEventListener('scroll',()=>{
-  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);
-});
+/* ── Scroll progress bar ── */
+const progressBar=document.getElementById('scrollProgress');
+function updateProgress(){
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  progressBar.style.width=(h>0?window.scrollY/h*100:0)+'%';
+}
+window.addEventListener('scroll',updateProgress,{passive:true});
 
-/* Form */
+/* ── Nav scroll shadow + back-to-top ── */
+const navbar=document.getElementById('navbar');
+const backTop=document.getElementById('backTop');
+window.addEventListener('scroll',()=>{
+  navbar.classList.toggle('scrolled',window.scrollY>40);
+  backTop.classList.toggle('visible',window.scrollY>400);
+},{passive:true});
+
+/* ── Active nav links on scroll ── */
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+const observer2=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      navLinks.forEach(a=>a.classList.remove('active'));
+      const active=document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+      if(active)active.classList.add('active');
+    }
+  });
+},{threshold:.4});
+sections.forEach(s=>observer2.observe(s));
+
+/* ── Hamburger mobile menu ── */
+const hamburger=document.getElementById('hamburger');
+const mobileNav=document.getElementById('mobileNav');
+hamburger.addEventListener('click',()=>{
+  const isOpen=mobileNav.classList.toggle('open');
+  hamburger.classList.toggle('open',isOpen);
+  hamburger.setAttribute('aria-expanded',isOpen);
+  document.body.style.overflow=isOpen?'hidden':'';
+});
+function closeMobileNav(){
+  mobileNav.classList.remove('open');
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded','false');
+  document.body.style.overflow='';
+}
+/* Close on ESC */
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMobileNav()});
+
+/* ── Contact form ── */
 function handleForm(){
-  const nom = document.querySelector('input[placeholder="Votre nom"]').value;
-  const email = document.querySelector('input[placeholder="votre@email.com"]').value;
-  const sujet = document.querySelector('input[placeholder="Projet, opportunité, question…"]').value;
-  const message = document.querySelector('textarea[placeholder="Décrivez votre projet ou question…"]').value;
-  
-  const subject = encodeURIComponent(sujet || 'Nouveau message depuis le portfolio');
-  const body = encodeURIComponent(`Nom: ${nom}\nEmail: ${email}\n\nMessage:\n${message}`);
-  
-  window.location.href = `mailto:nsoleypro20@gmail.com?subject=${subject}&body=${body}`;
+  const nom=document.querySelector('input[placeholder="Votre nom"]').value.trim();
+  const email=document.querySelector('input[placeholder="votre@email.com"]').value.trim();
+  const sujet=document.querySelector('input[placeholder="Projet, opportunité, question…"]').value.trim();
+  const message=document.querySelector('textarea').value.trim();
+  if(!nom||!email||!message){alert('Merci de remplir les champs obligatoires.');return;}
+  const subject=encodeURIComponent(sujet||'Nouveau message depuis le portfolio');
+  const body=encodeURIComponent(`Nom: ${nom}\nEmail: ${email}\n\nMessage:\n${message}`);
+  window.location.href=`mailto:nsoleypro20@gmail.com?subject=${subject}&body=${body}`;
 }
 
-/* Skill bars animate on hero visible */
+/* ── Skill bars animate ── */
 setTimeout(()=>{
   document.querySelectorAll('.skill-fill').forEach(el=>{
     const w=el.style.width;el.style.width='0';
