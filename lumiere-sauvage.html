@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Lumière Sauvage — Thomas EKANG NSOLEY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0f;
+  --bg2:#111118;
+  --bg3:#16161e;
+  --white:#faf9f7;
+  --gold:#c9a84c;
+  --gold2:#e8c97a;
+  --muted:rgba(250,249,247,.45);
+  --muted2:rgba(250,249,247,.22);
+  --border:rgba(250,249,247,.08);
+  --border2:rgba(250,249,247,.15);
+  --font:'Outfit',sans-serif;
+  --serif:'Cormorant Garamond',serif;
+  --mono:'DM Mono',monospace;
+  --r:12px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font);background:var(--bg);color:var(--white);overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+#cur{position:fixed;width:40px;height:40px;border:1px solid rgba(201,168,76,.5);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s var(--spring),height .3s var(--spring),background .2s;will-change:transform}
+#cur-dot{position:fixed;width:4px;height:4px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);will-change:transform}
+#cur.big{width:70px;height:70px;background:rgba(201,168,76,.05)}
+@media(hover:none),(max-width:768px){#cur,#cur-dot{display:none}body{cursor:auto}}
+
+/* SCROLL PROGRESS */
+#prog{position:fixed;top:0;left:0;height:1px;background:linear-gradient(90deg,var(--gold),var(--gold2));z-index:500;pointer-events:none;width:0%}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1.5rem 5%;display:flex;align-items:center;justify-content:space-between;transition:background .4s,border-color .4s}
+nav.scrolled{background:rgba(10,10,15,.85);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--serif);font-size:1.05rem;font-style:italic;font-weight:300;color:var(--white);text-decoration:none;letter-spacing:.04em}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:2rem}
+.nav-links a{font-size:.72rem;font-weight:500;color:var(--muted);text-decoration:none;letter-spacing:.12em;text-transform:uppercase;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .25s var(--ease)}
+.nav-links a:hover{color:var(--white)}
+.nav-links a:hover::after{width:100%}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.4rem}
+.hamburger span{display:block;width:20px;height:1px;background:var(--white);border-radius:1px;transition:.3s var(--spring)}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mob-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:199;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mob-menu.open{display:flex}
+.mob-menu a{font-family:var(--serif);font-size:2rem;font-style:italic;color:var(--white);text-decoration:none;letter-spacing:.04em}
+.mob-menu a:hover{color:var(--gold)}
+@media(max-width:768px){.hamburger{display:flex}.nav-links{display:none}}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:flex-end;justify-content:flex-start;padding:0 5% 5rem;position:relative;overflow:hidden}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 60% 30%,rgba(12,30,60,.8) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 50% at 20% 80%,rgba(201,168,76,.12) 0%,transparent 60%),
+    linear-gradient(180deg,rgba(10,10,15,.3) 0%,rgba(10,10,15,.7) 100%);
+}
+/* Sky gradient simulation */
+.sky-sim{
+  position:absolute;inset:0;z-index:0;
+  background:
+    linear-gradient(160deg,
+      #0b1a3d 0%,
+      #1a3060 15%,
+      #2e5c8a 30%,
+      #e8834a 52%,
+      #d45e2a 62%,
+      #8b2a1a 72%,
+      #3a1010 85%,
+      #0a0a0f 100%
+    );
+  opacity:.9;
+}
+/* Sun circle */
+.sun{
+  position:absolute;left:62%;top:38%;width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,#fff9e8 0%,#ffd166 30%,#ff8c42 60%,transparent 80%);
+  opacity:.85;
+  box-shadow:0 0 120px 60px rgba(255,160,60,.35),0 0 40px 20px rgba(255,220,100,.5);
+  z-index:1;
+  animation:sunPulse 6s ease-in-out infinite;
+}
+@keyframes sunPulse{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+/* Cloud silhouettes */
+.clouds{position:absolute;top:25%;left:0;right:0;z-index:2;height:200px;pointer-events:none}
+.cloud{position:absolute;border-radius:100px;opacity:.18;background:#c9e4ff}
+.c1{width:280px;height:40px;top:0;left:8%;animation:drift1 20s ease-in-out infinite}
+.c2{width:200px;height:30px;top:30px;left:30%;opacity:.12;animation:drift2 28s ease-in-out infinite}
+.c3{width:350px;height:50px;top:60px;right:5%;opacity:.1;animation:drift1 35s ease-in-out infinite reverse}
+.c4{width:160px;height:25px;top:10px;right:20%;opacity:.08;animation:drift2 25s ease-in-out infinite}
+@keyframes drift1{0%,100%{transform:translateX(0)}50%{transform:translateX(30px)}}
+@keyframes drift2{0%,100%{transform:translateX(0)}50%{transform:translateX(-20px)}}
+/* Sea simulation */
+.sea{position:absolute;bottom:0;left:0;right:0;height:38%;z-index:2;overflow:hidden}
+.sea-bg{position:absolute;inset:0;background:linear-gradient(180deg,#0d2a4a 0%,#071525 60%,#030d18 100%)}
+.sea-reflect{
+  position:absolute;top:0;left:40%;width:22%;height:100%;
+  background:linear-gradient(180deg,rgba(255,160,60,.22) 0%,rgba(255,120,30,.1) 40%,transparent 70%);
+  border-radius:0 0 50% 50%;
+  animation:reflectWave 4s ease-in-out infinite;
+}
+@keyframes reflectWave{0%,100%{transform:scaleX(1);opacity:.8}50%{transform:scaleX(1.15);opacity:1}}
+.wave{position:absolute;left:0;right:0;height:4px;border-radius:50%;opacity:.15;background:rgba(200,225,255,.6)}
+.w1{bottom:60%;animation:waveA 8s linear infinite}
+.w2{bottom:55%;animation:waveA 11s linear infinite .5s;opacity:.1}
+.w3{bottom:50%;animation:waveB 9s linear infinite 1s}
+.w4{bottom:45%;animation:waveA 13s linear infinite 2s;opacity:.08}
+@keyframes waveA{0%{transform:translateX(-100%) scaleY(1)}100%{transform:translateX(100%) scaleY(1.2)}}
+@keyframes waveB{0%{transform:translateX(50%) scaleY(1)}100%{transform:translateX(-100%) scaleY(0.8)}}
+/* Horizon land silhouette */
+.horizon{
+  position:absolute;bottom:38%;left:0;right:0;height:60px;z-index:3;
+  background:linear-gradient(180deg,#0a1a0a 0%,#050f05 100%);
+  clip-path:polygon(0 100%, 0 60%, 5% 55%, 8% 30%, 11% 52%, 15% 48%, 20% 62%, 25% 40%, 30% 58%, 38% 55%, 42% 35%, 47% 52%, 55% 45%, 60% 60%, 65% 48%, 70% 55%, 78% 38%, 85% 52%, 90% 45%, 95% 58%, 100% 50%, 100% 100%);
+}
+/* Stars */
+.stars{position:absolute;top:0;left:0;right:0;height:40%;z-index:1;pointer-events:none}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle 3s ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:.2}50%{opacity:.8}}
+
+/* Hero content */
+.hero-content{position:relative;z-index:10;max-width:800px}
+.hero-eyebrow{font-family:var(--mono);font-size:.62rem;color:var(--gold);letter-spacing:.25em;text-transform:uppercase;margin-bottom:1.2rem;opacity:0;animation:fadeUp .7s .3s var(--ease) forwards}
+.hero-title{font-family:var(--serif);font-size:clamp(3.5rem,7vw,6.5rem);font-weight:300;line-height:.92;letter-spacing:-.02em;margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .5s var(--ease) forwards}
+.hero-title em{display:block;font-style:italic;color:var(--gold)}
+.hero-desc{font-size:.88rem;color:var(--muted);line-height:1.9;max-width:400px;margin-bottom:2.5rem;opacity:0;animation:fadeUp .7s .7s var(--ease) forwards}
+.hero-ctas{display:flex;gap:1rem;opacity:0;animation:fadeUp .7s .9s var(--ease) forwards}
+.btn-g{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.72rem 1.8rem;background:var(--gold);border-radius:8px;
+  font-size:.78rem;font-weight:600;color:#0a0a0f;text-decoration:none;
+  transition:.3s var(--spring);letter-spacing:.02em;
+}
+.btn-g:hover{background:var(--gold2);transform:translateY(-3px);box-shadow:0 12px 30px rgba(201,168,76,.3)}
+.btn-o{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.72rem 1.5rem;border:1px solid var(--border2);border-radius:8px;
+  font-size:.78rem;font-weight:500;color:var(--white);text-decoration:none;
+  transition:.3s var(--spring);
+}
+.btn-o:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+/* Scroll indicator */
+.scroll-hint{
+  position:absolute;bottom:2rem;right:5%;z-index:10;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  opacity:0;animation:fadeUp 1s 1.2s var(--ease) forwards;
+}
+.sh-line{width:1px;height:50px;background:linear-gradient(to bottom,transparent,var(--gold));animation:shLine 2s ease-in-out infinite}
+.sh-text{font-family:var(--mono);font-size:.58rem;color:var(--muted);letter-spacing:.2em;writing-mode:vertical-rl;text-transform:uppercase}
+@keyframes shLine{0%,100%{height:50px;opacity:.6}50%{height:70px;opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTION COMMONS */
+section{padding:6rem 5%;position:relative}
+.sec-inner{max-width:1200px;margin:0 auto}
+.sec-chip{
+  display:inline-block;font-family:var(--mono);font-size:.6rem;
+  color:var(--gold);letter-spacing:.2em;text-transform:uppercase;
+  border-bottom:1px solid rgba(201,168,76,.3);padding-bottom:.25rem;
+  margin-bottom:1rem;
+}
+.sec-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:300;letter-spacing:-.02em;line-height:1.08;color:var(--white);margin-bottom:.8rem}
+.sec-title em{font-style:italic;color:var(--gold)}
+.sec-sub{font-size:.85rem;color:var(--muted);line-height:1.9;max-width:500px}
+
+/* DIVIDER */
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:0}
+
+/* ══ SECTION: COLLECTIONS (Masonry gallery) ══ */
+#collections{background:var(--bg2)}
+.filter-bar{display:flex;gap:.5rem;flex-wrap:wrap;margin:2.5rem 0 2rem}
+.filt{
+  padding:.35rem .95rem;border:1px solid var(--border);border-radius:100px;
+  font-size:.7rem;font-weight:500;color:var(--muted);background:transparent;
+  cursor:pointer;transition:.2s var(--spring);letter-spacing:.04em;
+}
+.filt.active,.filt:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.06)}
+.gallery-grid{
+  columns:3;column-gap:1rem;
+}
+@media(max-width:768px){.gallery-grid{columns:2}}
+@media(max-width:480px){.gallery-grid{columns:1}}
+.photo-card{
+  break-inside:avoid;margin-bottom:1rem;
+  position:relative;overflow:hidden;border-radius:var(--r);
+  cursor:pointer;
+  border:1px solid var(--border);
+}
+.photo-card:hover .pc-overlay{opacity:1}
+.photo-card:hover .pc-img{transform:scale(1.04)}
+.pc-img{
+  width:100%;display:block;
+  transition:transform .7s var(--ease);
+  object-fit:cover;
+}
+/* Simulated photo using CSS gradients */
+.photo-sim{width:100%;display:block;transition:transform .7s var(--ease)}
+.pc-overlay{
+  position:absolute;inset:0;background:rgba(10,10,15,.6);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:1.2rem;
+  opacity:0;transition:opacity .35s var(--ease);
+}
+.pc-label{font-size:.72rem;font-weight:600;color:var(--white);margin-bottom:.2rem}
+.pc-meta{font-family:var(--mono);font-size:.6rem;color:var(--gold);letter-spacing:.08em}
+.pc-tag{
+  position:absolute;top:.7rem;right:.7rem;
+  font-family:var(--mono);font-size:.58rem;color:var(--gold);
+  background:rgba(10,10,15,.75);border:1px solid rgba(201,168,76,.3);
+  border-radius:100px;padding:.18rem .55rem;letter-spacing:.08em;
+  backdrop-filter:blur(8px);
+}
+
+/* ══ SECTION: FEATURED ══ */
+#featured{background:var(--bg)}
+.feat-wrap{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:4rem}
+@media(max-width:768px){.feat-wrap{grid-template-columns:1fr;gap:3rem}}
+.feat-frame{
+  position:relative;border-radius:16px;overflow:hidden;
+  border:1px solid var(--border);
+  aspect-ratio:3/4;
+}
+.feat-photo{width:100%;height:100%;display:block}
+.feat-badge{
+  position:absolute;top:1.2rem;left:1.2rem;
+  background:rgba(10,10,15,.8);border:1px solid rgba(201,168,76,.35);
+  border-radius:8px;padding:.55rem .85rem;backdrop-filter:blur(12px);
+}
+.feat-badge-num{font-family:var(--serif);font-size:1.6rem;font-weight:300;color:var(--gold);line-height:1}
+.feat-badge-lbl{font-family:var(--mono);font-size:.58rem;color:var(--muted);letter-spacing:.08em}
+.feat-exif{
+  position:absolute;bottom:1.2rem;left:1.2rem;right:1.2rem;
+  background:rgba(10,10,15,.75);border:1px solid var(--border2);
+  border-radius:8px;padding:.75rem 1rem;backdrop-filter:blur(12px);
+  display:flex;gap:1.5rem;flex-wrap:wrap;
+}
+.feat-exif-item{font-family:var(--mono);font-size:.6rem;color:var(--muted)}
+.feat-exif-item strong{display:block;color:var(--white);font-size:.7rem;margin-bottom:.1rem}
+.feat-txt .sec-chip{margin-bottom:1.2rem}
+.feat-txt blockquote{
+  font-family:var(--serif);font-size:1.45rem;font-style:italic;
+  font-weight:300;color:var(--white);line-height:1.5;
+  border-left:2px solid var(--gold);padding-left:1.5rem;margin:1.5rem 0;
+  letter-spacing:-.01em;
+}
+.feat-txt p{font-size:.87rem;color:var(--muted);line-height:1.9;margin-bottom:1rem}
+.feat-stats{display:flex;gap:2rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.fst{text-align:center}
+.fst-num{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--gold)}
+.fst-lbl{font-size:.67rem;font-family:var(--mono);color:var(--muted);letter-spacing:.06em}
+
+/* ══ SECTION: MOMENTS ══ */
+#moments{background:var(--bg2)}
+.moments-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;flex-wrap:wrap;gap:1rem}
+.moments-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+@media(max-width:900px){.moments-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.moments-grid{grid-template-columns:1fr}}
+.moment-c{
+  border-radius:var(--r);overflow:hidden;position:relative;
+  border:1px solid var(--border);cursor:pointer;
+  transition:border-color .3s,transform .35s var(--spring);
+}
+.moment-c:hover{border-color:var(--gold);transform:translateY(-4px)}
+.moment-c:first-child,.moment-c:nth-child(5){grid-column:span 2}
+@media(max-width:480px){.moment-c:first-child,.moment-c:nth-child(5){grid-column:span 1}}
+.moment-inner{position:relative;aspect-ratio:1}
+.moment-c:first-child .moment-inner,.moment-c:nth-child(5) .moment-inner{aspect-ratio:2/1}
+.moment-vis{width:100%;height:100%;display:block}
+.moment-cap{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:.85rem;
+  background:linear-gradient(0deg,rgba(10,10,15,.85) 0%,transparent 50%);
+  opacity:0;transition:opacity .3s var(--ease);
+}
+.moment-c:hover .moment-cap{opacity:1}
+.moment-cap h4{font-family:var(--serif);font-size:1rem;font-style:italic;color:var(--white);margin-bottom:.2rem}
+.moment-cap span{font-family:var(--mono);font-size:.58rem;color:var(--gold);letter-spacing:.1em}
+
+/* ══ SECTION: ABOUT (Photographe) ══ */
+#a-propos{background:var(--bg)}
+.ap-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-top:4rem}
+@media(max-width:768px){.ap-grid{grid-template-columns:1fr;gap:3rem}}
+.ap-portrait{
+  position:relative;border-radius:16px;overflow:hidden;
+  border:1px solid var(--border);aspect-ratio:4/5;
+}
+.ap-portrait-vis{width:100%;height:100%;display:block}
+.ap-portrait-badge{
+  position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;
+  background:rgba(10,10,15,.82);border:1px solid var(--border2);
+  border-radius:10px;padding:1rem 1.2rem;backdrop-filter:blur(16px);
+}
+.ap-portrait-badge h4{font-family:var(--serif);font-size:1.1rem;font-style:italic;color:var(--white);margin-bottom:.3rem}
+.ap-portrait-badge p{font-size:.72rem;color:var(--muted);line-height:1.6}
+.ap-txt p{font-size:.88rem;color:var(--muted);line-height:1.9;margin-bottom:1.2rem}
+.ap-txt strong{color:var(--gold)}
+.gear-list{list-style:none;margin-top:2rem;display:flex;flex-direction:column;gap:.5rem}
+.gear-item{
+  display:flex;align-items:center;gap:.85rem;
+  padding:.75rem;background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r);transition:.2s var(--spring);
+}
+.gear-item:hover{border-color:rgba(201,168,76,.3);transform:translateX(5px)}
+.gear-icon{width:28px;height:28px;border-radius:6px;background:rgba(201,168,76,.12);display:flex;align-items:center;justify-content:center;font-size:.75rem}
+.gear-name{font-size:.78rem;font-weight:500;color:var(--white)}
+.gear-type{font-family:var(--mono);font-size:.62rem;color:var(--muted);display:block;margin-top:.1rem}
+
+/* ══ SECTION: CONTACT ══ */
+#contact{background:var(--bg2)}
+.contact-wrap{
+  margin-top:3rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;
+  align-items:start;
+}
+@media(max-width:768px){.contact-wrap{grid-template-columns:1fr}}
+.contact-txt p{font-size:.88rem;color:var(--muted);line-height:1.9;margin-bottom:1.5rem}
+.social-links{display:flex;flex-direction:column;gap:.5rem}
+.sl{
+  display:flex;align-items:center;gap:.75rem;padding:.7rem .9rem;
+  background:rgba(250,249,247,.03);border:1px solid var(--border);
+  border-radius:var(--r);text-decoration:none;color:var(--white);
+  transition:.2s var(--spring);font-size:.8rem;
+}
+.sl:hover{border-color:rgba(201,168,76,.3);transform:translateX(5px);color:var(--gold)}
+.sl-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;background:rgba(201,168,76,.1);font-size:.8rem;flex-shrink:0}
+.contact-form-wrap{background:rgba(250,249,247,.03);border:1px solid var(--border);border-radius:14px;padding:1.8rem}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem}
+.cf-group{margin-bottom:.8rem}
+.cf-label{display:block;font-family:var(--mono);font-size:.62rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem}
+.cf-in{
+  width:100%;padding:.65rem .9rem;background:rgba(250,249,247,.04);
+  border:1px solid var(--border);border-radius:8px;font-size:.82rem;
+  color:var(--white);font-family:var(--font);outline:none;transition:.2s;
+}
+.cf-in::placeholder{color:var(--muted2)}
+.cf-in:focus{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.04)}
+.cf-ta{min-height:100px;resize:vertical}
+.btn-send{
+  width:100%;padding:.82rem;background:var(--gold);border:none;
+  border-radius:9px;font-family:var(--font);font-size:.85rem;font-weight:600;
+  color:#0a0a0f;cursor:pointer;transition:.3s var(--spring);letter-spacing:.02em;
+}
+.btn-send:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.3)}
+
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5%}
+.footer-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.foot-logo{font-family:var(--serif);font-size:.95rem;font-style:italic;color:var(--white)}
+.foot-logo span{color:var(--gold)}
+.foot-copy{font-family:var(--mono);font-size:.62rem;color:var(--muted2)}
+.foot-back{
+  font-family:var(--mono);font-size:.62rem;color:var(--gold);text-decoration:none;
+  border:1px solid rgba(201,168,76,.3);border-radius:100px;padding:.28rem .75rem;
+  transition:.2s var(--spring);letter-spacing:.06em;
+}
+.foot-back:hover{background:rgba(201,168,76,.08);transform:translateY(-2px)}
+
+/* BACK TO TOP */
+.btt{
+  position:fixed;bottom:2rem;right:2rem;z-index:300;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--bg3);border:1px solid var(--border2);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:translateY(20px);transition:.35s var(--spring);
+  font-size:.8rem;color:var(--gold);
+}
+.btt.show{opacity:1;transform:translateY(0)}
+.btt:hover{background:var(--gold);color:#0a0a0f;border-color:var(--gold)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.rd1{transition-delay:.1s}.rd2{transition-delay:.2s}.rd3{transition-delay:.3s}
+
+/* LIGHTBOX */
+#lightbox{
+  position:fixed;inset:0;z-index:800;background:rgba(10,10,15,.96);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:.3s var(--ease);
+}
+#lightbox.open{opacity:1;pointer-events:all}
+#lightbox-inner{position:relative;max-width:800px;width:90%;padding:2rem 0}
+#lightbox-close{
+  position:absolute;top:-3rem;right:0;background:none;border:none;
+  color:var(--muted);cursor:pointer;font-size:1.4rem;
+  transition:color .2s;
+}
+#lightbox-close:hover{color:var(--white)}
+#lightbox-img{width:100%;border-radius:var(--r);border:1px solid var(--border)}
+#lightbox-caption{font-family:var(--serif);font-size:1rem;font-style:italic;color:var(--muted);text-align:center;margin-top:.85rem}
+#lightbox-meta{font-family:var(--mono);font-size:.62rem;color:var(--muted2);text-align:center;margin-top:.3rem;letter-spacing:.08em}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<div id="cur"></div>
+<div id="cur-dot"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo"><span>Lumière</span> Sauvage</a>
+  <div class="nav-links">
+    <a href="#collections">Collections</a>
+    <a href="#featured">La photo</a>
+    <a href="#moments">Moments</a>
+    <a href="#a-propos">Moi</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="hamburger" id="ham"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-menu" id="mob">
+  <a href="#collections" onclick="closeMob()">Collections</a>
+  <a href="#featured" onclick="closeMob()">La photo</a>
+  <a href="#moments" onclick="closeMob()">Moments</a>
+  <a href="#a-propos" onclick="closeMob()">Moi</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="sky-sim"></div>
+  <div class="sun"></div>
+  <div class="clouds">
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+    <div class="cloud c3"></div>
+    <div class="cloud c4"></div>
+  </div>
+  <div class="sea">
+    <div class="sea-bg"></div>
+    <div class="sea-reflect"></div>
+    <div class="wave w1"></div>
+    <div class="wave w2"></div>
+    <div class="wave w3"></div>
+    <div class="wave w4"></div>
+  </div>
+  <div class="horizon"></div>
+  <div id="stars-wrap" class="stars"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Thomas EKANG NSOLEY · Libreville, Gabon</div>
+    <h1 class="hero-title">
+      Capturer<br/>
+      <em>la lumière</em><br/>
+      du monde
+    </h1>
+    <p class="hero-desc">Mer, ciel, soleil, nuages — la nature gabonaise à travers mon objectif. Des instants éphémères rendus éternels.</p>
+    <div class="hero-ctas">
+      <a href="#collections" class="btn-g">Voir les collections</a>
+      <a href="#a-propos" class="btn-o">Mon univers</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="sh-text">Défiler</div>
+    <div class="sh-line"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COLLECTIONS -->
+<section id="collections">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="sec-chip">01 — Collections</span>
+      <h2 class="sec-title">La mer, <em>le ciel,</em> la vie</h2>
+      <p class="sec-sub">Cinq thèmes qui guident mon regard : l'océan, les couchers de soleil, les nuages, la nature et les silhouettes.</p>
+    </div>
+    <div class="filter-bar reveal rd1">
+      <button class="filt active" data-cat="all">Tout voir</button>
+      <button class="filt" data-cat="mer">🌊 Mer</button>
+      <button class="filt" data-cat="ciel">☁️ Ciel & Nuages</button>
+      <button class="filt" data-cat="soleil">🌅 Couchers de soleil</button>
+      <button class="filt" data-cat="nature">🌿 Nature</button>
+    </div>
+    <div class="gallery-grid reveal rd2" id="gallery">
+
+      <!-- Mer 1 — tall -->
+      <div class="photo-card" data-cat="mer" onclick="openLB('Horizon infini','Océan Atlantique · Libreville','f/8 · 1/500s · ISO 200')">
+        <svg class="photo-sim" viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0b1a3d"/><stop offset="40%" stop-color="#1a3060"/><stop offset="70%" stop-color="#2e5c8a"/><stop offset="100%" stop-color="#3a7aaa"/></linearGradient>
+            <linearGradient id="sea1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a4a6a"/><stop offset="100%" stop-color="#071525"/></linearGradient>
+          </defs>
+          <rect width="300" height="280" fill="url(#sky1)"/>
+          <circle cx="220" cy="80" r="35" fill="#fff5cc" opacity=".9"/>
+          <circle cx="220" cy="80" r="50" fill="#ffd166" opacity=".2"/>
+          <ellipse cx="60" cy="60" rx="70" ry="18" fill="#c9e4ff" opacity=".12"/>
+          <ellipse cx="200" cy="110" rx="55" ry="14" fill="#c9e4ff" opacity=".08"/>
+          <rect y="280" width="300" height="140" fill="url(#sea1)"/>
+          <rect y="278" x="30" width="240" height="6" rx="3" fill="#fff" opacity=".06"/>
+          <rect y="295" x="0" width="300" height="4" rx="2" fill="#fff" opacity=".05"/>
+          <!-- sun reflection -->
+          <ellipse cx="220" cy="290" rx="18" ry="80" fill="#ffd166" opacity=".12"/>
+        </svg>
+        <span class="pc-tag">Mer</span>
+        <div class="pc-overlay"><div class="pc-label">Horizon infini</div><div class="pc-meta">Océan Atlantique · f/8</div></div>
+      </div>
+
+      <!-- Soleil 1 — medium -->
+      <div class="photo-card" data-cat="soleil" onclick="openLB('Coucher de feu','Cap Estérias · Gabon','f/5.6 · 1/250s · ISO 100')">
+        <svg class="photo-sim" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sun1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a0a00"/><stop offset="30%" stop-color="#7a2000"/><stop offset="55%" stop-color="#d45e2a"/><stop offset="75%" stop-color="#e8834a"/><stop offset="100%" stop-color="#f5c06a"/></linearGradient>
+            <linearGradient id="sea2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d2540"/><stop offset="100%" stop-color="#030d18"/></linearGradient>
+          </defs>
+          <rect width="300" height="200" fill="url(#sun1)"/>
+          <circle cx="150" cy="95" r="28" fill="#fff5a0" opacity=".95"/>
+          <circle cx="150" cy="95" r="40" fill="#ffd166" opacity=".25"/>
+          <rect y="130" width="300" height="70" fill="url(#sea2)"/>
+          <ellipse cx="150" cy="140" rx="20" ry="60" fill="#ffd166" opacity=".18"/>
+          <rect y="128" x="0" width="300" height="4" rx="2" fill="#7a3000" opacity=".5"/>
+        </svg>
+        <span class="pc-tag">Soleil</span>
+        <div class="pc-overlay"><div class="pc-label">Coucher de feu</div><div class="pc-meta">Cap Estérias · f/5.6</div></div>
+      </div>
+
+      <!-- Nature 1 — medium -->
+      <div class="photo-card" data-cat="nature" onclick="openLB('Forêt équatoriale','Lopé, Gabon','f/4 · 1/60s · ISO 800')">
+        <svg class="photo-sim" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="nat1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a2010"/><stop offset="50%" stop-color="#1a4020"/><stop offset="100%" stop-color="#0d2810"/></linearGradient>
+          </defs>
+          <rect width="300" height="200" fill="url(#nat1)"/>
+          <!-- Light rays -->
+          <line x1="150" y1="0" x2="80" y2="200" stroke="#fff9cc" stroke-width="18" opacity=".08"/>
+          <line x1="180" y1="0" x2="200" y2="200" stroke="#fff9cc" stroke-width="12" opacity=".06"/>
+          <line x1="120" y1="0" x2="50" y2="200" stroke="#fff9cc" stroke-width="8" opacity=".05"/>
+          <!-- Tree trunks -->
+          <rect x="20" y="60" width="12" height="140" fill="#0a1a08" opacity=".8"/>
+          <rect x="60" y="80" width="9" height="120" fill="#0a1a08" opacity=".7"/>
+          <rect x="250" y="50" width="14" height="150" fill="#0a1a08" opacity=".8"/>
+          <rect x="210" y="90" width="8" height="110" fill="#0a1a08" opacity=".6"/>
+          <!-- Canopy -->
+          <ellipse cx="26" cy="65" rx="45" ry="30" fill="#1a5020" opacity=".9"/>
+          <ellipse cx="65" cy="85" rx="40" ry="25" fill="#1a4818" opacity=".85"/>
+          <ellipse cx="257" cy="55" rx="50" ry="35" fill="#1a5020" opacity=".9"/>
+          <ellipse cx="150" cy="30" rx="80" ry="40" fill="#143c12" opacity=".7"/>
+          <!-- Ground -->
+          <ellipse cx="150" cy="195" rx="180" ry="20" fill="#0a1a08" opacity=".9"/>
+        </svg>
+        <span class="pc-tag">Nature</span>
+        <div class="pc-overlay"><div class="pc-label">Forêt équatoriale</div><div class="pc-meta">Lopé · f/4</div></div>
+      </div>
+
+      <!-- Ciel 1 — tall -->
+      <div class="photo-card" data-cat="ciel" onclick="openLB('Cumulus dorés','Libreville · 17h30','f/11 · 1/1000s · ISO 100')">
+        <svg class="photo-sim" viewBox="0 0 300 380" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ciel1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a1a40"/><stop offset="50%" stop-color="#1a4080"/><stop offset="80%" stop-color="#2060a0"/><stop offset="100%" stop-color="#5090c0"/></linearGradient>
+          </defs>
+          <rect width="300" height="380" fill="url(#ciel1)"/>
+          <!-- Big cumulus clouds -->
+          <ellipse cx="150" cy="200" rx="110" ry="55" fill="#e8e0d0" opacity=".9"/>
+          <ellipse cx="100" cy="185" rx="70" ry="45" fill="#f0e8da" opacity=".95"/>
+          <ellipse cx="200" cy="195" rx="80" ry="40" fill="#d8d0c0" opacity=".85"/>
+          <ellipse cx="150" cy="170" rx="65" ry="35" fill="#fffff0" opacity=".9"/>
+          <!-- Gold tint on underside -->
+          <ellipse cx="150" cy="248" rx="100" ry="20" fill="#c8a060" opacity=".35"/>
+          <!-- Small cloud -->
+          <ellipse cx="50" cy="120" rx="40" ry="18" fill="#d0c8b8" opacity=".6"/>
+          <ellipse cx="270" cy="90" rx="35" ry="15" fill="#e0d8c8" opacity=".5"/>
+          <!-- Stars/sun peek -->
+          <circle cx="150" cy="30" r="8" fill="#fff8d0" opacity=".7"/>
+        </svg>
+        <span class="pc-tag">Ciel</span>
+        <div class="pc-overlay"><div class="pc-label">Cumulus dorés</div><div class="pc-meta">Libreville · f/11</div></div>
+      </div>
+
+      <!-- Mer 2 -->
+      <div class="photo-card" data-cat="mer" onclick="openLB('Vagues de l\'Atlantique','Plage de Libreville','f/7.1 · 1/800s · ISO 200')">
+        <svg class="photo-sim" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sea3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d3a5c"/><stop offset="50%" stop-color="#0a2840"/><stop offset="100%" stop-color="#051020"/></linearGradient>
+          </defs>
+          <rect width="300" height="200" fill="url(#sea3)"/>
+          <!-- Sky strip -->
+          <rect width="300" height="70" fill="#1a3a5a"/>
+          <rect y="68" width="300" height="3" fill="#0a2030" opacity=".5"/>
+          <!-- Wave forms -->
+          <path d="M0 100 Q50 85 100 100 Q150 115 200 100 Q250 85 300 100 L300 200 L0 200Z" fill="#0a2030" opacity=".8"/>
+          <path d="M0 115 Q75 100 150 115 Q225 130 300 115 L300 200 L0 200Z" fill="#071520" opacity=".9"/>
+          <!-- White foam -->
+          <path d="M0 100 Q50 85 100 100 Q150 115 200 100 Q250 85 300 100" stroke="#fff" stroke-width="2" fill="none" opacity=".4"/>
+          <path d="M0 115 Q75 100 150 115 Q225 130 300 115" stroke="#fff" stroke-width="1.5" fill="none" opacity=".25"/>
+          <!-- Reflection -->
+          <ellipse cx="150" cy="160" rx="60" ry="8" fill="#4a8ab0" opacity=".15"/>
+        </svg>
+        <span class="pc-tag">Mer</span>
+        <div class="pc-overlay"><div class="pc-label">Vagues de l'Atlantique</div><div class="pc-meta">Plage de Libreville · f/7.1</div></div>
+      </div>
+
+      <!-- Soleil 2 — tall -->
+      <div class="photo-card" data-cat="soleil" onclick="openLB('Silhouette au crépuscule','Pointe-Denis · Gabon','f/6.3 · 1/400s · ISO 200')">
+        <svg class="photo-sim" viewBox="0 0 300 360" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="dusk1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a0a20"/><stop offset="20%" stop-color="#1a1040"/><stop offset="45%" stop-color="#5a2010"/><stop offset="65%" stop-color="#c0601a"/><stop offset="80%" stop-color="#e8a040"/><stop offset="100%" stop-color="#f8c060"/></linearGradient>
+            <linearGradient id="sea4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a3040"/><stop offset="100%" stop-color="#050d18"/></linearGradient>
+          </defs>
+          <rect width="300" height="220" fill="url(#dusk1)"/>
+          <circle cx="150" cy="180" r="32" fill="#fff5a0" opacity=".95"/>
+          <circle cx="150" cy="180" r="50" fill="#ffd060" opacity=".2"/>
+          <!-- Human silhouette on shore -->
+          <rect x="138" y="195" width="6" height="30" fill="#0a0a10" opacity=".95"/><!-- body -->
+          <circle cx="141" cy="192" r="5" fill="#0a0a10" opacity=".95"/><!-- head -->
+          <!-- Shore/land silhouette -->
+          <path d="M0 210 Q50 205 100 210 Q120 208 140 210 Q150 207 160 210 Q200 208 250 212 L300 210 L300 230 L0 230Z" fill="#0a0a08"/>
+          <rect y="230" width="300" height="130" fill="url(#sea4)"/>
+          <!-- Reflection column -->
+          <rect x="138" y="230" width="6" height="80" fill="#ffd060" opacity=".12"/>
+          <ellipse cx="150" cy="310" rx="30" ry="6" fill="#ffd060" opacity=".1"/>
+        </svg>
+        <span class="pc-tag">Soleil</span>
+        <div class="pc-overlay"><div class="pc-label">Silhouette au crépuscule</div><div class="pc-meta">Pointe-Denis · f/6.3</div></div>
+      </div>
+
+      <!-- Nature 2 -->
+      <div class="photo-card" data-cat="nature" onclick="openLB('Fougères en rosée','Monts de Cristal · Gabon','f/2.8 · 1/100s · ISO 400')">
+        <svg class="photo-sim" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="nat2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#082008"/><stop offset="100%" stop-color="#0d3010"/></linearGradient>
+          </defs>
+          <rect width="300" height="200" fill="url(#nat2)"/>
+          <!-- Bokeh dots -->
+          <circle cx="40" cy="30" r="18" fill="#90e060" opacity=".08"/>
+          <circle cx="270" cy="50" r="22" fill="#60c030" opacity=".1"/>
+          <circle cx="150" cy="20" r="15" fill="#a0f070" opacity=".07"/>
+          <circle cx="90" cy="60" r="12" fill="#fff" opacity=".06"/>
+          <!-- Main leaf/fern -->
+          <path d="M150 200 Q140 150 100 120 Q80 108 50 100" stroke="#2a8020" stroke-width="2.5" fill="none"/>
+          <path d="M150 200 Q160 145 200 110 Q225 95 260 85" stroke="#2a8020" stroke-width="2" fill="none"/>
+          <!-- Leaflets -->
+          <ellipse cx="110" cy="130" rx="20" ry="8" fill="#2a8020" opacity=".8" transform="rotate(-30,110,130)"/>
+          <ellipse cx="80" cy="115" rx="18" ry="7" fill="#2a9025" opacity=".75" transform="rotate(-40,80,115)"/>
+          <ellipse cx="55" cy="105" rx="15" ry="6" fill="#3aaa30" opacity=".7" transform="rotate(-50,55,105)"/>
+          <ellipse cx="190" cy="120" rx="20" ry="8" fill="#2a8020" opacity=".8" transform="rotate(25,190,120)"/>
+          <ellipse cx="220" cy="100" rx="18" ry="7" fill="#2a9025" opacity=".75" transform="rotate(35,220,100)"/>
+          <!-- Dew drops -->
+          <circle cx="108" cy="126" r="2.5" fill="#aaf0ff" opacity=".8"/>
+          <circle cx="190" cy="118" r="2" fill="#aaf0ff" opacity=".7"/>
+          <circle cx="78" cy="112" r="1.8" fill="#fff" opacity=".6"/>
+        </svg>
+        <span class="pc-tag">Nature</span>
+        <div class="pc-overlay"><div class="pc-label">Fougères en rosée</div><div class="pc-meta">Monts de Cristal · f/2.8</div></div>
+      </div>
+
+      <!-- Ciel 2 — medium -->
+      <div class="photo-card" data-cat="ciel" onclick="openLB('Voûte céleste','Libreville · minuit','f/2.8 · 25s · ISO 3200')">
+        <svg class="photo-sim" viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="milky" cx="50%" cy="45%" r="60%"><stop offset="0%" stop-color="#2a1a50" stop-opacity="0.8"/><stop offset="100%" stop-color="#05030a" stop-opacity="0"/></radialGradient>
+          </defs>
+          <rect width="300" height="180" fill="#05030a"/>
+          <!-- Milky way -->
+          <ellipse cx="150" cy="80" rx="200" ry="30" fill="#2a1850" opacity=".5" transform="rotate(-20,150,80)"/>
+          <rect fill="url(#milky)" width="300" height="180"/>
+          <!-- Stars -->
+          <circle cx="20" cy="15" r="1.2" fill="#fff" opacity=".9"/>
+          <circle cx="55" cy="8" r="1.5" fill="#fff" opacity=".85"/>
+          <circle cx="90" cy="22" r="1" fill="#fff" opacity=".7"/>
+          <circle cx="130" cy="5" r="1.8" fill="#ffe8a0" opacity=".9"/>
+          <circle cx="170" cy="18" r="1.2" fill="#fff" opacity=".8"/>
+          <circle cx="210" cy="7" r="1.5" fill="#fff" opacity=".75"/>
+          <circle cx="250" cy="14" r="1" fill="#fff" opacity=".85"/>
+          <circle cx="285" cy="30" r="1.3" fill="#fff" opacity=".7"/>
+          <circle cx="40" cy="45" r="1" fill="#fff" opacity=".6"/>
+          <circle cx="75" cy="55" r="1.4" fill="#fff" opacity=".75"/>
+          <circle cx="110" cy="40" r="1" fill="#aac0ff" opacity=".8"/>
+          <circle cx="200" cy="50" r="1.2" fill="#fff" opacity=".7"/>
+          <circle cx="240" cy="38" r="1.5" fill="#ffe0a0" opacity=".8"/>
+          <circle cx="265" cy="60" r="1" fill="#fff" opacity=".65"/>
+          <circle cx="10" cy="80" r="1" fill="#fff" opacity=".6"/>
+          <circle cx="300" cy="20" r="1.2" fill="#fff" opacity=".7"/>
+          <!-- Horizon silhouette -->
+          <path d="M0 155 Q30 148 60 152 Q90 148 120 150 Q150 152 180 148 Q210 150 240 147 Q270 150 300 148 L300 180 L0 180Z" fill="#0a0508"/>
+        </svg>
+        <span class="pc-tag">Ciel</span>
+        <div class="pc-overlay"><div class="pc-label">Voûte céleste</div><div class="pc-meta">Libreville · longue expo</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEATURED -->
+<section id="featured">
+  <div class="sec-inner">
+    <div class="feat-wrap">
+      <div class="feat-frame reveal">
+        <svg class="feat-photo" viewBox="0 0 400 530" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
+          <defs>
+            <linearGradient id="feat-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#050810"/><stop offset="25%" stop-color="#0d1a35"/><stop offset="50%" stop-color="#1a3560"/><stop offset="70%" stop-color="#b85020"/><stop offset="82%" stop-color="#e87030"/><stop offset="90%" stop-color="#f0a040"/><stop offset="100%" stop-color="#f8c060"/></linearGradient>
+            <linearGradient id="feat-sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a3550"/><stop offset="100%" stop-color="#050d1a"/></linearGradient>
+          </defs>
+          <rect width="400" height="330" fill="url(#feat-sky)"/>
+          <!-- Sun -->
+          <circle cx="200" cy="290" r="38" fill="#fff5a0" opacity=".95"/>
+          <circle cx="200" cy="290" r="60" fill="#ffd060" opacity=".2"/>
+          <!-- Clouds -->
+          <ellipse cx="80" cy="180" rx="80" ry="22" fill="#e0d0c0" opacity=".3"/>
+          <ellipse cx="320" cy="140" rx="65" ry="18" fill="#e0d0c0" opacity=".25"/>
+          <ellipse cx="50" cy="200" rx="45" ry="14" fill="#d0c0a8" opacity=".2"/>
+          <!-- Stars -->
+          <circle cx="30" cy="30" r="1.5" fill="#fff" opacity=".6"/>
+          <circle cx="80" cy="15" r="1" fill="#fff" opacity=".5"/>
+          <circle cx="350" cy="25" r="1.5" fill="#fff" opacity=".55"/>
+          <circle cx="290" cy="50" r="1" fill="#fff" opacity=".5"/>
+          <!-- Sea -->
+          <rect y="325" width="400" height="205" fill="url(#feat-sea)"/>
+          <!-- Reflection -->
+          <ellipse cx="200" cy="350" rx="30" ry="120" fill="#f0a040" opacity=".15"/>
+          <!-- Wave lines -->
+          <path d="M0 340 Q100 335 200 340 Q300 345 400 340" stroke="#fff" stroke-width="1" fill="none" opacity=".15"/>
+          <path d="M0 360 Q100 355 200 360 Q300 365 400 360" stroke="#fff" stroke-width="1" fill="none" opacity=".1"/>
+          <path d="M0 390 Q100 385 200 390 Q300 395 400 390" stroke="#fff" stroke-width="0.5" fill="none" opacity=".08"/>
+          <!-- Fishing boat silhouette -->
+          <path d="M155 330 L170 325 L185 323 L200 322 L215 323 L230 325 L245 330 L240 335 L160 335Z" fill="#0a0a0f"/>
+          <rect x="192" y="300" width="3" height="23" fill="#0a0a0f"/><!-- mast -->
+        </svg>
+        <div class="feat-badge">
+          <div class="feat-badge-num">Φ</div>
+          <div class="feat-badge-lbl">Photo phare</div>
+        </div>
+        <div class="feat-exif">
+          <div class="feat-exif-item"><strong>f/8</strong>Ouverture</div>
+          <div class="feat-exif-item"><strong>1/500s</strong>Vitesse</div>
+          <div class="feat-exif-item"><strong>ISO 100</strong>Sensibilité</div>
+          <div class="feat-exif-item"><strong>200mm</strong>Focale</div>
+        </div>
+      </div>
+      <div class="feat-txt reveal rd2">
+        <span class="sec-chip">02 — La photo</span>
+        <h2 class="sec-title">L'heure où<br/><em>la mer parle</em></h2>
+        <blockquote>"Le soleil ne se couche jamais vraiment — il attend juste de l'autre côté de l'horizon."</blockquote>
+        <p>La photographie de nature, c'est apprendre à ralentir. À observer la lumière changer d'une minute à l'autre, sentir le vent qui annonce un ciel de traîne, deviner le moment exact où le soleil va toucher la ligne d'eau.</p>
+        <p>Libreville et ses plages m'offrent un terrain de jeu infini : l'Atlantique en constante transformation, les ciels équatoriaux d'une richesse incroyable, et une lumière dorée unique à notre latitude.</p>
+        <div class="feat-stats">
+          <div class="fst"><div class="fst-num">200+</div><div class="fst-lbl">Clichés archivés</div></div>
+          <div class="fst"><div class="fst-num">5</div><div class="fst-lbl">Thèmes</div></div>
+          <div class="fst"><div class="fst-num">3</div><div class="fst-lbl">Années de pratique</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MOMENTS -->
+<section id="moments">
+  <div class="sec-inner">
+    <div class="moments-header">
+      <div>
+        <span class="sec-chip reveal">03 — Moments</span>
+        <h2 class="sec-title reveal rd1">Chaque <em>instant,</em> unique</h2>
+      </div>
+      <p class="sec-sub reveal rd2" style="text-align:right">La nature ne se répète jamais exactement. Ces moments n'existent qu'une seule fois.</p>
+    </div>
+    <div class="moments-grid">
+
+      <!-- Wide 1 -->
+      <div class="moment-c" onclick="openLB('Lever sur l\'Ogooué','Rivière Ogooué · Gabon','f/6.3 · 1/200s · ISO 400')">
+        <div class="moment-inner">
+          <svg class="moment-vis" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <defs>
+              <linearGradient id="m1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a1a30"/><stop offset="45%" stop-color="#d06020"/><stop offset="70%" stop-color="#e89040"/><stop offset="100%" stop-color="#2a4060"/></linearGradient>
+            </defs>
+            <rect width="600" height="200" fill="url(#m1)"/>
+            <circle cx="300" cy="115" r="25" fill="#fff8c0" opacity=".9"/>
+            <ellipse cx="300" cy="145" rx="20" ry="60" fill="#ffd060" opacity=".18"/>
+            <path d="M0 140 Q150 130 300 138 Q450 132 600 136 L600 200 L0 200Z" fill="#071525" opacity=".95"/>
+            <path d="M0 155 Q150 148 300 153 Q450 148 600 152 L600 200 L0 200Z" fill="#040f1a" opacity=".9"/>
+          </svg>
+          <div class="moment-cap"><h4>Lever sur l'Ogooué</h4><span>Rivière Ogooué · 06h12</span></div>
+        </div>
+      </div>
+
+      <!-- Square 1 -->
+      <div class="moment-c" onclick="openLB('Nuages en flammes','Ciel de Libreville','f/9 · 1/1600s · ISO 100')">
+        <div class="moment-inner">
+          <svg class="moment-vis" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <defs>
+              <linearGradient id="m2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d0a20"/><stop offset="30%" stop-color="#3a0a00"/><stop offset="60%" stop-color="#c04010"/><stop offset="80%" stop-color="#e08030"/><stop offset="100%" stop-color="#f0c060"/></linearGradient>
+            </defs>
+            <rect width="300" height="300" fill="url(#m2)"/>
+            <ellipse cx="150" cy="120" rx="120" ry="50" fill="#f0d080" opacity=".25"/>
+            <ellipse cx="80" cy="100" rx="80" ry="35" fill="#ff8040" opacity=".2"/>
+            <ellipse cx="230" cy="130" rx="70" ry="30" fill="#ff6020" opacity=".18"/>
+            <ellipse cx="150" cy="165" rx="90" ry="20" fill="#c05010" opacity=".4"/>
+          </svg>
+          <div class="moment-cap"><h4>Nuages en flammes</h4><span>Libreville · Crépuscule</span></div>
+        </div>
+      </div>
+
+      <!-- Square 2 -->
+      <div class="moment-c" onclick="openLB('Reflet sur l\'eau','Baie de Libreville','f/5.6 · 1/320s · ISO 200')">
+        <div class="moment-inner">
+          <svg class="moment-vis" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <defs>
+              <linearGradient id="m3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a2040"/><stop offset="50%" stop-color="#1a5080"/><stop offset="100%" stop-color="#040d20"/></linearGradient>
+            </defs>
+            <rect y="150" width="300" height="150" fill="url(#m3)"/>
+            <rect y="0" width="300" height="150" fill="#1a4a80"/>
+            <circle cx="150" cy="75" r="22" fill="#fff5c0" opacity=".9"/>
+            <!-- Reflection (upside down) -->
+            <ellipse cx="150" cy="175" rx="18" ry="90" fill="#ffd060" opacity=".15"/>
+            <rect y="148" width="300" height="4" fill="#2a6090" opacity=".6"/>
+            <path d="M0 165 Q75 160 150 165 Q225 170 300 165" stroke="#fff" stroke-width="1" fill="none" opacity=".15"/>
+            <path d="M0 185 Q75 180 150 185 Q225 190 300 185" stroke="#fff" stroke-width="0.8" fill="none" opacity=".1"/>
+          </svg>
+          <div class="moment-cap"><h4>Reflet sur l'eau</h4><span>Baie de Libreville</span></div>
+        </div>
+      </div>
+
+      <!-- Square 3 -->
+      <div class="moment-c" onclick="openLB('Palmiers en contre-jour','Côte Libreville','f/4 · 1/2000s · ISO 100')">
+        <div class="moment-inner">
+          <svg class="moment-vis" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <defs>
+              <linearGradient id="m4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a0505"/><stop offset="40%" stop-color="#3a1505"/><stop offset="70%" stop-color="#c06020"/><stop offset="100%" stop-color="#e8a050"/></linearGradient>
+            </defs>
+            <rect width="300" height="300" fill="url(#m4)"/>
+            <circle cx="150" cy="200" r="45" fill="#fff8a0" opacity=".9"/>
+            <circle cx="150" cy="200" r="75" fill="#ffd060" opacity=".2"/>
+            <!-- Palm tree left -->
+            <rect x="60" y="100" width="7" height="200" fill="#050505"/>
+            <path d="M67 110 Q100 80 130 90 Q110 105 90 115Z" fill="#050505" opacity=".95"/>
+            <path d="M67 130 Q40 90 20 100 Q40 115 60 120Z" fill="#050505" opacity=".9"/>
+            <!-- Palm tree right -->
+            <rect x="230" y="80" width="8" height="220" fill="#050505"/>
+            <path d="M230 95 Q200 65 170 75 Q195 90 215 105Z" fill="#050505" opacity=".95"/>
+            <path d="M238 115 Q270 80 290 90 Q265 108 248 120Z" fill="#050505" opacity=".9"/>
+          </svg>
+          <div class="moment-cap"><h4>Palmiers en contre-jour</h4><span>Côte de Libreville</span></div>
+        </div>
+      </div>
+
+      <!-- Wide 2 -->
+      <div class="moment-c" onclick="openLB('Ciel double','Libreville · après la pluie','f/8 · 1/640s · ISO 100')">
+        <div class="moment-inner">
+          <svg class="moment-vis" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <defs>
+              <linearGradient id="m5" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a1535"/><stop offset="50%" stop-color="#2a5590"/><stop offset="75%" stop-color="#5090c0"/><stop offset="100%" stop-color="#90c0e0"/></linearGradient>
+              <linearGradient id="m5b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#90c0e0"/><stop offset="100%" stop-color="#2a5080"/></linearGradient>
+            </defs>
+            <rect width="600" height="100" fill="url(#m5)"/>
+            <rect y="100" width="600" height="100" fill="url(#m5b)"/>
+            <rect y="98" width="600" height="4" fill="#1a3a60"/>
+            <!-- Big cumulus -->
+            <ellipse cx="200" cy="55" rx="140" ry="50" fill="#e8e0d0" opacity=".85"/>
+            <ellipse cx="150" cy="45" rx="90" ry="40" fill="#f0eae0" opacity=".9"/>
+            <ellipse cx="260" cy="50" rx="100" ry="38" fill="#d8d0c0" opacity=".8"/>
+            <ellipse cx="200" cy="30" rx="80" ry="30" fill="#fff8f0" opacity=".88"/>
+            <!-- Gold underside -->
+            <ellipse cx="200" cy="95" rx="130" ry="15" fill="#c0a060" opacity=".2"/>
+            <!-- Second cloud right -->
+            <ellipse cx="480" cy="40" rx="100" ry="38" fill="#e0d8c8" opacity=".6"/>
+            <ellipse cx="430" cy="35" rx="70" ry="28" fill="#e8e0d0" opacity=".65"/>
+            <!-- Rainbow arc subtle -->
+            <path d="M100 180 Q300 30 500 180" stroke="rgba(255,200,100,0.08)" stroke-width="8" fill="none"/>
+            <path d="M110 180 Q300 40 490 180" stroke="rgba(100,200,255,0.06)" stroke-width="6" fill="none"/>
+          </svg>
+          <div class="moment-cap"><h4>Ciel double</h4><span>Après la pluie · Libreville</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- A PROPOS -->
+<section id="a-propos">
+  <div class="sec-inner">
+    <div class="ap-grid">
+      <div class="ap-portrait reveal">
+        <svg class="ap-portrait-vis" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
+          <defs>
+            <linearGradient id="ap-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a1a10"/><stop offset="60%" stop-color="#0d2515"/><stop offset="100%" stop-color="#05100a"/></linearGradient>
+          </defs>
+          <rect width="400" height="500" fill="url(#ap-bg)"/>
+          <!-- Bokeh -->
+          <circle cx="350" cy="50" r="40" fill="#20a040" opacity=".07"/>
+          <circle cx="50" cy="100" r="30" fill="#30c060" opacity=".05"/>
+          <circle cx="380" cy="300" r="25" fill="#10a030" opacity=".06"/>
+          <!-- Silhouette figure with camera -->
+          <!-- Body -->
+          <ellipse cx="200" cy="280" rx="60" ry="80" fill="#0a1a0a" opacity=".9"/>
+          <!-- Head -->
+          <circle cx="200" cy="185" r="40" fill="#0a1a0a" opacity=".9"/>
+          <!-- Camera shape -->
+          <rect x="170" y="235" width="45" height="32" rx="5" fill="#1a2a1a" opacity=".95"/>
+          <rect x="185" y="228" width="15" height="8" rx="2" fill="#1a2a1a" opacity=".95"/>
+          <circle cx="193" cy="251" r="12" fill="#0d1a0d" stroke="#2a4a2a" stroke-width="1.5"/>
+          <circle cx="193" cy="251" r="7" fill="#050d05"/>
+          <circle cx="193" cy="251" r="3" fill="#0a2a10" opacity=".5"/>
+          <!-- Light leak on camera lens -->
+          <circle cx="193" cy="251" r="2" fill="#c9a84c" opacity=".4"/>
+          <!-- Background nature -->
+          <ellipse cx="100" cy="480" rx="60" ry="120" fill="#153020" opacity=".6"/>
+          <ellipse cx="310" cy="470" rx="55" ry="110" fill="#122a1a" opacity=".5"/>
+          <ellipse cx="200" cy="490" rx="200" ry="40" fill="#0a1a0a"/>
+          <!-- Golden light rim on figure -->
+          <ellipse cx="200" cy="185" rx="40" ry="40" fill="none" stroke="#c9a84c" stroke-width="1" opacity=".25"/>
+        </svg>
+        <div class="ap-portrait-badge">
+          <h4>Thomas, Photographe</h4>
+          <p>Libreville, Gabon · Amateur passionné de lumière naturelle, mer et ciel</p>
+        </div>
+      </div>
+      <div class="reveal rd2">
+        <span class="sec-chip">04 — À propos</span>
+        <h2 class="sec-title">Mon <em>œil,</em> mon monde</h2>
+        <div class="ap-txt">
+          <p>Je m'appelle <strong>Thomas EKANG NSOLEY</strong>. Développeur le jour, photographe dès que le soleil change de couleur. La photographie n'est pas mon métier — c'est ma façon de <strong>ralentir le temps</strong>.</p>
+          <p>L'Atlantique gabonais est mon terrain de prédilection. La mer est vivante, elle change d'humeur, de couleur, de rythme. Filmer le ciel, c'est contempler quelque chose de plus grand que soi — les nuages qui se transforment, la lumière qui joue avec l'eau, le soleil qui peint l'horizon chaque soir différemment.</p>
+          <p>Pas besoin d'équipement professionnel pour <strong>voir</strong>. Ce que je cherche dans chaque photo, c'est un sentiment — cette fraction de seconde où la nature révèle quelque chose d'intime.</p>
+        </div>
+        <ul class="gear-list">
+          <li class="gear-item"><div class="gear-icon">📷</div><div><div class="gear-name">Appareil principal</div><span class="gear-type">DSLR — Résolution naturelle</span></div></li>
+          <li class="gear-item"><div class="gear-icon">🔭</div><div><div class="gear-name">Objectif grand-angle</div><span class="gear-type">Ciel & paysages marins</span></div></li>
+          <li class="gear-item"><div class="gear-icon">🌅</div><div><div class="gear-name">Golden hour</div><span class="gear-type">Heure de prédilection</span></div></li>
+          <li class="gear-item"><div class="gear-icon">🖥️</div><div><div class="gear-name">Lightroom Classic</div><span class="gear-type">Post-traitement & archivage</span></div></li>
+          <li class="gear-item"><div class="gear-icon">🌊</div><div><div class="gear-name">Plages de Libreville</div><span class="gear-type">Terrain de chasse principal</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="sec-chip">05 — Contact</span>
+      <h2 class="sec-title">Un projet, <em>une collaboration</em></h2>
+    </div>
+    <div class="contact-wrap">
+      <div class="reveal">
+        <p class="sec-sub" style="margin-bottom:2rem">Vous souhaitez acquérir une photo, collaborer sur un projet visuel ou simplement échanger sur la photographie de nature ? Je réponds sous 24h.</p>
+        <div class="social-links">
+          <a href="mailto:thomasean2002@gmail.com" class="sl"><div class="sl-icon">✉️</div>thomasean2002@gmail.com</a>
+          <a href="https://www.instagram.com" target="_blank" class="sl"><div class="sl-icon">📸</div>@thomas.lumiere.gabon</a>
+          <a href="https://www.linkedin.com/in/thomas-nsoley-253076247/" target="_blank" class="sl"><div class="sl-icon">💼</div>LinkedIn · Thomas Nsoley</a>
+          <a href="https://github.com/thomasnsoley" target="_blank" class="sl"><div class="sl-icon">🐙</div>github.com/thomasnsoley</a>
+        </div>
+      </div>
+      <div class="contact-form-wrap reveal rd2">
+        <div class="cf-row">
+          <div class="cf-group"><label class="cf-label">Nom</label><input class="cf-in" type="text" placeholder="Votre nom"/></div>
+          <div class="cf-group"><label class="cf-label">Email</label><input class="cf-in" type="email" placeholder="votre@email.com"/></div>
+        </div>
+        <div class="cf-group"><label class="cf-label">Sujet</label><input class="cf-in" type="text" placeholder="Collaboration, achat de photo, question…"/></div>
+        <div class="cf-group"><label class="cf-label">Message</label><textarea class="cf-in cf-ta" placeholder="Décrivez votre projet…"></textarea></div>
+        <button class="btn-send" onclick="handleContact()">Envoyer le message ↗</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-in">
+    <span class="foot-logo"><span>Lumière</span> Sauvage</span>
+    <span class="foot-copy">© 2026 Thomas EKANG NSOLEY · Photographie nature · Libreville, Gabon</span>
+    <a href="index.html" class="foot-back">← Portfolio dev</a>
+  </div>
+</footer>
+
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLB(event)">
+  <div id="lightbox-inner" onclick="event.stopPropagation()">
+    <button id="lightbox-close" onclick="closeLB()">✕</button>
+    <svg id="lightbox-img" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="lb-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0b1a3d"/><stop offset="40%" stop-color="#1a3060"/><stop offset="70%" stop-color="#c05520"/><stop offset="85%" stop-color="#e88030"/><stop offset="100%" stop-color="#1a3050"/></linearGradient>
+      </defs>
+      <rect width="800" height="500" fill="url(#lb-grad)"/>
+      <circle cx="400" cy="260" r="55" fill="#fff5a0" opacity=".9"/>
+      <circle cx="400" cy="260" r="90" fill="#ffd060" opacity=".18"/>
+      <ellipse cx="400" cy="330" rx="40" ry="160" fill="#ffd060" opacity=".12"/>
+      <rect y="320" width="800" height="180" fill="#071525" opacity=".95"/>
+    </svg>
+    <div id="lightbox-caption">Horizon infini</div>
+    <div id="lightbox-meta">Océan Atlantique · f/8 · 1/500s · ISO 200</div>
+  </div>
+</div>
+
+<script>
+/* Cursor */
+(function(){
+  const c=document.getElementById('cur'),d=document.getElementById('cur-dot');
+  let mx=0,my=0,cx=0,cy=0;
+  window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+  (function tick(){cx+=(mx-cx)*.13;cy+=(my-cy)*.13;c.style.left=cx+'px';c.style.top=cy+'px';d.style.left=mx+'px';d.style.top=my+'px';requestAnimationFrame(tick)})();
+  document.querySelectorAll('a,button,.photo-card,.moment-c,.gear-item,.sl,.filt').forEach(el=>{
+    el.addEventListener('mouseenter',()=>c.classList.add('big'));
+    el.addEventListener('mouseleave',()=>c.classList.remove('big'));
+  });
+})();
+
+/* Stars in hero */
+(function(){
+  const wrap=document.getElementById('stars-wrap');
+  for(let i=0;i<60;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${Math.random()*2+1}px;height:${Math.random()*2+1}px;animation-delay:${Math.random()*4}s;animation-duration:${2+Math.random()*3}s`;
+    wrap.appendChild(s);
+  }
+})();
+
+/* Scroll */
+const prog=document.getElementById('prog'),nav=document.getElementById('nav'),btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  prog.style.width=(h>0?window.scrollY/h*100:0)+'%';
+  nav.classList.toggle('scrolled',window.scrollY>40);
+  btt.classList.toggle('show',window.scrollY>500);
+},{passive:true});
+
+/* Hamburger */
+const ham=document.getElementById('ham'),mob=document.getElementById('mob');
+ham.addEventListener('click',()=>{const o=mob.classList.toggle('open');ham.classList.toggle('open',o)});
+function closeMob(){mob.classList.remove('open');ham.classList.remove('open')}
+
+/* Reveal */
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+/* Filter */
+document.querySelectorAll('.filt').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.filt').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+    const cat=this.dataset.cat;
+    document.querySelectorAll('.photo-card').forEach(card=>{
+      card.style.display=(cat==='all'||card.dataset.cat===cat)?'block':'none';
+    });
+  });
+});
+
+/* Lightbox */
+function openLB(title,meta1,meta2){
+  const lb=document.getElementById('lightbox');
+  document.getElementById('lightbox-caption').textContent=title;
+  document.getElementById('lightbox-meta').textContent=meta1+(meta2?' · '+meta2:'');
+  lb.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLB(e){
+  if(!e||e.target===document.getElementById('lightbox')||e.currentTarget===document.getElementById('lightbox-close')){
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow='';
+  }
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB({})});
+
+/* Contact */
+function handleContact(){
+  const n=document.querySelector('input[placeholder="Votre nom"]').value.trim();
+  const em=document.querySelector('input[placeholder="votre@email.com"]').value.trim();
+  const s=document.querySelector('input[placeholder="Collaboration, achat de photo, question…"]').value.trim();
+  const m=document.querySelector('.cf-ta').value.trim();
+  if(!n||!em||!m){alert('Merci de remplir le nom, l\'email et le message.');return}
+  window.location.href=`mailto:thomasean2002@gmail.com?subject=${encodeURIComponent(s||'Contact photo')}&body=${encodeURIComponent('Nom: '+n+'\nEmail: '+em+'\n\n'+m)}`;
+}
+</script>
+</body>
+</html>

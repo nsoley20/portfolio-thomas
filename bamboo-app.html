@@ -500,8 +500,8 @@
         <span id="login-error-msg">Identifiants incorrects</span>
       </div>
       <div class="form-group">
-        <label class="form-label">Nom d'utilisateur</label>
-        <input class="form-input" id="login-user" placeholder="Entrez votre nom" required/>
+        <label class="form-label">Nom d'utilisateur ou email</label>
+        <input class="form-input" id="login-user" placeholder="admin ou admin@sfe.com" required/>
       </div>
       <div class="form-group">
         <label class="form-label">Mot de passe</label>
@@ -511,7 +511,7 @@
         <svg viewBox="0 0 24 24" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
         Se connecter
       </button>
-      <div class="auth-demo-hint">Démo : <strong>admin</strong> / <strong>admin123</strong></div>
+      <div class="auth-demo-hint">Démo : <strong>admin</strong> ou <strong>admin@sfe.com</strong> / <strong>admin123</strong></div>
     </form>
 
     <!-- SIGNUP -->
@@ -909,7 +909,7 @@ const departments = [
   {name:'Finance',desc:'Comptabilité et analyses financières',count:2},
   {name:'Informatique',desc:'Développement et infrastructure IT',count:2},
   {name:'Marketing',desc:'Communication et développement commercial',count:1},
-  {name:'Logistique',desc:'Chaîne d'approvisionnement et livraisons',count:1},
+  {name:'Logistique',desc:"Chaîne d'approvisionnement et livraisons",count:1},
   {name:'Direction',desc:'Management et stratégie générale',count:1},
 ];
 
@@ -938,13 +938,16 @@ function switchTab(tab){
 
 function handleLogin(e){
   e.preventDefault();
-  const u=document.getElementById('login-user').value.trim();
+  const u=document.getElementById('login-user').value.trim().toLowerCase();
   const p=document.getElementById('login-pass').value;
-  const user=users.find(x=>x.username===u&&x.password===p);
+  const user=users.find(x=>
+    (x.username.toLowerCase()===u || (x.email||'').toLowerCase()===u) &&
+    x.password===p
+  );
   const err=document.getElementById('login-error');
   if(!user){
     err.style.display='flex';
-    document.getElementById('login-error-msg').textContent='Nom d\'utilisateur ou mot de passe incorrect.';
+    document.getElementById('login-error-msg').textContent='Nom d\'utilisateur, email ou mot de passe incorrect.';
     return;
   }
   err.style.display='none';
