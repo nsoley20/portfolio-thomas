@@ -357,7 +357,7 @@ section{padding:7rem 5%;position:relative}
 
 /* ══ ABOUT ══ */
 #about{background:var(--white)}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3.5rem}
+.about-grid{display:grid;grid-template-columns:1fr;gap:2rem;align-items:start;margin-top:3.5rem;max-width:780px}
 .about-text p{font-size:.88rem;color:var(--text2);line-height:1.9;margin-bottom:1rem}
 .about-text strong{color:var(--indigo);font-weight:600}
 .about-text .red{color:var(--rose)}
@@ -531,11 +531,6 @@ section{padding:7rem 5%;position:relative}
 .pj-card.grn::before{background:linear-gradient(90deg,var(--green),var(--cyan))}
 .pj-card.azure::before{background:linear-gradient(90deg,var(--cyan),var(--indigo))}
 .pj-card.gold::before{background:linear-gradient(90deg,#d97706,#f59e0b)}
-/* Featured (WA NGAN) */
-.pj-card.featured{grid-column:span 2}
-.pj-feat-inner{display:grid;grid-template-columns:1.1fr 1fr;height:100%}
-.pj-feat-inner .b-mock{border-radius:0;border:none;border-right:1px solid var(--border)}
-.pj-feat-inner .b-vp{height:100%;min-height:260px}
 
 .pj-body{padding:1.15rem 1.25rem;flex:1;display:flex;flex-direction:column}
 .pj-num{font-family:var(--mono);font-size:.6rem;color:var(--text3);margin-bottom:.38rem;letter-spacing:.1em}
@@ -728,7 +723,6 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
 /* ── Large tablet ── */
 @media(max-width:1100px){
   .proj-grid{grid-template-columns:repeat(2,1fr)}
-  .pj-card.featured{grid-column:span 2}
 }
 
 /* ── Tablet ── */
@@ -738,13 +732,9 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
   .hero-h1{font-size:clamp(2.4rem,7vw,3.8rem)}
   .hero-wm{font-size:clamp(5rem,15vw,12rem);right:-5%}
 
-  .about-grid{grid-template-columns:1fr;gap:2.5rem}
-
   .skills-grid{grid-template-columns:repeat(2,1fr)}
 
   .proj-grid{grid-template-columns:repeat(2,1fr)}
-  .pj-card.featured{grid-column:span 2}
-  .pj-feat-inner{grid-template-columns:1fr 1fr}
 
   .exp-grid{grid-template-columns:1fr;gap:2.5rem}
 
@@ -775,10 +765,6 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
 
   /* Projects */
   .proj-grid{grid-template-columns:1fr}
-  .pj-card.featured{grid-column:span 1}
-  .pj-feat-inner{grid-template-columns:1fr;display:flex;flex-direction:column}
-  .pj-feat-inner .b-mock{border-radius:10px 10px 0 0;border-right:none;border-bottom:1px solid var(--border)}
-  .pj-feat-inner .b-vp{height:200px;min-height:unset}
   .b-vp{height:170px}
 
   /* About */
@@ -898,9 +884,6 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
         <span class="hl">Développeur Fullstack</span> &nbsp;·&nbsp; Réseaux &amp; Cybersécurité<br/>
         Master 1 Cybersécurité, Réseaux &amp; Cloud · <span class="hl2">En cours</span>
       </div>
-      <p class="hero-desc para-layer" data-para="0.04">
-        Technicien supérieur en Téléinformatique spécialisé en génie logiciel et administration réseau. Je conçois des applications web sécurisées et des solutions informatiques robustes.
-      </p>
       <div class="hero-btns">
         <a href="#projects" class="btn-primary">
           <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -966,27 +949,10 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
         </div>
         <div class="stats-grid reveal reveal-delay-1">
           <div class="stat-c"><div class="stat-num">3+</div><div class="stat-lbl">ans en dev web</div></div>
-          <div class="stat-c"><div class="stat-num">5</div><div class="stat-lbl">projets réalisés</div></div>
+          <div class="stat-c"><div class="stat-num">6</div><div class="stat-lbl">projets réalisés</div></div>
           <div class="stat-c"><div class="stat-num">M1</div><div class="stat-lbl">Cybersécurité</div></div>
           <div class="stat-c"><div class="stat-num">LICENCE</div><div class="stat-lbl">Téléinformatique</div></div>
         </div>
-      </div>
-      <div class="reveal reveal-delay-2">
-        <span class="sec-label">Formation académique</span>
-        <ul class="formation-list">
-          <li class="fi">
-            <div class="fi-icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
-            <div><strong>Master 1 — Cybersécurité, Réseaux &amp; Cloud</strong><span>2025 – 2027 · En cours</span></div>
-          </li>
-          <li class="fi">
-            <div class="fi-icon v"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
-            <div><strong>Technicien Supérieur — Téléinformatique</strong><span>2024 · Génie Logiciel &amp; Administration Réseau</span></div>
-          </li>
-          <li class="fi">
-            <div class="fi-icon v"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
-            <div><strong>BACCALAURÉAT D</strong><span>Physique · Biologie · Mathématiques</span></div>
-          </li>
-        </ul>
       </div>
     </div>
   </div>
@@ -1173,32 +1139,30 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
         </div>
       </div>
 
-      <!-- WA NGAN — featured -->
-      <div class="pj-card grn featured reveal-3d reveal-delay-2">
-        <div class="pj-feat-inner">
-          <div class="b-mock">
-            <div class="b-bar">
-              <div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
-              <div class="b-url">wa-ngan.vercel.app</div>
-            </div>
-            <div class="b-vp">
-              <div class="b-vp-bg" style="background:linear-gradient(135deg,#0a4a2e,#16a34a)">Wa Ngan</div>
-              <iframe src="https://wa-ngan.vercel.app/" loading="lazy" title="WA NGAN preview" sandbox="allow-same-origin allow-scripts"></iframe>
-              <a href="https://wa-ngan.vercel.app/" class="b-overlay" target="_blank" rel="noopener">
-                <div class="b-overlay-btn"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Ouvrir le site</div>
-              </a>
-            </div>
+      <!-- WA NGAN -->
+      <div class="pj-card grn reveal-3d reveal-delay-2">
+        <div class="b-mock">
+          <div class="b-bar">
+            <div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            <div class="b-url">wa-ngan.vercel.app</div>
           </div>
-          <div class="pj-body">
-            <div class="pj-num">05 / 06 — Projet phare</div>
-            <div class="pj-title">WA NGAN — Vlogging Gabonais</div>
-            <div class="pj-desc">Plateforme de vlogging 100% gabonaise. Profils, vlogs, communauté et export PDF/JSON. Panneau d'administration complet avec upload médias.</div>
-            <div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">Export PDF/JSON</span><span class="pt">Admin Panel</span></div>
-            <div class="pj-links">
-              <a href="https://wa-ngan.vercel.app/" target="_blank" class="plink plink-p"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>Landing</a>
-              <a href="https://wa-ngan.vercel.app/wa-ngan-app.html" target="_blank" class="plink plink-p"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Application</a>
-              <a href="wa-ngan-admin.html" class="plink plink-g"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Admin</a>
-            </div>
+          <div class="b-vp">
+            <div class="b-vp-bg" style="background:linear-gradient(135deg,#0a4a2e,#16a34a)">Wa Ngan</div>
+            <iframe src="https://wa-ngan.vercel.app/" loading="lazy" title="WA NGAN preview" sandbox="allow-same-origin allow-scripts"></iframe>
+            <a href="https://wa-ngan.vercel.app/" class="b-overlay" target="_blank" rel="noopener">
+              <div class="b-overlay-btn"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Ouvrir le site</div>
+            </a>
+          </div>
+        </div>
+        <div class="pj-body">
+          <div class="pj-num">05 / 06</div>
+          <div class="pj-title">WA NGAN — Vlogging Gabonais</div>
+          <div class="pj-desc">Plateforme de vlogging 100% gabonaise. Profils, vlogs, communauté et export PDF/JSON. Panneau d'administration complet avec upload médias.</div>
+          <div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">Export PDF/JSON</span><span class="pt">Admin Panel</span></div>
+          <div class="pj-links">
+            <a href="https://wa-ngan.vercel.app/" target="_blank" class="plink plink-p"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>Landing</a>
+            <a href="https://wa-ngan.vercel.app/wa-ngan-app.html" target="_blank" class="plink plink-p"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Application</a>
+            <a href="wa-ngan-admin.html" class="plink plink-g"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Admin</a>
           </div>
         </div>
       </div>
