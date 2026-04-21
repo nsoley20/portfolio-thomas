@@ -45,6 +45,22 @@
   --spring:cubic-bezier(.34,1.56,.64,1);
   --ease-out:cubic-bezier(.16,1,.3,1);
 }
+[data-theme="dark"]{
+  --bg:#0f0e1a;
+  --bg2:#1a1830;
+  --white:#181628;
+  --card:#1e1b38;
+  --text:#e8e6f7;
+  --text2:#9896ab;
+  --text3:#55536a;
+  --border:rgba(255,255,255,.07);
+  --border2:rgba(255,255,255,.13);
+  --shadow-sm:0 1px 4px rgba(0,0,0,.4);
+  --shadow:0 4px 24px rgba(0,0,0,.35),0 2px 8px rgba(0,0,0,.25);
+  --shadow-lg:0 20px 60px rgba(0,0,0,.6),0 8px 24px rgba(0,0,0,.4);
+  --dark:#e8e6f7;
+  --dark2:#c4c2d8;
+}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;font-size:16px}
 body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;cursor:none}
@@ -113,7 +129,7 @@ body:has(a:hover,button:hover) #cursor,
 nav{
   position:fixed;top:0;left:0;right:0;z-index:200;
   height:64px;padding:0 5%;
-  display:flex;align-items:center;justify-content:space-between;
+  display:flex;align-items:center;justify-content:space-between;gap:.75rem;
   transition:background .3s,box-shadow .3s,border-color .3s;
 }
 nav.scrolled{
@@ -148,6 +164,36 @@ nav.scrolled{
   box-shadow:0 2px 12px rgba(13,12,29,.2);
 }
 .nav-cta:hover{background:var(--dark2);transform:translateY(-2px) scale(1.02);box-shadow:0 6px 20px rgba(13,12,29,.28)}
+.theme-toggle{
+  width:34px;height:34px;border-radius:8px;flex-shrink:0;
+  background:var(--bg);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--text2);
+  transition:all .25s var(--spring);
+}
+.theme-toggle:hover{border-color:var(--indigo);color:var(--indigo);transform:rotate(15deg)}
+.theme-toggle svg{width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none;flex-shrink:0}
+.theme-toggle .t-moon{display:none}
+[data-theme="dark"] .theme-toggle .t-sun{display:none}
+[data-theme="dark"] .theme-toggle .t-moon{display:block}
+html{transition:background-color .3s,color .3s}
+
+/* ── Dark mode — hardcoded color overrides ── */
+[data-theme="dark"] nav.scrolled{background:rgba(15,14,26,.92)}
+[data-theme="dark"] .mob-overlay{background:rgba(15,14,26,.97)}
+[data-theme="dark"] .nav-cta{background:var(--indigo2);box-shadow:0 2px 12px rgba(99,102,241,.25)}
+[data-theme="dark"] .nav-cta:hover{background:var(--indigo);box-shadow:0 6px 20px rgba(99,102,241,.35)}
+[data-theme="dark"] #loader{background:#050310}
+[data-theme="dark"] .hero{background:linear-gradient(160deg,#0f0e1a 0%,#1a1830 40%,#17132e 100%)}
+[data-theme="dark"] .hero-badge{background:var(--card);border-color:var(--border2);color:var(--text2)}
+[data-theme="dark"] .hpw-badge{background:rgba(20,18,42,.9);border-color:rgba(255,255,255,.1);color:var(--text)}
+[data-theme="dark"] .b-bar{background:#1c1a30;border-bottom-color:rgba(255,255,255,.06)}
+[data-theme="dark"] .b-url{background:rgba(255,255,255,.04);color:rgba(255,255,255,.3)}
+[data-theme="dark"] .b-mock{background:var(--card)}
+[data-theme="dark"] #contact{background:linear-gradient(160deg,#060418 0%,#0c082a 60%,#100c30 100%)}
+[data-theme="dark"] footer{background:#050310;border-top-color:rgba(255,255,255,.04)}
+[data-theme="dark"] .hero-wm{-webkit-text-stroke:1px rgba(99,102,241,.14)}
+[data-theme="dark"] .proc-track::before{opacity:.4}
 
 /* HAMBURGER */
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.4rem;background:none;border:none;outline:none}
@@ -279,65 +325,115 @@ nav.scrolled{
 .pill:hover{border-color:var(--indigo);color:var(--indigo);transform:scale(1.05) translateY(-1px)}
 @keyframes springUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 
-/* HERO CARD */
-.hero-visual{position:relative;animation:springUp .7s .1s var(--spring) both}
-.hero-card{
-  background:var(--white);
-  border:1px solid var(--border);
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:var(--shadow-lg);
-  transform-style:preserve-3d;
-  transition:transform .1s linear;
+/* HERO PHOTO */
+.hero-visual{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  animation:springUp .7s .1s var(--spring) both;
 }
-.hc-header{
-  padding:1.3rem 1.5rem;
-  background:linear-gradient(135deg,var(--indigo),var(--purple));
-  display:flex;align-items:center;justify-content:space-between;
+.hero-photo-wrap{position:relative;width:360px;height:450px}
+.hpw-glow{
+  position:absolute;inset:-70px;
+  background:conic-gradient(from 0deg,var(--indigo),var(--purple),var(--rose),var(--indigo));
+  filter:blur(55px);opacity:.22;border-radius:50%;z-index:0;
+  animation:glowSpin 10s linear infinite;
 }
-.hc-avatar{
-  width:46px;height:46px;border-radius:12px;
-  background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.3);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--display);font-size:1.1rem;font-weight:900;color:#fff;font-style:italic;
+@keyframes glowSpin{to{transform:rotate(360deg)}}
+.hpw-ring{
+  position:absolute;inset:0;padding:3px;
+  background:linear-gradient(135deg,var(--indigo),var(--purple),var(--rose),var(--indigo));
+  background-size:300% 300%;
+  border-radius:32px;z-index:1;
+  animation:gradMove 6s ease infinite;
 }
-.hc-info h4{font-size:.9rem;font-weight:700;color:#fff;line-height:1.3}
-.hc-info p{font-size:.67rem;color:rgba(255,255,255,.6);font-family:var(--mono);margin-top:.12rem}
-.hc-status{
-  padding:.22rem .65rem;
-  background:rgba(16,185,129,.2);border:1px solid rgba(16,185,129,.3);
-  border-radius:100px;font-size:.62rem;font-weight:600;
-  color:#6ee7b7;font-family:var(--mono);
-  display:flex;align-items:center;gap:.3rem;
+@keyframes gradMove{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hpw-inner{width:100%;height:100%;border-radius:30px;overflow:hidden}
+.hpw-inner img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:top center;
+  display:block;
 }
-.hc-status-dot{width:4px;height:4px;background:#10b981;border-radius:50%;animation:pulse 2s infinite}
-.hc-body{padding:1.3rem 1.5rem;display:flex;flex-direction:column;gap:.8rem;background:var(--white)}
-.sk-row{display:flex;flex-direction:column;gap:.3rem}
-.sk-row-header{display:flex;justify-content:space-between;font-size:.7rem}
-.sk-row-header span:first-child{color:var(--text2);font-weight:500}
-.sk-row-header span:last-child{color:var(--text3);font-family:var(--mono);font-size:.63rem}
-.sk-track{height:3px;background:rgba(0,0,0,.06);border-radius:2px;overflow:hidden}
-.sk-fill{height:100%;border-radius:2px;transition:width 1.2s .5s cubic-bezier(.4,0,.2,1)}
-.sf-indigo{background:linear-gradient(90deg,var(--indigo),var(--indigo2))}
-.sf-purple{background:linear-gradient(90deg,var(--purple),#a78bfa)}
-.sf-rose{background:linear-gradient(90deg,var(--rose),#fb7185)}
-.sf-cyan{background:linear-gradient(90deg,var(--cyan),#67e8f9)}
-.sf-green{background:linear-gradient(90deg,var(--green),#6ee7b7)}
-/* float tags */
-.float-tag{
-  position:absolute;
-  background:var(--white);border:1px solid var(--border);
-  border-radius:10px;padding:.45rem .8rem;
-  display:flex;align-items:center;gap:.4rem;
-  font-size:.68rem;font-weight:600;color:var(--text);
-  box-shadow:var(--shadow);
+.hpw-badge{
+  position:absolute;z-index:4;
+  display:flex;align-items:center;gap:.45rem;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.65);
+  border-radius:100px;padding:.42rem 1.1rem;
+  font-size:.7rem;font-weight:600;color:var(--dark);
+  box-shadow:0 6px 28px rgba(0,0,0,.11);
+  white-space:nowrap;
 }
-.float-tag svg{width:11px;height:11px;stroke:currentColor;stroke-width:2;fill:none}
-.ft1{top:-14px;right:22px;animation:ft1 4s ease-in-out infinite}
-.ft2{bottom:-12px;left:18px;animation:ft2 5s ease-in-out infinite}
-@keyframes ft1{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes ft2{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.hpw-badge svg{width:12px;height:12px;stroke:currentColor;stroke-width:2.5;fill:none;flex-shrink:0}
+.hpw-dot{width:7px;height:7px;background:#10b981;border-radius:50%;flex-shrink:0;animation:pulse 2s infinite}
+.hpw-b1{top:-16px;left:50%;transform:translateX(-50%);animation:ft1 4s ease-in-out infinite}
+.hpw-b2{bottom:90px;left:-30px;color:var(--indigo);animation:ft2 5s ease-in-out infinite}
+.hpw-b3{top:100px;right:-30px;color:var(--rose);animation:ft1 4.5s .5s ease-in-out infinite}
+@keyframes ft1{0%,100%{transform:translateY(0) translateX(-50%)}50%{transform:translateY(-7px) translateX(-50%)}}
+@keyframes ft2{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 .fd{width:7px;height:7px;border-radius:50%}
+
+/* ── Tech Marquee ── */
+.marquee-wrap{
+  overflow:hidden;padding:1.1rem 0;
+  background:var(--white);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  position:relative;z-index:1;
+}
+.marquee-wrap::before,.marquee-wrap::after{
+  content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;
+  pointer-events:none;
+}
+.marquee-wrap::before{left:0;background:linear-gradient(90deg,var(--white),transparent)}
+.marquee-wrap::after{right:0;background:linear-gradient(-90deg,var(--white),transparent)}
+.marquee-track{
+  display:flex;gap:.75rem;
+  animation:marqueeScroll 30s linear infinite;
+  width:max-content;
+}
+.marquee-wrap:hover .marquee-track{animation-play-state:paused}
+@keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.mq-item{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.3rem .85rem;border-radius:100px;
+  background:var(--bg);border:1px solid var(--border);
+  font-size:.72rem;font-weight:500;color:var(--text2);
+  white-space:nowrap;transition:all .2s;
+}
+.mq-item:hover{border-color:var(--indigo);color:var(--indigo)}
+.mq-dot{width:5px;height:5px;border-radius:50%;background:var(--indigo);flex-shrink:0;opacity:.5}
+
+/* ── Process ── */
+#process{background:var(--white)}
+.proc-track{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;margin-top:3.5rem;position:relative;
+}
+.proc-track::before{
+  content:'';position:absolute;
+  top:27px;left:12.5%;width:75%;height:1px;
+  background:linear-gradient(90deg,var(--indigo),var(--purple),var(--rose));
+  z-index:0;
+}
+.proc-step{
+  text-align:center;padding:0 1.2rem;
+  position:relative;z-index:1;
+}
+.proc-circle{
+  width:54px;height:54px;border-radius:50%;
+  background:var(--white);border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1.4rem;font-family:var(--mono);font-size:.72rem;
+  font-weight:600;color:var(--indigo);position:relative;z-index:2;
+  transition:all .35s var(--spring);box-shadow:var(--shadow-sm);
+}
+.proc-step:hover .proc-circle{
+  background:linear-gradient(135deg,var(--indigo),var(--purple));
+  color:#fff;border-color:transparent;
+  transform:scale(1.12) translateY(-4px);
+  box-shadow:var(--shadow-indigo);
+}
+.proc-label{font-size:.92rem;font-weight:800;color:var(--dark);margin-bottom:.45rem}
+.proc-desc{font-size:.78rem;color:var(--text2);line-height:1.75}
 
 /* ══ SECTION COMMONS ══ */
 section{padding:7rem 5%;position:relative}
@@ -357,7 +453,7 @@ section{padding:7rem 5%;position:relative}
 
 /* ══ ABOUT ══ */
 #about{background:var(--white)}
-.about-grid{display:grid;grid-template-columns:1fr;gap:2rem;align-items:start;margin-top:3.5rem;max-width:780px}
+.about-grid{display:grid;grid-template-columns:1fr 340px;gap:4rem;align-items:start;margin-top:3.5rem}
 .about-text p{font-size:.88rem;color:var(--text2);line-height:1.9;margin-bottom:1rem}
 .about-text strong{color:var(--indigo);font-weight:600}
 .about-text .red{color:var(--rose)}
@@ -380,6 +476,91 @@ section{padding:7rem 5%;position:relative}
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
 .stat-lbl{font-size:.68rem;color:var(--text3);margin-top:.25rem;font-family:var(--mono)}
+/* ── Rotating hero title ── */
+.hero-rotate{
+  display:inline-block;position:relative;
+  overflow:hidden;height:1.15em;vertical-align:middle;
+  min-width:240px;
+}
+.hero-rotate span{
+  position:absolute;left:0;
+  animation:cycleWord 12s ease-in-out infinite;
+  opacity:0;color:var(--indigo);font-weight:600;
+  white-space:nowrap;
+}
+.hero-rotate span:nth-child(2){animation-delay:4s}
+.hero-rotate span:nth-child(3){animation-delay:8s}
+@keyframes cycleWord{
+  0%{opacity:0;transform:translateY(16px)}
+  5%,28%{opacity:1;transform:translateY(0)}
+  33%,100%{opacity:0;transform:translateY(-16px)}
+}
+
+/* ── Now card (About) ── */
+.now-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:20px;padding:1.8rem;
+  box-shadow:var(--shadow);position:sticky;top:6rem;
+}
+.now-card-title{
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--indigo);margin-bottom:1.2rem;
+}
+.now-list{list-style:none;display:flex;flex-direction:column;gap:1rem;margin-bottom:1.6rem}
+.now-list li{display:flex;align-items:flex-start;gap:.85rem}
+.now-dot{
+  width:8px;height:8px;border-radius:50%;margin-top:.35rem;flex-shrink:0;
+}
+.now-dot.active{background:var(--green);box-shadow:0 0 0 3px rgba(16,185,129,.2);animation:pulse 2s infinite}
+.now-dot.study{background:var(--indigo)}
+.now-dot.free{background:var(--purple)}
+.now-list strong{display:block;font-size:.83rem;font-weight:700;color:var(--dark);line-height:1.3}
+.now-list span{font-size:.73rem;color:var(--text3);font-family:var(--mono);line-height:1.6}
+.now-cv{
+  display:inline-flex;align-items:center;gap:.45rem;
+  padding:.65rem 1.3rem;width:100%;justify-content:center;
+  background:linear-gradient(135deg,var(--indigo),var(--purple));
+  border-radius:10px;color:#fff;font-size:.8rem;font-weight:700;
+  text-decoration:none;transition:all .3s var(--spring);
+  box-shadow:var(--shadow-indigo);
+}
+.now-cv svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none}
+.now-cv:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(79,70,229,.32)}
+
+/* ── Services ── */
+#services{background:var(--bg2)}
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.srv-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:20px;padding:2rem 1.7rem;
+  position:relative;overflow:hidden;
+  transition:all .3s var(--spring);
+  display:flex;flex-direction:column;
+}
+.srv-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease-out);
+}
+.srv-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.srv-card:hover::before{transform:scaleX(1)}
+.srv-card.s1::before{background:linear-gradient(90deg,var(--indigo),var(--purple))}
+.srv-card.s2::before{background:linear-gradient(90deg,var(--cyan),var(--indigo))}
+.srv-card.s3::before{background:linear-gradient(90deg,var(--rose),var(--purple))}
+.srv-num{font-family:var(--mono);font-size:.6rem;color:var(--text3);letter-spacing:.15em;margin-bottom:1rem}
+.srv-icon{
+  width:46px;height:46px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.1rem;
+}
+.srv-icon svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.8;fill:none}
+.s1 .srv-icon{background:rgba(79,70,229,.1);color:var(--indigo)}
+.s2 .srv-icon{background:rgba(6,182,212,.1);color:var(--cyan)}
+.s3 .srv-icon{background:rgba(244,63,94,.1);color:var(--rose)}
+.srv-card h3{font-size:.97rem;font-weight:800;color:var(--dark);margin-bottom:.65rem;line-height:1.25}
+.srv-card p{font-size:.8rem;color:var(--text2);line-height:1.8;flex:1;margin-bottom:1.1rem}
+.srv-tags{display:flex;flex-wrap:wrap;gap:.28rem}
+.srv-tag{font-size:.65rem;padding:.2rem .6rem;border-radius:100px;background:var(--bg);color:var(--text2);border:1px solid var(--border)}
+
 .formation-list{list-style:none;display:flex;flex-direction:column;gap:.6rem}
 .fi{
   display:flex;align-items:flex-start;gap:.8rem;
@@ -727,12 +908,19 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
 
 /* ── Tablet ── */
 @media(max-width:960px){
-  .hero-inner{grid-template-columns:1fr;gap:3rem}
-  .hero-visual{display:none}
-  .hero-h1{font-size:clamp(2.4rem,7vw,3.8rem)}
+  .hero-inner{grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
+  .hero-visual{display:flex}
+  .hero-photo-wrap{width:280px;height:350px}
+  .hpw-b2,.hpw-b3{display:none}
+  .hero-h1{font-size:clamp(2.4rem,5vw,3.8rem)}
   .hero-wm{font-size:clamp(5rem,15vw,12rem);right:-5%}
 
+  .about-grid{grid-template-columns:1fr 280px;gap:2.5rem}
+
   .skills-grid{grid-template-columns:repeat(2,1fr)}
+  .srv-grid{grid-template-columns:repeat(2,1fr)}
+  .proc-track{grid-template-columns:repeat(2,1fr);gap:2rem}
+  .proc-track::before{display:none}
 
   .proj-grid{grid-template-columns:repeat(2,1fr)}
 
@@ -753,15 +941,22 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
   .hero{padding:6.5rem 4% 4rem}
 
   /* Hero */
+  .hero-inner{grid-template-columns:1fr}
+  .hero-visual{display:none}
   .hero-h1{font-size:clamp(2rem,8vw,3rem)}
   .hero-wm{display:none}
   .hero-badge{font-size:.6rem}
-  .hero-desc{font-size:.85rem}
   .hero-btns{flex-direction:column;align-items:flex-start}
   .btn-primary,.btn-secondary{width:100%;justify-content:center}
 
-  /* Skills */
+  /* About */
+  .about-grid{grid-template-columns:1fr}
+  .now-card{position:static}
+
+  /* Skills & Services */
   .skills-grid{grid-template-columns:1fr}
+  .srv-grid{grid-template-columns:1fr}
+  .proc-track{grid-template-columns:1fr;gap:1.5rem}
 
   /* Projects */
   .proj-grid{grid-template-columns:1fr}
@@ -790,6 +985,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
 
   .hero-h1{font-size:clamp(1.8rem,9vw,2.5rem);letter-spacing:-.04em}
   .hero-sub{font-size:.72rem}
+  .hero-rotate{min-width:180px}
   .hero-pills{gap:.4rem}
   .pill{font-size:.65rem;padding:.24rem .6rem}
 
@@ -801,17 +997,35 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
   .skills-grid{grid-template-columns:1fr}
   .sk-card{padding:1.1rem}
 
+  .srv-grid{grid-template-columns:1fr}
+
   .proj-grid{gap:.9rem}
   .pj-card{border-radius:12px}
   .b-vp{height:155px}
+  .pj-links{flex-wrap:wrap}
 
   .tl-item{padding-left:3rem}
+  .tl-title{font-size:.82rem}
 
   .contact-form{padding:1.2rem}
+  .cf-title{font-size:.82rem}
+
+  .now-card{padding:1.3rem}
 
   footer{padding:1.4rem 4%}
   .footer-inner{flex-direction:column;align-items:flex-start;gap:.6rem}
   .footer-copy{order:3}
+}
+
+/* ── XS mobile (≤360px) ── */
+@media(max-width:360px){
+  .hero-h1{font-size:clamp(1.6rem,10vw,2rem)}
+  .hero-rotate{min-width:160px}
+  .hero-sub{font-size:.68rem}
+  .btn-primary,.btn-secondary{font-size:.8rem;padding:.7rem 1.2rem}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .stat-num{font-size:1.4rem}
+  .pj-links a{font-size:.65rem;padding:.32rem .65rem}
 }
 </style>
 </head>
@@ -847,11 +1061,17 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
   <div class="nav-links">
     <a href="#about">À propos</a>
     <a href="#skills">Compétences</a>
+    <a href="#services">Services</a>
+    <a href="#process">Méthode</a>
     <a href="#projects">Projets</a>
     <a href="#experience">Parcours</a>
     <a href="#contact">Contact</a>
   </div>
   <a href="assets/CV SEAN THOMAS EKANG NSOLEY.pdf" download class="nav-cta">Télécharger CV</a>
+  <button class="theme-toggle" id="themeToggle" title="Basculer le thème" aria-label="Thème">
+    <svg class="t-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg class="t-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
   <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
@@ -859,6 +1079,8 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
 <div class="mob-overlay" id="mobNav">
   <a href="#about" onclick="closeMob()">À propos</a>
   <a href="#skills" onclick="closeMob()">Compétences</a>
+  <a href="#services" onclick="closeMob()">Services</a>
+  <a href="#process" onclick="closeMob()">Méthode</a>
   <a href="#projects" onclick="closeMob()">Projets</a>
   <a href="#experience" onclick="closeMob()">Parcours</a>
   <a href="#contact" onclick="closeMob()">Contact</a>
@@ -881,8 +1103,12 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
         <span class="grad">Sean Thomas</span>
       </h1>
       <div class="hero-sub para-layer" data-para="0.03">
-        <span class="hl">Développeur Fullstack</span> &nbsp;·&nbsp; Réseaux &amp; Cybersécurité<br/>
-        Master 1 Cybersécurité, Réseaux &amp; Cloud · <span class="hl2">En cours</span>
+        <span class="hero-rotate">
+          <span>Développeur Fullstack</span>
+          <span>Expert Cybersécurité</span>
+          <span>Architecte Réseau</span>
+        </span>
+        &nbsp;·&nbsp; Téléinformatique &amp; Génie Logiciel
       </div>
       <div class="hero-btns">
         <a href="#projects" class="btn-primary">
@@ -895,43 +1121,87 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
         </a>
       </div>
       <div class="hero-pills">
-        <div class="pill"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Cybersécurité</div>
-        <div class="pill"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Node.js · MongoDB</div>
-        <div class="pill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Réseaux &amp; Cloud</div>
+        <div class="pill"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Open to work</div>
+        <div class="pill"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Sécurité by design</div>
+        <div class="pill"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Code propre · Docs incluses</div>
       </div>
     </div>
 
     <div class="hero-visual">
-      <div class="float-tag ft1">
-        <span class="fd" style="background:var(--indigo)"></span>
-        Fullstack Developer
-      </div>
-      <div class="hero-card" id="heroCard">
-        <div class="hc-header">
-          <div style="display:flex;align-items:center;gap:.75rem">
-            <div class="hc-avatar">T</div>
-            <div class="hc-info">
-              <h4>Sean Thomas EKANG NSOLEY</h4>
-              <p>Technicien Sup. Téléinformatique</p>
-            </div>
+      <div class="hero-photo-wrap">
+        <div class="hpw-glow"></div>
+        <div class="hpw-ring">
+          <div class="hpw-inner">
+            <img src="seanpp.jpeg" alt="Sean Thomas EKANG NSOLEY"/>
           </div>
-          <div class="hc-status"><span class="hc-status-dot"></span>Dispo</div>
         </div>
-        <div class="hc-body">
-          <div class="sk-row"><div class="sk-row-header"><span>Développement Web</span><span>90%</span></div><div class="sk-track"><div class="sk-fill sf-indigo" style="width:90%"></div></div></div>
-          <div class="sk-row"><div class="sk-row-header"><span>Node.js · API REST</span><span>85%</span></div><div class="sk-track"><div class="sk-fill sf-purple" style="width:85%"></div></div></div>
-          <div class="sk-row"><div class="sk-row-header"><span>Administration Réseau</span><span>80%</span></div><div class="sk-track"><div class="sk-fill sf-cyan" style="width:80%"></div></div></div>
-          <div class="sk-row"><div class="sk-row-header"><span>Cybersécurité</span><span>75%</span></div><div class="sk-track"><div class="sk-fill sf-rose" style="width:75%"></div></div></div>
-          <div class="sk-row"><div class="sk-row-header"><span>Cloud &amp; Infra</span><span>65%</span></div><div class="sk-track"><div class="sk-fill sf-green" style="width:65%"></div></div></div>
+        <div class="hpw-badge hpw-b1">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          6 projets livrés
         </div>
-      </div>
-      <div class="float-tag ft2" style="color:var(--rose)">
-        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        JWT · RBAC · Bcrypt
+        <div class="hpw-badge hpw-b2">
+          <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          Stage · CHUO 2026
+        </div>
+        <div class="hpw-badge hpw-b3">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Master 1 · 2026
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- ══ MARQUEE ══ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="mq-item"><span class="mq-dot"></span>HTML5</span>
+    <span class="mq-item"><span class="mq-dot"></span>CSS3</span>
+    <span class="mq-item"><span class="mq-dot"></span>JavaScript</span>
+    <span class="mq-item"><span class="mq-dot"></span>TypeScript</span>
+    <span class="mq-item"><span class="mq-dot"></span>Node.js</span>
+    <span class="mq-item"><span class="mq-dot"></span>Express.js</span>
+    <span class="mq-item"><span class="mq-dot"></span>MongoDB</span>
+    <span class="mq-item"><span class="mq-dot"></span>API REST</span>
+    <span class="mq-item"><span class="mq-dot"></span>Git · GitHub</span>
+    <span class="mq-item"><span class="mq-dot"></span>Vercel · Netlify</span>
+    <span class="mq-item"><span class="mq-dot"></span>TCP/IP · DNS</span>
+    <span class="mq-item"><span class="mq-dot"></span>Cisco Packet Tracer</span>
+    <span class="mq-item"><span class="mq-dot"></span>Firewall · VPN</span>
+    <span class="mq-item"><span class="mq-dot"></span>Linux · Bash</span>
+    <span class="mq-item"><span class="mq-dot"></span>JWT · RBAC</span>
+    <span class="mq-item"><span class="mq-dot"></span>Bcrypt</span>
+    <span class="mq-item"><span class="mq-dot"></span>OWASP</span>
+    <span class="mq-item"><span class="mq-dot"></span>Docker</span>
+    <span class="mq-item"><span class="mq-dot"></span>Wireshark</span>
+    <span class="mq-item"><span class="mq-dot"></span>Figma</span>
+    <span class="mq-item"><span class="mq-dot"></span>Postman</span>
+    <span class="mq-item"><span class="mq-dot"></span>UML</span>
+    <!-- duplicate for seamless loop -->
+    <span class="mq-item"><span class="mq-dot"></span>HTML5</span>
+    <span class="mq-item"><span class="mq-dot"></span>CSS3</span>
+    <span class="mq-item"><span class="mq-dot"></span>JavaScript</span>
+    <span class="mq-item"><span class="mq-dot"></span>TypeScript</span>
+    <span class="mq-item"><span class="mq-dot"></span>Node.js</span>
+    <span class="mq-item"><span class="mq-dot"></span>Express.js</span>
+    <span class="mq-item"><span class="mq-dot"></span>MongoDB</span>
+    <span class="mq-item"><span class="mq-dot"></span>API REST</span>
+    <span class="mq-item"><span class="mq-dot"></span>Git · GitHub</span>
+    <span class="mq-item"><span class="mq-dot"></span>Vercel · Netlify</span>
+    <span class="mq-item"><span class="mq-dot"></span>TCP/IP · DNS</span>
+    <span class="mq-item"><span class="mq-dot"></span>Cisco Packet Tracer</span>
+    <span class="mq-item"><span class="mq-dot"></span>Firewall · VPN</span>
+    <span class="mq-item"><span class="mq-dot"></span>Linux · Bash</span>
+    <span class="mq-item"><span class="mq-dot"></span>JWT · RBAC</span>
+    <span class="mq-item"><span class="mq-dot"></span>Bcrypt</span>
+    <span class="mq-item"><span class="mq-dot"></span>OWASP</span>
+    <span class="mq-item"><span class="mq-dot"></span>Docker</span>
+    <span class="mq-item"><span class="mq-dot"></span>Wireshark</span>
+    <span class="mq-item"><span class="mq-dot"></span>Figma</span>
+    <span class="mq-item"><span class="mq-dot"></span>Postman</span>
+    <span class="mq-item"><span class="mq-dot"></span>UML</span>
+  </div>
+</div>
 
 <!-- ══ ABOUT ══ -->
 <section id="about">
@@ -943,16 +1213,46 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
     <div class="about-grid">
       <div>
         <div class="about-text reveal">
-          <p>Je suis <strong>EKANG NSOLEY Sean Thomas Patrick Salem</strong>, connu sous le nom de <strong>Thomas</strong>. Technicien supérieur en Téléinformatique avec une option <strong>Génie Logiciel et Administration Réseau</strong>, actuellement en <span class="red">Master 1 Cybersécurité, Réseaux et Cloud</span>.</p>
-          <p>Passionné par l'ingénierie logicielle et la sécurité informatique, je combine expertise technique en développement fullstack et conscience sécuritaire pour créer des solutions robustes et fiables.</p>
-          <p>Je maîtrise la conception d'architectures applicatives, la modélisation UML et la rédaction de cahiers des charges techniques, avec une approche rigoureuse et orientée qualité.</p>
+          <p>Je suis <strong>EKANG NSOLEY Sean Thomas</strong>, technicien supérieur en Téléinformatique spécialisé en <strong>Génie Logiciel et Administration Réseau</strong>, basé à Libreville, Gabon.</p>
+          <p>Je conçois des applications web complètes, des APIs REST sécurisées et des architectures réseau robustes — avec une approche <strong>sécurité by design</strong> intégrée à chaque étape du développement.</p>
+          <p>Curieux, autonome et orienté résultats : je passe du brief client au produit en production, en gérant seul conception, code, tests et déploiement.</p>
         </div>
         <div class="stats-grid reveal reveal-delay-1">
-          <div class="stat-c"><div class="stat-num">3+</div><div class="stat-lbl">ans en dev web</div></div>
-          <div class="stat-c"><div class="stat-num">6</div><div class="stat-lbl">projets réalisés</div></div>
+          <div class="stat-c"><div class="stat-num" data-target="3" data-suffix="+">0</div><div class="stat-lbl">ans en dev web</div></div>
+          <div class="stat-c"><div class="stat-num" data-target="6">0</div><div class="stat-lbl">projets livrés</div></div>
           <div class="stat-c"><div class="stat-num">M1</div><div class="stat-lbl">Cybersécurité</div></div>
-          <div class="stat-c"><div class="stat-num">LICENCE</div><div class="stat-lbl">Téléinformatique</div></div>
+          <div class="stat-c"><div class="stat-num">100%</div><div class="stat-lbl">livraisons réussies</div></div>
         </div>
+      </div>
+      <div class="now-card reveal reveal-delay-2">
+        <div class="now-card-title">En ce moment</div>
+        <ul class="now-list">
+          <li>
+            <span class="now-dot active"></span>
+            <div>
+              <strong>Stage — CHUO / Ministère de la Santé</strong>
+              <span>Déploiement logiciel hospitalier · Gabon · 2026</span>
+            </div>
+          </li>
+          <li>
+            <span class="now-dot study"></span>
+            <div>
+              <strong>Master 1 Cybersécurité, Réseaux &amp; Cloud</strong>
+              <span>En cours · 2025 – 2026 · M2 prévu 2027</span>
+            </div>
+          </li>
+          <li>
+            <span class="now-dot free"></span>
+            <div>
+              <strong>Open to opportunities</strong>
+              <span>CDI · Mission freelance · Télétravail ou sur site</span>
+            </div>
+          </li>
+        </ul>
+        <a href="assets/CV SEAN THOMAS EKANG NSOLEY.pdf" download class="now-cv">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Télécharger le CV
+        </a>
       </div>
     </div>
   </div>
@@ -1021,11 +1321,97 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
   </div>
 </section>
 
+<!-- ══ SERVICES ══ -->
+<section id="services">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="sec-label">03 — Services</span>
+      <h2 class="sec-title">Ce que je propose</h2>
+      <p class="sec-sub">Des solutions concrètes, du développement à la sécurisation.</p>
+    </div>
+    <div class="srv-grid">
+
+      <div class="srv-card s1 reveal-3d reveal-delay-1">
+        <div class="srv-num">01</div>
+        <div class="srv-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h3>Développement Web Fullstack</h3>
+        <p>De la maquette au déploiement. Sites vitrine, plateformes, applications métier et APIs REST sécurisées avec Node.js, Express et MongoDB.</p>
+        <div class="srv-tags">
+          <span class="srv-tag">Livré en production</span>
+          <span class="srv-tag">Mobile-first</span>
+          <span class="srv-tag">Docs incluses</span>
+          <span class="srv-tag">SEO-ready</span>
+        </div>
+      </div>
+
+      <div class="srv-card s2 reveal-3d reveal-delay-2">
+        <div class="srv-num">02</div>
+        <div class="srv-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <h3>Administration Réseau &amp; Systèmes</h3>
+        <p>Configuration, monitoring et maintenance d'infrastructures réseau. VLAN, VPN, Firewall, serveurs Linux et outils Cisco pour des réseaux fiables.</p>
+        <div class="srv-tags">
+          <span class="srv-tag">Réseau opérationnel</span>
+          <span class="srv-tag">Zéro panne évitable</span>
+          <span class="srv-tag">Rapport d'audit</span>
+          <span class="srv-tag">Formation incluse</span>
+        </div>
+      </div>
+
+      <div class="srv-card s3 reveal-3d reveal-delay-3">
+        <div class="srv-num">03</div>
+        <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Sécurisation d'Applications</h3>
+        <p>Audit de sécurité, authentification renforcée et architecture conforme aux bonnes pratiques OWASP. JWT, RBAC, Bcrypt et gestion des accès.</p>
+        <div class="srv-tags">
+          <span class="srv-tag">Sécurité by design</span>
+          <span class="srv-tag">Vulnérabilités comblées</span>
+          <span class="srv-tag">Accès maîtrisés</span>
+          <span class="srv-tag">Conformité OWASP</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCESS ══ -->
+<section id="process">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="sec-label">04 — Méthode</span>
+      <h2 class="sec-title">Comment je travaille</h2>
+      <p class="sec-sub">Un processus structuré, de la première discussion à la mise en production.</p>
+    </div>
+    <div class="proc-track">
+      <div class="proc-step reveal">
+        <div class="proc-circle">01</div>
+        <div class="proc-label">Découverte</div>
+        <div class="proc-desc">Brief client, analyse des besoins, rédaction du cahier des charges et périmètre du projet.</div>
+      </div>
+      <div class="proc-step reveal reveal-delay-1">
+        <div class="proc-circle">02</div>
+        <div class="proc-label">Architecture</div>
+        <div class="proc-desc">Maquettes UI, modélisation UML, choix de la stack technologique et plan de sécurité.</div>
+      </div>
+      <div class="proc-step reveal reveal-delay-2">
+        <div class="proc-circle">03</div>
+        <div class="proc-label">Développement</div>
+        <div class="proc-desc">Code propre et documenté, tests, authentification sécurisée, intégration des fonctionnalités.</div>
+      </div>
+      <div class="proc-step reveal reveal-delay-3">
+        <div class="proc-circle">04</div>
+        <div class="proc-label">Déploiement</div>
+        <div class="proc-desc">Mise en ligne sur Vercel/Netlify, monitoring, livraison finale et support post-lancement.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ══ PROJECTS ══ -->
 <section id="projects">
   <div class="sec-inner">
     <div class="reveal">
-      <span class="sec-label">03 — Projets</span>
+      <span class="sec-label">05 — Projets</span>
       <h2 class="sec-title">Mes réalisations</h2>
       <p class="sec-sub">6 réalisations développées de bout en bout — survolez la preview pour ouvrir le site.</p>
     </div>
@@ -1048,7 +1434,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
           </div>
         </div>
         <div class="pj-body">
-          <div class="pj-num">01 / 05</div>
+          <div class="pj-num">01 / 06</div>
           <div class="pj-title">BAMBOO EMF — Gestion RH</div>
           <div class="pj-desc">Application complète de gestion RH pour SFE. Dashboard analytics, CRUD employés, suivi des présences, performances et rapports avec JWT et RBAC.</div>
           <div class="pj-tags"><span class="pt">Node.js</span><span class="pt">Express</span><span class="pt">MongoDB</span><span class="pt">JWT</span><span class="pt">Chart.js</span></div>
@@ -1075,7 +1461,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
           </div>
         </div>
         <div class="pj-body">
-          <div class="pj-num">02 / 05</div>
+          <div class="pj-num">02 / 06</div>
           <div class="pj-title">LINAFP — Billetterie en ligne</div>
           <div class="pj-desc">Billetterie pour la Ligue Nationale de Football du Gabon. Calendrier, achat en ligne et tickets numériques QR Code pour les stades.</div>
           <div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">Node.js</span></div>
@@ -1102,7 +1488,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
           </div>
         </div>
         <div class="pj-body">
-          <div class="pj-num">03 / 05</div>
+          <div class="pj-num">03 / 06</div>
           <div class="pj-title">OTAKU — Catalogue Anime &amp; Manga</div>
           <div class="pj-desc">Catalogue d'animes avec moteur de recherche, favoris, fiches détaillées et interface inspirée de l'esthétique japonaise moderne.</div>
           <div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">API REST</span></div>
@@ -1129,7 +1515,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
           </div>
         </div>
         <div class="pj-body">
-          <div class="pj-num">04 / 05</div>
+          <div class="pj-num">04 / 06</div>
           <div class="pj-title">Tsunami Aquapark</div>
           <div class="pj-desc">Site vitrine de l'aquapark de Libreville. Toboggans, bassins, espace enfants, restauration et événements.</div>
           <div class="pj-tags"><span class="pt">HTML</span><span class="pt">Tailwind</span><span class="pt">CSS</span><span class="pt">JavaScript</span></div>
@@ -1201,7 +1587,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
 <section id="experience">
   <div class="sec-inner">
     <div class="reveal">
-      <span class="sec-label">04 — Parcours</span>
+      <span class="sec-label">06 — Parcours</span>
       <h2 class="sec-title">Formation &amp; expérience</h2>
     </div>
     <div class="exp-grid">
@@ -1218,11 +1604,19 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
           </div>
           <div class="tl-item">
             <div class="tl-dot p"></div>
-            <div class="tl-period">2025 – 2027</div>
+            <div class="tl-period">2025 – 2026</div>
             <div class="tl-title">Master 1 Cybersécurité, Réseaux &amp; Cloud</div>
             <div class="tl-org">Spécialisation en cours</div>
             <div class="tl-desc">Sécurité applicative, architectures cloud sécurisées, incident response, administration avancée des réseaux.</div>
             <span class="tl-badge">En cours</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot m"></div>
+            <div class="tl-period">2027 — à venir</div>
+            <div class="tl-title">Master 2 Cybersécurité, Réseaux &amp; Cloud</div>
+            <div class="tl-org">Poursuite naturelle du M1</div>
+            <div class="tl-desc">Approfondissement en sécurité avancée, architectures Zero Trust et spécialisation cloud.</div>
+            <span class="tl-badge">Planifié</span>
           </div>
           <div class="tl-item">
             <div class="tl-dot"></div>
@@ -1260,7 +1654,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
         <div class="lang-row">
           <div class="lang-c"><div class="lang-flag">🇫🇷</div><div class="lang-name">Français</div><div class="lang-level">Natif</div></div>
           <div class="lang-c"><div class="lang-flag">🇬🇧</div><div class="lang-name">Anglais</div><div class="lang-level">Intermédiaire</div></div>
-          <div class="lang-c"><div class="lang-flag">🇬🇦</div><div class="lang-name">Gabonais</div><div class="lang-level">Natif</div></div>
+          <div class="lang-c"><div class="lang-flag">🇪🇸</div><div class="lang-name">Espagnol</div><div class="lang-level">Débutant</div></div>
         </div>
         <p class="exp-col-title" style="margin-top:1.6rem">Outils &amp; Environnements</p>
         <div class="tools-wrap">
@@ -1278,7 +1672,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
 <section id="contact">
   <div class="sec-inner">
     <div class="reveal">
-      <span class="sec-label">05 — Contact</span>
+      <span class="sec-label">07 — Contact</span>
       <h2 class="sec-title">Travaillons ensemble</h2>
     </div>
     <div class="contact-layout">
@@ -1444,6 +1838,29 @@ const revealObs = new IntersectionObserver(entries => {
 document.querySelectorAll('.reveal, .reveal-3d').forEach(el => revealObs.observe(el));
 
 /* ══════════════════════════════════════
+   ANIMATED COUNTERS
+══════════════════════════════════════ */
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseInt(el.dataset.target, 10);
+    const suffix = el.dataset.suffix || '';
+    if (!target) return;
+    counterObs.unobserve(el);
+    let current = 0;
+    const step = Math.max(1, Math.ceil(target / 40));
+    const tick = () => {
+      current = Math.min(current + step, target);
+      el.textContent = current + suffix;
+      if (current < target) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+}, { threshold: 0.6 });
+document.querySelectorAll('.stat-num[data-target]').forEach(el => counterObs.observe(el));
+
+/* ══════════════════════════════════════
    PARALLAX HERO
 ══════════════════════════════════════ */
 window.addEventListener('scroll', () => {
@@ -1457,14 +1874,13 @@ window.addEventListener('scroll', () => {
 /* ══════════════════════════════════════
    3D TILT (hero card + skill cards)
 ══════════════════════════════════════ */
-document.querySelectorAll('.hero-card, .sk-card, .pj-card').forEach(card => {
+document.querySelectorAll('.sk-card, .pj-card').forEach(card => {
   card.addEventListener('mousemove', e => {
-    const rect  = card.getBoundingClientRect();
-    const x     = (e.clientX - rect.left) / rect.width  - .5;
-    const y     = (e.clientY - rect.top)  / rect.height - .5;
-    const rot   = card.classList.contains('hero-card') ? 8 : 10;
+    const rect = card.getBoundingClientRect();
+    const x    = (e.clientX - rect.left) / rect.width  - .5;
+    const y    = (e.clientY - rect.top)  / rect.height - .5;
     card.style.transform =
-      `perspective(900px) rotateY(${x * rot}deg) rotateX(${-y * rot}deg) translateZ(6px) scale(1.01)`;
+      `perspective(900px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateZ(6px) scale(1.01)`;
   });
   card.addEventListener('mouseleave', () => {
     card.style.transform = '';
@@ -1499,16 +1915,6 @@ document.querySelectorAll('.b-vp iframe').forEach(iframe => {
   });
 });
 
-/* ══════════════════════════════════════
-   ANIMATE HERO SKILL BARS
-══════════════════════════════════════ */
-setTimeout(() => {
-  document.querySelectorAll('.sk-fill').forEach(el => {
-    const w = el.style.width;
-    el.style.width = '0';
-    setTimeout(() => el.style.width = w, 100);
-  });
-}, 1800);
 
 /* ══════════════════════════════════════
    CONTACT FORM
@@ -1526,6 +1932,18 @@ function handleForm() {
   const b = encodeURIComponent(`Nom: ${nom}\nEmail: ${email}\n\nMessage:\n${message}`);
   window.location.href = `mailto:nsoleypro20@gmail.com?subject=${s}&body=${b}`;
 }
+
+/* ── DARK MODE ── */
+(function(){
+  const toggle = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.dataset.theme = saved;
+  toggle.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('theme', next);
+  });
+})();
 </script>
 </body>
 </html>
