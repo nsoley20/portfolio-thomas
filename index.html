@@ -3,7 +3,20 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Thomas EKANG NSOLEY — Portfolio</title>
+<title>Sean Thomas EKANG NSOLEY — Portfolio Développeur Fullstack</title>
+<meta name="description" content="Portfolio de Sean Thomas EKANG NSOLEY — Développeur Fullstack, Expert Cybersécurité et Architecte Réseau basé à Libreville, Gabon."/>
+<meta name="keywords" content="développeur fullstack, cybersécurité, réseau, Node.js, MongoDB, JavaScript, Gabon, Libreville, Sean Ekang Nsoley"/>
+<meta name="author" content="Sean Thomas EKANG NSOLEY"/>
+<meta property="og:title" content="Sean Thomas EKANG NSOLEY — Développeur Fullstack · Cybersécurité · Réseaux"/>
+<meta property="og:description" content="Applications web, APIs sécurisées et architectures réseau — basé à Libreville, Gabon. Découvrez mes projets."/>
+<meta property="og:image" content="https://nsoley20.github.io/portfolio-thomas/seanpp.jpeg"/>
+<meta property="og:url" content="https://nsoley20.github.io/portfolio-thomas/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="fr_FR"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Sean Thomas EKANG NSOLEY — Portfolio"/>
+<meta name="twitter:description" content="Développeur Fullstack · Expert Cybersécurité · Architecte Réseau — Libreville, Gabon"/>
+<meta name="twitter:image" content="https://nsoley20.github.io/portfolio-thomas/seanpp.jpeg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300&family=Outfit:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
@@ -897,6 +910,74 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
 .reveal-3d.in{opacity:1;transform:perspective(800px) rotateX(0deg) translateY(0)}
 .reveal-3d.reveal-delay-1{transition-delay:.1s}.reveal-3d.reveal-delay-2{transition-delay:.2s}.reveal-3d.reveal-delay-3{transition-delay:.3s}
 
+/* ══ GRAIN TEXTURE ══ */
+#grain{
+  position:fixed;inset:0;z-index:400;pointer-events:none;
+  opacity:.022;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px;
+  animation:grainMove .15s steps(1) infinite;
+}
+@keyframes grainMove{
+  0%{transform:translate(0,0)}20%{transform:translate(-3%,-3%)}
+  40%{transform:translate(3%,2%)}60%{transform:translate(-2%,3%)}
+  80%{transform:translate(2%,-2%)}
+}
+
+/* ══ SECTION WATERMARKS ══ */
+.sec-inner{position:relative}
+.sec-wm{
+  position:absolute;top:-.15em;right:-.02em;
+  font-family:var(--display);font-size:clamp(5rem,13vw,11rem);
+  font-weight:900;font-style:italic;letter-spacing:-.06em;
+  color:transparent;-webkit-text-stroke:1.5px rgba(79,70,229,.09);
+  pointer-events:none;user-select:none;line-height:1;z-index:0;
+}
+[data-theme="dark"] .sec-wm{-webkit-text-stroke-color:rgba(99,102,241,.12)}
+
+/* ══ SPOTLIGHT ══ */
+.section-spotlight{
+  position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:radial-gradient(700px circle at var(--sx,50%) var(--sy,30%),rgba(99,102,241,.09),transparent 60%);
+  transition:background .1s linear;
+}
+#contact{position:relative;overflow:hidden}
+#contact .sec-inner{z-index:2;position:relative}
+
+/* ══ PROJECT FILTER ══ */
+.proj-filter{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.5rem 0 2rem}
+.pf-btn{
+  padding:.34rem .95rem;border-radius:100px;
+  font-size:.72rem;font-weight:600;font-family:var(--mono);
+  background:transparent;border:1.5px solid var(--border2);
+  color:var(--text2);cursor:pointer;
+  transition:all .2s var(--spring);
+}
+.pf-btn:hover{border-color:var(--indigo);color:var(--indigo);transform:translateY(-1px)}
+.pf-btn.active{
+  background:var(--indigo);border-color:var(--indigo);
+  color:#fff;box-shadow:0 4px 14px rgba(79,70,229,.28);
+}
+.pj-card{transition:opacity .3s ease,transform .3s var(--spring),box-shadow .25s}
+.pj-card.pf-out{opacity:0;transform:scale(.94);pointer-events:none}
+.pj-card.pf-gone{display:none}
+
+/* ══ CHARACTER REVEAL ══ */
+.sec-title .char{
+  display:inline-block;opacity:0;
+  transform:translateY(28px);
+  transition:opacity .45s var(--ease-out),transform .45s var(--ease-out);
+}
+.sec-title.in .char{opacity:1;transform:translateY(0)}
+
+/* ══ FORM STATES ══ */
+.form-msg{
+  display:none;text-align:center;padding:1.2rem;
+  border-radius:10px;font-size:.82rem;font-weight:600;margin-top:.8rem;
+}
+.form-msg.ok{display:block;background:rgba(16,185,129,.12);color:var(--green);border:1px solid rgba(16,185,129,.25)}
+.form-msg.err{display:block;background:rgba(244,63,94,.1);color:var(--rose);border:1px solid rgba(244,63,94,.2)}
+
 /* ══════════════════════════════════════
    RESPONSIVE — Comprehensive
 ══════════════════════════════════════ */
@@ -1047,6 +1128,9 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
   </div>
   <div class="loader-pct" id="loaderPct">0%</div>
 </div>
+
+<!-- ══ GRAIN ══ -->
+<div id="grain" aria-hidden="true"></div>
 
 <!-- ══ CURSOR ══ -->
 <div id="cursor"></div>
@@ -1206,6 +1290,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
 <!-- ══ ABOUT ══ -->
 <section id="about">
   <div class="sec-inner">
+    <span class="sec-wm" aria-hidden="true">01</span>
     <div class="reveal">
       <span class="sec-label">01 — À propos</span>
       <h2 class="sec-title">Qui suis-je ?</h2>
@@ -1261,6 +1346,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
 <!-- ══ SKILLS ══ -->
 <section id="skills">
   <div class="sec-inner">
+    <span class="sec-wm" aria-hidden="true">02</span>
     <div class="reveal">
       <span class="sec-label">02 — Compétences</span>
       <h2 class="sec-title">Stack technique</h2>
@@ -1324,6 +1410,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
 <!-- ══ SERVICES ══ -->
 <section id="services">
   <div class="sec-inner">
+    <span class="sec-wm" aria-hidden="true">03</span>
     <div class="reveal">
       <span class="sec-label">03 — Services</span>
       <h2 class="sec-title">Ce que je propose</h2>
@@ -1377,6 +1464,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
 <!-- ══ PROCESS ══ -->
 <section id="process">
   <div class="sec-inner">
+    <span class="sec-wm" aria-hidden="true">04</span>
     <div class="reveal">
       <span class="sec-label">04 — Méthode</span>
       <h2 class="sec-title">Comment je travaille</h2>
@@ -1410,16 +1498,24 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
 <!-- ══ PROJECTS ══ -->
 <section id="projects">
   <div class="sec-inner">
+    <span class="sec-wm" aria-hidden="true">05</span>
     <div class="reveal">
       <span class="sec-label">05 — Projets</span>
       <h2 class="sec-title">Mes réalisations</h2>
       <p class="sec-sub">6 réalisations développées de bout en bout — survolez la preview pour ouvrir le site.</p>
     </div>
 
+    <div class="proj-filter" role="group" aria-label="Filtrer les projets">
+      <button class="pf-btn active" data-filter="all">Tous</button>
+      <button class="pf-btn" data-filter="fullstack">Fullstack</button>
+      <button class="pf-btn" data-filter="vitrine">Vitrine</button>
+      <button class="pf-btn" data-filter="securite">Sécurité</button>
+    </div>
+
     <div class="proj-grid">
 
       <!-- BAMBOO EMF -->
-      <div class="pj-card reveal-3d reveal-delay-1">
+      <div class="pj-card reveal-3d reveal-delay-1" data-cat="fullstack securite">
         <div class="b-mock">
           <div class="b-bar">
             <div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
@@ -1446,7 +1542,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
       </div>
 
       <!-- LINAF -->
-      <div class="pj-card rose reveal-3d reveal-delay-2">
+      <div class="pj-card rose reveal-3d reveal-delay-2" data-cat="fullstack">
         <div class="b-mock">
           <div class="b-bar">
             <div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
@@ -1473,7 +1569,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
       </div>
 
       <!-- OTAKU -->
-      <div class="pj-card mix reveal-3d reveal-delay-3">
+      <div class="pj-card mix reveal-3d reveal-delay-3" data-cat="vitrine">
         <div class="b-mock">
           <div class="b-bar">
             <div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
@@ -1500,7 +1596,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
       </div>
 
       <!-- TSUNAMI -->
-      <div class="pj-card azure reveal-3d reveal-delay-1">
+      <div class="pj-card azure reveal-3d reveal-delay-1" data-cat="vitrine">
         <div class="b-mock">
           <div class="b-bar">
             <div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
@@ -1526,7 +1622,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
       </div>
 
       <!-- WA NGAN -->
-      <div class="pj-card grn reveal-3d reveal-delay-2">
+      <div class="pj-card grn reveal-3d reveal-delay-2" data-cat="fullstack">
         <div class="b-mock">
           <div class="b-bar">
             <div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
@@ -1554,7 +1650,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
       </div>
 
       <!-- GAKI GROUP -->
-      <div class="pj-card gold reveal-3d reveal-delay-3">
+      <div class="pj-card gold reveal-3d reveal-delay-3" data-cat="vitrine">
         <div class="b-mock">
           <div class="b-bar">
             <div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
@@ -1586,6 +1682,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
 <!-- ══ EXPERIENCE ══ -->
 <section id="experience">
   <div class="sec-inner">
+    <span class="sec-wm" aria-hidden="true">06</span>
     <div class="reveal">
       <span class="sec-label">06 — Parcours</span>
       <h2 class="sec-title">Formation &amp; expérience</h2>
@@ -1670,7 +1767,9 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
 
 <!-- ══ CONTACT ══ -->
 <section id="contact">
+  <div class="section-spotlight" id="contactSpotlight" aria-hidden="true"></div>
   <div class="sec-inner">
+    <span class="sec-wm" aria-hidden="true">07</span>
     <div class="reveal">
       <span class="sec-label">07 — Contact</span>
       <h2 class="sec-title">Travaillons ensemble</h2>
@@ -1688,16 +1787,19 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
       </div>
       <div class="contact-form reveal reveal-delay-2">
         <div class="cf-title">Envoyer un message</div>
-        <div class="form-row">
-          <div class="cf-g"><label class="cf-label">Nom</label><input class="cf-input" type="text" placeholder="Votre nom"/></div>
-          <div class="cf-g"><label class="cf-label">Email</label><input class="cf-input" type="email" placeholder="votre@email.com"/></div>
-        </div>
-        <div class="cf-g full"><label class="cf-label">Sujet</label><input class="cf-input" type="text" placeholder="Projet, opportunité, question…"/></div>
-        <div class="cf-g full"><label class="cf-label">Message</label><textarea class="cf-input cf-textarea" placeholder="Décrivez votre projet ou question…"></textarea></div>
-        <button class="btn-send" onclick="handleForm()">
-          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          Envoyer le message
-        </button>
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="cf-g"><label class="cf-label" for="cf-nom">Nom</label><input id="cf-nom" name="name" class="cf-input" type="text" placeholder="Votre nom" required/></div>
+            <div class="cf-g"><label class="cf-label" for="cf-email">Email</label><input id="cf-email" name="email" class="cf-input" type="email" placeholder="votre@email.com" required/></div>
+          </div>
+          <div class="cf-g full"><label class="cf-label" for="cf-sujet">Sujet</label><input id="cf-sujet" name="subject" class="cf-input" type="text" placeholder="Projet, opportunité, question…"/></div>
+          <div class="cf-g full"><label class="cf-label" for="cf-msg">Message</label><textarea id="cf-msg" name="message" class="cf-input cf-textarea" placeholder="Décrivez votre projet ou question…" required></textarea></div>
+          <button type="submit" class="btn-send" id="btnSend">
+            <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            <span id="btnSendTxt">Envoyer le message</span>
+          </button>
+          <div class="form-msg" id="formMsg"></div>
+        </form>
       </div>
     </div>
   </div>
@@ -1917,21 +2019,164 @@ document.querySelectorAll('.b-vp iframe').forEach(iframe => {
 
 
 /* ══════════════════════════════════════
-   CONTACT FORM
+   CONTACT FORM — Formspree
 ══════════════════════════════════════ */
-function handleForm() {
-  const nom     = document.querySelector('input[placeholder="Votre nom"]').value.trim();
-  const email   = document.querySelector('input[placeholder="votre@email.com"]').value.trim();
-  const sujet   = document.querySelector('input[placeholder="Projet, opportunité, question…"]').value.trim();
-  const message = document.querySelector('.cf-textarea').value.trim();
-  if (!nom || !email || !message) {
-    alert('Merci de remplir le nom, l\'email et le message.');
-    return;
-  }
-  const s = encodeURIComponent(sujet || 'Nouveau message depuis le portfolio');
-  const b = encodeURIComponent(`Nom: ${nom}\nEmail: ${email}\n\nMessage:\n${message}`);
-  window.location.href = `mailto:nsoleypro20@gmail.com?subject=${s}&body=${b}`;
-}
+(function(){
+  const FORMSPREE_ID = 'YOUR_FORM_ID'; // ← Remplacer après inscription sur formspree.io
+  const form   = document.getElementById('contactForm');
+  const btn    = document.getElementById('btnSend');
+  const btnTxt = document.getElementById('btnSendTxt');
+  const msg    = document.getElementById('formMsg');
+
+  if (!form) return;
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const nom     = form.querySelector('[name="name"]').value.trim();
+    const email   = form.querySelector('[name="email"]').value.trim();
+    const message = form.querySelector('[name="message"]').value.trim();
+
+    if (!nom || !email || !message) {
+      msg.className = 'form-msg err';
+      msg.textContent = 'Merci de remplir le nom, l\'email et le message.';
+      return;
+    }
+
+    // Si Formspree non configuré → fallback mailto
+    if (FORMSPREE_ID === 'YOUR_FORM_ID') {
+      const sujet   = form.querySelector('[name="subject"]').value.trim();
+      const s = encodeURIComponent(sujet || 'Nouveau message depuis le portfolio');
+      const b = encodeURIComponent(`Nom: ${nom}\nEmail: ${email}\n\nMessage:\n${message}`);
+      window.location.href = `mailto:nsoleypro20@gmail.com?subject=${s}&body=${b}`;
+      return;
+    }
+
+    btn.disabled = true;
+    btnTxt.textContent = 'Envoi en cours…';
+    msg.className = 'form-msg';
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      });
+      if (res.ok) {
+        msg.className = 'form-msg ok';
+        msg.textContent = '✓ Message envoyé ! Je vous répondrai sous 24h.';
+        form.reset();
+      } else {
+        throw new Error();
+      }
+    } catch {
+      msg.className = 'form-msg err';
+      msg.textContent = 'Erreur d\'envoi. Écrivez-moi à nsoleypro20@gmail.com';
+    } finally {
+      btn.disabled = false;
+      btnTxt.textContent = 'Envoyer le message';
+    }
+  });
+})();
+
+/* ══════════════════════════════════════
+   SPOTLIGHT EFFECT (section contact)
+══════════════════════════════════════ */
+(function(){
+  const section  = document.getElementById('contact');
+  const spotlight = document.getElementById('contactSpotlight');
+  if (!section || !spotlight) return;
+  section.addEventListener('mousemove', e => {
+    const rect = section.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1) + '%';
+    const y = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + '%';
+    spotlight.style.setProperty('--sx', x);
+    spotlight.style.setProperty('--sy', y);
+  });
+})();
+
+/* ══════════════════════════════════════
+   MAGNETIC BUTTONS
+══════════════════════════════════════ */
+(function(){
+  document.querySelectorAll('.btn-primary, .nav-cta').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const rect   = btn.getBoundingClientRect();
+      const cx     = rect.left + rect.width  / 2;
+      const cy     = rect.top  + rect.height / 2;
+      const dx     = (e.clientX - cx) * .28;
+      const dy     = (e.clientY - cy) * .28;
+      btn.style.transform = `translate(${dx}px,${dy}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = '';
+      btn.style.transition = 'transform .5s cubic-bezier(.34,1.56,.64,1)';
+      setTimeout(() => btn.style.transition = '', 500);
+    });
+  });
+})();
+
+/* ══════════════════════════════════════
+   CHARACTER SPLIT REVEAL
+══════════════════════════════════════ */
+(function(){
+  document.querySelectorAll('.sec-title').forEach(el => {
+    const text  = el.innerHTML;
+    const parts = text.split(/(<[^>]+>)/g);
+    let out = '';
+    let delay = 0;
+    parts.forEach(part => {
+      if (part.startsWith('<')) {
+        out += part;
+      } else {
+        part.split('').forEach(ch => {
+          const safe = ch === ' ' ? '&nbsp;' : ch.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+          out += `<span class="char" style="transition-delay:${delay * 28}ms">${safe}</span>`;
+          delay++;
+        });
+      }
+    });
+    el.innerHTML = out;
+    el.classList.add('char-reveal');
+  });
+
+  const charObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('in');
+    });
+  }, { threshold: .3 });
+  document.querySelectorAll('.sec-title.char-reveal').forEach(el => charObs.observe(el));
+})();
+
+/* ══════════════════════════════════════
+   PROJECT FILTER
+══════════════════════════════════════ */
+(function(){
+  const btns  = document.querySelectorAll('.pf-btn');
+  const cards = document.querySelectorAll('.pj-card[data-cat]');
+  if (!btns.length) return;
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+
+      cards.forEach(card => {
+        const cats = card.dataset.cat || '';
+        const match = filter === 'all' || cats.includes(filter);
+        if (match) {
+          card.classList.remove('pf-gone');
+          requestAnimationFrame(() => card.classList.remove('pf-out'));
+        } else {
+          card.classList.add('pf-out');
+          card.addEventListener('transitionend', () => {
+            if (card.classList.contains('pf-out')) card.classList.add('pf-gone');
+          }, { once: true });
+        }
+      });
+    });
+  });
+})();
 
 /* ── DARK MODE ── */
 (function(){
