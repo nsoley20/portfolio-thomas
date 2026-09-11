@@ -1108,6 +1108,80 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
   .stat-num{font-size:1.4rem}
   .pj-links a{font-size:.65rem;padding:.32rem .65rem}
 }
+
+/* ── Portfolio polish ── */
+body{
+  background:
+    radial-gradient(circle at 8% 12%,rgba(99,102,241,.08),transparent 28rem),
+    radial-gradient(circle at 92% 42%,rgba(6,182,212,.06),transparent 24rem),
+    var(--bg);
+}
+nav{
+  width:min(1200px,calc(100% - 2rem));
+  left:50%;right:auto;transform:translateX(-50%);
+  top:1rem;height:58px;padding:0 1rem;
+  border:1px solid transparent;border-radius:16px;
+}
+nav.scrolled{
+  border-color:var(--border);
+  box-shadow:0 12px 35px rgba(13,12,29,.08);
+}
+.hero{
+  min-height:calc(100vh - 1rem);
+  padding-top:9rem;
+}
+.hero-inner,.sec-inner{max-width:1200px}
+.hero-h1{letter-spacing:-.065em}
+.hero-badge,.pill,.stat-c,.now-card,.sk-card,.srv-card,.proc-step,.tl-item,.cert-card,.lang-c,.contact-form,.cc{
+  box-shadow:var(--shadow-sm);
+}
+section{position:relative}
+section:nth-of-type(even){background:linear-gradient(180deg,var(--bg),var(--bg2))}
+.sec-label{display:inline-flex;align-items:center;gap:.5rem}
+.sec-label::before{content:'';width:24px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--indigo),var(--purple))}
+.sec-sub{max-width:620px}
+#projects{padding-top:8rem;background:linear-gradient(180deg,var(--bg2),var(--bg))}
+.proj-filter{
+  align-items:center;
+  padding:.45rem;
+  width:max-content;
+  max-width:100%;
+  background:rgba(255,255,255,.55);
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:var(--shadow-sm);
+}
+.pf-btn{border-color:transparent}
+.pf-btn.active{box-shadow:0 6px 18px rgba(79,70,229,.25)}
+.proj-grid{gap:1.35rem;margin-top:2rem}
+.pj-card{
+  border-radius:18px;
+  box-shadow:0 8px 24px rgba(13,12,29,.045);
+}
+.pj-card:hover{transform:translateY(-10px);box-shadow:0 24px 55px rgba(13,12,29,.13)}
+.b-mock{border-radius:16px 16px 0 0;border-color:transparent}
+.b-bar{padding:.55rem .75rem;background:rgba(232,231,236,.82)}
+.b-vp{height:215px}
+.pj-body{padding:1.3rem 1.35rem 1.4rem}
+.pj-title{font-size:1rem}
+.pj-desc{font-size:.8rem;line-height:1.7}
+.pt{border-radius:999px;padding:.2rem .58rem}
+.plink{border-radius:999px;padding:.45rem .9rem}
+.plink-muted{display:inline-flex;align-items:center;padding:.38rem .82rem;border-radius:999px;background:var(--bg);border:1px solid var(--border);color:var(--text3);font-size:.7rem;font-weight:600}
+.pj-links a[href*="github.com"]{display:none}
+[data-theme="dark"] body{background:radial-gradient(circle at 8% 12%,rgba(99,102,241,.12),transparent 28rem),var(--bg)}
+[data-theme="dark"] nav.scrolled{box-shadow:0 12px 35px rgba(0,0,0,.28)}
+[data-theme="dark"] .proj-filter{background:rgba(30,27,56,.8)}
+[data-theme="dark"] section:nth-of-type(even){background:linear-gradient(180deg,var(--bg),var(--bg2))}
+
+@media(max-width:768px){
+  nav{top:.55rem;width:calc(100% - 1rem)}
+  .hero{min-height:auto;padding-top:8rem}
+  #projects{padding-top:6rem}
+  .proj-filter{width:100%;overflow-x:auto}
+  .pf-btn{flex:1;white-space:nowrap}
+  .b-vp{height:185px}
+}
 </style>
 </head>
 <body>
@@ -1304,7 +1378,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
         </div>
         <div class="stats-grid reveal reveal-delay-1">
           <div class="stat-c"><div class="stat-num" data-target="3" data-suffix="+">0</div><div class="stat-lbl">ans en dev web</div></div>
-          <div class="stat-c"><div class="stat-num" data-target="6">0</div><div class="stat-lbl">projets livrés</div></div>
+          <div class="stat-c"><div class="stat-num" data-target="18">0</div><div class="stat-lbl">projets présentés</div></div>
           <div class="stat-c"><div class="stat-num">M1</div><div class="stat-lbl">Cybersécurité</div></div>
           <div class="stat-c"><div class="stat-num">100%</div><div class="stat-lbl">livraisons réussies</div></div>
         </div>
@@ -1502,7 +1576,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
     <div class="reveal">
       <span class="sec-label">05 — Projets</span>
       <h2 class="sec-title">Mes réalisations</h2>
-      <p class="sec-sub">6 réalisations développées de bout en bout — survolez la preview pour ouvrir le site.</p>
+      <p class="sec-sub">18 réalisations développées de bout en bout — survolez la preview pour ouvrir le site.</p>
     </div>
 
     <div class="proj-filter" role="group" aria-label="Filtrer les projets">
@@ -1513,6 +1587,78 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
     </div>
 
     <div class="proj-grid">
+
+      <!-- MUSIC GABOMA -->
+      <div class="pj-card reveal-3d reveal-delay-1" data-cat="vitrine">
+        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">music-gaboma.vercel.app</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#17113b,#9333ea)">MUSIC GABOMA</div><iframe src="https://music-gaboma.vercel.app/" loading="lazy" title="Music Gaboma preview" sandbox="allow-same-origin allow-scripts"></iframe><a href="https://music-gaboma.vercel.app/" class="b-overlay" target="_blank" rel="noopener"><div class="b-overlay-btn">Ouvrir le site</div></a></div></div>
+        <div class="pj-body"><div class="pj-num">01 / 18</div><div class="pj-title">Music Gaboma — Plateforme musicale</div><div class="pj-desc">Expérience web dédiée à la découverte de la musique gabonaise, avec une interface moderne et des pages de détail pour les artistes et les titres.</div><div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">UX/UI</span></div><div class="pj-links"><a href="https://music-gaboma.vercel.app/" target="_blank" rel="noopener" class="plink plink-p">Voir le site</a></div></div>
+      </div>
+
+      <!-- NUMERIKART -->
+      <div class="pj-card reveal-3d reveal-delay-2" data-cat="vitrine">
+        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">numerikart-site.vercel.app</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#0f172a,#0ea5e9)">NUMERIKART</div><iframe src="https://numerikart-site.vercel.app/" loading="lazy" title="Numerikart preview" sandbox="allow-same-origin allow-scripts"></iframe><a href="https://numerikart-site.vercel.app/" class="b-overlay" target="_blank" rel="noopener"><div class="b-overlay-btn">Ouvrir le site</div></a></div></div>
+        <div class="pj-body"><div class="pj-num">02 / 18</div><div class="pj-title">Numerikart — Site e-commerce</div><div class="pj-desc">Site de présentation et de vente pensé pour une expérience de shopping claire, rapide et responsive.</div><div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">Responsive</span></div><div class="pj-links"><a href="https://numerikart-site.vercel.app/" target="_blank" rel="noopener" class="plink plink-p">Voir le site</a></div></div>
+      </div>
+
+      <!-- GHETTOPAY APP -->
+      <div class="pj-card grn reveal-3d reveal-delay-3" data-cat="fullstack securite">
+        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">ghettopay.com</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#052e16,#16a34a)">GHETTOPAY</div><iframe src="https://ghettopay.com/" loading="lazy" title="GhettoPay app preview" sandbox="allow-same-origin allow-scripts"></iframe><a href="https://ghettopay.com/" class="b-overlay" target="_blank" rel="noopener"><div class="b-overlay-btn">Ouvrir le site</div></a></div></div>
+        <div class="pj-body"><div class="pj-num">03 / 18</div><div class="pj-title">GhettoPay — Application de paiement</div><div class="pj-desc">Application de portefeuille numérique avec gestion de solde, opérations et suivi des transactions.</div><div class="pj-tags"><span class="pt">Web App</span><span class="pt">JavaScript</span><span class="pt">Wallet</span><span class="pt">UI/UX</span></div><div class="pj-links"><a href="https://ghettopay.com/" target="_blank" rel="noopener" class="plink plink-p">Voir le site</a></div></div>
+      </div>
+
+      <!-- CCNA TEST -->
+      <div class="pj-card azure reveal-3d reveal-delay-1" data-cat="securite">
+        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">ccna-test-three.vercel.app</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#082f49,#0284c7)">CCNA TEST</div><iframe src="https://ccna-test-three.vercel.app/" loading="lazy" title="CCNA Test preview" sandbox="allow-same-origin allow-scripts"></iframe><a href="https://ccna-test-three.vercel.app/" class="b-overlay" target="_blank" rel="noopener"><div class="b-overlay-btn">Ouvrir le site</div></a></div></div>
+        <div class="pj-body"><div class="pj-num">04 / 18</div><div class="pj-title">CCNA Test — Réseaux</div><div class="pj-desc">Plateforme d'entraînement aux notions CCNA avec questions interactives et validation des connaissances réseau.</div><div class="pj-tags"><span class="pt">Networking</span><span class="pt">Quiz</span><span class="pt">JavaScript</span><span class="pt">Responsive</span></div><div class="pj-links"><a href="https://ccna-test-three.vercel.app/" target="_blank" rel="noopener" class="plink plink-p">Voir le site</a></div></div>
+      </div>
+
+      <!-- CHUO PARC -->
+      <div class="pj-card mix reveal-3d reveal-delay-2" data-cat="vitrine">
+        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">chuo-parc.vercel.app</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#312e81,#7c3aed)">CHUO PARC</div><iframe src="https://chuo-parc.vercel.app/" loading="lazy" title="Chuo Parc preview" sandbox="allow-same-origin allow-scripts"></iframe><a href="https://chuo-parc.vercel.app/" class="b-overlay" target="_blank" rel="noopener"><div class="b-overlay-btn">Ouvrir le site</div></a></div></div>
+        <div class="pj-body"><div class="pj-num">05 / 18</div><div class="pj-title">Chuo Parc — Inventaire hospitalier</div><div class="pj-desc">Outil de suivi et d'inventaire conçu pour faciliter la gestion du matériel et des ressources d'un centre hospitalier.</div><div class="pj-tags"><span class="pt">Dashboard</span><span class="pt">CRUD</span><span class="pt">JavaScript</span><span class="pt">Responsive</span></div><div class="pj-links"><a href="https://chuo-parc.vercel.app/" target="_blank" rel="noopener" class="plink plink-p">Voir le site</a></div></div>
+      </div>
+
+      <!-- STUDIO COMEL -->
+      <div class="pj-card gold reveal-3d reveal-delay-3" data-cat="vitrine">
+        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">studio-comel-portfolio.vercel.app</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#451a03,#d97706)">STUDIO COMEL</div><iframe src="https://studio-comel-portfolio.vercel.app/" loading="lazy" title="Studio Comel preview" sandbox="allow-same-origin allow-scripts"></iframe><a href="https://studio-comel-portfolio.vercel.app/" class="b-overlay" target="_blank" rel="noopener"><div class="b-overlay-btn">Ouvrir le site</div></a></div></div>
+        <div class="pj-body"><div class="pj-num">06 / 18</div><div class="pj-title">Studio Comel — Portfolio créatif</div><div class="pj-desc">Portfolio vitrine pour présenter une activité créative, ses réalisations et son univers visuel.</div><div class="pj-tags"><span class="pt">Portfolio</span><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">Animation</span></div><div class="pj-links"><a href="https://studio-comel-portfolio.vercel.app/" target="_blank" rel="noopener" class="plink plink-p">Voir le site</a></div></div>
+      </div>
+
+      <!-- GHETTOPAY LANDING -->
+      <div class="pj-card grn reveal-3d reveal-delay-1" data-cat="vitrine">
+        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">ghettopay-landing.vercel.app</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#064e3b,#10b981)">GHETTOPAY</div><iframe src="https://ghettopay-landing.vercel.app/" loading="lazy" title="GhettoPay landing preview" sandbox="allow-same-origin allow-scripts"></iframe><a href="https://ghettopay-landing.vercel.app/" class="b-overlay" target="_blank" rel="noopener"><div class="b-overlay-btn">Ouvrir le site</div></a></div></div>
+        <div class="pj-body"><div class="pj-num">07 / 18</div><div class="pj-title">GhettoPay — Landing page</div><div class="pj-desc">Landing page orientée conversion pour présenter le service de paiement et ses bénéfices.</div><div class="pj-tags"><span class="pt">Landing page</span><span class="pt">Responsive</span><span class="pt">UI/UX</span><span class="pt">JavaScript</span></div><div class="pj-links"><a href="https://ghettopay-landing.vercel.app/" target="_blank" rel="noopener" class="plink plink-p">Voir le site</a></div></div>
+      </div>
+
+      <!-- TRT FACTORY -->
+      <div class="pj-card reveal-3d reveal-delay-2" data-cat="vitrine">
+        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">trt-factory.vercel.app</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#111827,#475569)">TRT FACTORY</div><iframe src="https://trt-factory.vercel.app/" loading="lazy" title="TRT Factory preview" sandbox="allow-same-origin allow-scripts"></iframe><a href="https://trt-factory.vercel.app/" class="b-overlay" target="_blank" rel="noopener"><div class="b-overlay-btn">Ouvrir le site</div></a></div></div>
+        <div class="pj-body"><div class="pj-num">08 / 18</div><div class="pj-title">TRT Factory — Réalisations</div><div class="pj-desc">Présentation de réalisations et de concepts développés à partir de maquettes, avec une attention portée au rendu responsive.</div><div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">Responsive</span></div><div class="pj-links"><a href="https://trt-factory.vercel.app/" target="_blank" rel="noopener" class="plink plink-p">Voir le site</a></div></div>
+      </div>
+
+      <!-- PORTFOLIO THOMAS -->
+      <div class="pj-card reveal-3d reveal-delay-3" data-cat="vitrine">
+        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">portfolio-thomas-two.vercel.app</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#0d0c1d,#4f46e5)">PORTFOLIO</div><iframe src="https://portfolio-thomas-two.vercel.app/" loading="lazy" title="Portfolio Thomas preview" sandbox="allow-same-origin allow-scripts"></iframe><a href="https://portfolio-thomas-two.vercel.app/" class="b-overlay" target="_blank" rel="noopener"><div class="b-overlay-btn">Ouvrir le site</div></a></div></div>
+        <div class="pj-body"><div class="pj-num">09 / 18</div><div class="pj-title">Portfolio Thomas</div><div class="pj-desc">Portfolio personnel présentant mon profil, mes compétences, mes services et mes réalisations.</div><div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">Design system</span></div><div class="pj-links"><a href="https://portfolio-thomas-two.vercel.app/" target="_blank" rel="noopener" class="plink plink-p">Voir le site</a></div></div>
+      </div>
+
+      <!-- TSUNAMI AQUAPARK 7 -->
+      <div class="pj-card azure reveal-3d reveal-delay-3" data-cat="vitrine">
+        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">tsunami-aquapark7.vercel.app</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#082f49,#0ea5e9)">TSUNAMI 7</div><iframe src="https://tsunami-aquapark7.vercel.app/" loading="lazy" title="Tsunami Aquapark 7 preview" sandbox="allow-same-origin allow-scripts"></iframe><a href="https://tsunami-aquapark7.vercel.app/" class="b-overlay" target="_blank" rel="noopener"><div class="b-overlay-btn">Ouvrir le site</div></a></div></div>
+        <div class="pj-body"><div class="pj-num">10 / 18</div><div class="pj-title">Tsunami Aquapark — Version 7</div><div class="pj-desc">Itération d'un site vitrine d'aquapark, avec amélioration progressive de la présentation des espaces et des activités.</div><div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">UI/UX</span></div><div class="pj-links"><a href="https://tsunami-aquapark7.vercel.app/" target="_blank" rel="noopener" class="plink plink-p">Voir le site</a></div></div>
+      </div>
+
+      <!-- TSUNAMI AQUAPARK ORIGINAL -->
+      <div class="pj-card azure reveal-3d reveal-delay-1" data-cat="vitrine">
+        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">tsunami-aquapark.vercel.app</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#0c4a6e,#06b6d4)">TSUNAMI</div><iframe src="https://tsunami-aquapark.vercel.app/" loading="lazy" title="Tsunami Aquapark original preview" sandbox="allow-same-origin allow-scripts"></iframe><a href="https://tsunami-aquapark.vercel.app/" class="b-overlay" target="_blank" rel="noopener"><div class="b-overlay-btn">Ouvrir le site</div></a></div></div>
+        <div class="pj-body"><div class="pj-num">11 / 18</div><div class="pj-title">Tsunami Aquapark — Première version</div><div class="pj-desc">Première version du site vitrine de l'aquapark, conservée pour montrer l'évolution du projet et du design.</div><div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">Responsive</span></div><div class="pj-links"><a href="https://tsunami-aquapark.vercel.app/" target="_blank" rel="noopener" class="plink plink-p">Voir le site</a></div></div>
+      </div>
+
+      <!-- SFE -->
+      <div class="pj-card reveal-3d reveal-delay-2" data-cat="fullstack securite">
+        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">Projet non déployé</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#172554,#334155)">SFE</div></div></div>
+        <div class="pj-body"><div class="pj-num">12 / 18</div><div class="pj-title">SFE — Gestion du personnel</div><div class="pj-desc">Application de gestion interne pensée pour centraliser les informations et les opérations liées aux ressources humaines.</div><div class="pj-tags"><span class="pt">Node.js</span><span class="pt">Express</span><span class="pt">MongoDB</span><span class="pt">JWT</span></div><div class="pj-links"><span class="plink plink-muted">Projet privé</span></div></div>
+      </div>
 
       <!-- BAMBOO EMF -->
       <div class="pj-card reveal-3d reveal-delay-1" data-cat="fullstack securite">
@@ -1530,7 +1676,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
           </div>
         </div>
         <div class="pj-body">
-          <div class="pj-num">01 / 06</div>
+          <div class="pj-num">13 / 18</div>
           <div class="pj-title">BAMBOO EMF — Gestion RH</div>
           <div class="pj-desc">Application complète de gestion RH pour SFE. Dashboard analytics, CRUD employés, suivi des présences, performances et rapports avec JWT et RBAC.</div>
           <div class="pj-tags"><span class="pt">Node.js</span><span class="pt">Express</span><span class="pt">MongoDB</span><span class="pt">JWT</span><span class="pt">Chart.js</span></div>
@@ -1557,7 +1703,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
           </div>
         </div>
         <div class="pj-body">
-          <div class="pj-num">02 / 06</div>
+          <div class="pj-num">14 / 18</div>
           <div class="pj-title">LINAFP — Billetterie en ligne</div>
           <div class="pj-desc">Billetterie pour la Ligue Nationale de Football du Gabon. Calendrier, achat en ligne et tickets numériques QR Code pour les stades.</div>
           <div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">Node.js</span></div>
@@ -1584,7 +1730,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
           </div>
         </div>
         <div class="pj-body">
-          <div class="pj-num">03 / 06</div>
+          <div class="pj-num">15 / 18</div>
           <div class="pj-title">OTAKU — Catalogue Anime &amp; Manga</div>
           <div class="pj-desc">Catalogue d'animes avec moteur de recherche, favoris, fiches détaillées et interface inspirée de l'esthétique japonaise moderne.</div>
           <div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">API REST</span></div>
@@ -1611,7 +1757,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
           </div>
         </div>
         <div class="pj-body">
-          <div class="pj-num">04 / 06</div>
+          <div class="pj-num">16 / 18</div>
           <div class="pj-title">Tsunami Aquapark</div>
           <div class="pj-desc">Site vitrine de l'aquapark de Libreville. Toboggans, bassins, espace enfants, restauration et événements.</div>
           <div class="pj-tags"><span class="pt">HTML</span><span class="pt">Tailwind</span><span class="pt">CSS</span><span class="pt">JavaScript</span></div>
@@ -1637,7 +1783,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
           </div>
         </div>
         <div class="pj-body">
-          <div class="pj-num">05 / 06</div>
+          <div class="pj-num">17 / 18</div>
           <div class="pj-title">WA NGAN — Vlogging Gabonais</div>
           <div class="pj-desc">Plateforme de vlogging 100% gabonaise. Profils, vlogs, communauté et export PDF/JSON. Panneau d'administration complet avec upload médias.</div>
           <div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">Export PDF/JSON</span><span class="pt">Admin Panel</span></div>
@@ -1665,7 +1811,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
           </div>
         </div>
         <div class="pj-body">
-          <div class="pj-num">06 / 06</div>
+          <div class="pj-num">18 / 18</div>
           <div class="pj-title">GAKI GROUP — Hub de l'Excellence Africaine</div>
           <div class="pj-desc">Site vitrine corporate pour un holding stratégique basé à Dakar. 7 filiales spécialisées : connectivité satellite, eau, finance, immobilier et formation pour la souveraineté africaine.</div>
           <div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">Corporate</span><span class="pt">Responsive</span></div>
@@ -1778,7 +1924,6 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding
       <div class="reveal contact-intro">
         <p>Vous avez un projet, une opportunité ou simplement une question ? Je suis disponible et je réponds sous 24h.</p>
         <div class="contact-cards">
-          <a href="mailto:thomasean2002@gmail.com" class="cc"><div class="cc-icon" style="background:var(--indigo)"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg></div><div><div class="cc-label">Email principal</div><div class="cc-val">thomasean2002@gmail.com</div></div></a>
           <a href="mailto:nsoleypro20@gmail.com" class="cc"><div class="cc-icon" style="background:var(--purple)"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg></div><div><div class="cc-label">Email pro</div><div class="cc-val">nsoleypro20@gmail.com</div></div></a>
           <a href="https://www.linkedin.com/in/thomas-nsoley-253076247/" target="_blank" class="cc"><div class="cc-icon" style="background:#0a66c2"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div><div><div class="cc-label">LinkedIn</div><div class="cc-val">thomasnsoley</div></div></a>
           <a href="https://github.com/thomasnsoley" target="_blank" class="cc"><div class="cc-icon" style="background:#24292e"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></div><div><div class="cc-label">GitHub</div><div class="cc-val">github.com/thomasnsoley</div></div></a>
