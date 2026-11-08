@@ -1576,6 +1576,92 @@ body.cursor-on #cursor,body.cursor-on #cursor-dot{opacity:1}
 .hero-h1 .grad{font-size:.62em;line-height:1.15;letter-spacing:-.035em;white-space:nowrap}
 .ld-b{font-size:clamp(1.5rem,7vw,8rem)}
 @media(max-width:360px){.hero-h1 .grad{font-size:.56em}}
+
+/* ══ Menu lisible sur l'affiche ══ */
+nav,nav.scrolled{background:rgba(244,243,240,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-color:rgba(255,255,255,.5);box-shadow:0 14px 34px -14px rgba(13,12,29,.45)}
+[data-theme="dark"] nav,[data-theme="dark"] nav.scrolled{background:rgba(15,14,26,.92);border-color:rgba(255,255,255,.1)}
+@media(max-width:1000px){.hamburger{display:flex}.nav-links,.nav-cta{display:none}}
+
+/* ══ Hero : l'affiche ══ */
+#home.hero,[data-theme="dark"] #home.hero{--g:clamp(1.1rem,3.4vw,3.2rem);display:block;height:100svh;min-height:520px;padding:0;overflow:hidden;background:#4338ca;color:#fff}
+.hx-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.hx-bg{position:absolute;inset:0;background:linear-gradient(118deg,#4338ca 0%,#6d4cf0 34%,#a24ee0 62%,#f43f5e 100%)}
+.hx-bg i{position:absolute;display:block}
+.hx-bg .b1,.hx-bg .b2,.hx-bg .b3{border-radius:50%;filter:blur(70px);will-change:transform}
+.hx-bg .b1{width:58vw;height:58vw;left:-12vw;top:-22vw;background:#312e81;animation:hxA 13s ease-in-out infinite alternate}
+.hx-bg .b2{width:48vw;height:48vw;right:-10vw;top:-14vw;background:#f43f5e;opacity:.85;animation:hxB 11s ease-in-out infinite alternate}
+.hx-bg .b3{width:52vw;height:52vw;left:30vw;bottom:-30vw;background:#8b5cf6;animation:hxA 16s ease-in-out infinite alternate-reverse}
+@keyframes hxA{to{transform:translate3d(9vw,7vw,0) scale(1.14)}}
+@keyframes hxB{to{transform:translate3d(-11vw,10vw,0) scale(1.2)}}
+.hx-bg .hx-glow{left:0;top:0;width:640px;height:640px;margin:-320px 0 0 -320px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.34),transparent 66%);transform:translate(var(--gx,70vw),var(--gy,30vh))}
+.hx-bg .hx-vig{inset:0;background:linear-gradient(180deg,rgba(13,12,29,.34),transparent 26%,transparent 62%,rgba(13,12,29,.3))}
+.hx-name{position:absolute;left:var(--g);right:var(--g);bottom:calc(5px + clamp(.6rem,1.6vh,1.2rem));font-family:var(--display);font-weight:900;line-height:.98;letter-spacing:-.055em;white-space:nowrap;padding:.06em .05em .18em 0;will-change:transform}
+.hx-fit{display:inline-block;font-size:var(--hx-size,12vw);word-spacing:.08em}
+.hx-w{display:inline-block}
+.hx-fill{color:#fff}
+.hx-stroke{color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.92)}
+.hx-photo{position:absolute;left:0;right:0;bottom:0;margin-inline:auto;height:min(96svh,62vw);width:auto;aspect-ratio:928/1063;max-width:none;mix-blend-mode:multiply;filter:brightness(1.18) contrast(1.06)}
+.js-intro .hx-photo{opacity:0}
+#hxPackets{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hx-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+.hx-ui{position:absolute;inset:0;pointer-events:none;z-index:2}
+.hx-ui a,.hx-ui .hx-right span{pointer-events:auto}
+.hx-left{position:absolute;left:var(--g);top:clamp(6.4rem,14vh,8.6rem);width:min(27vw,390px);display:flex;flex-direction:column;align-items:flex-start;gap:clamp(.8rem,1.9vh,1.3rem)}
+.hx-badge{display:inline-flex;align-items:center;gap:.5rem;background:#fff;color:#0d0c1d;border-radius:100px;padding:.42rem 1rem;font:500 .74rem/1.2 var(--mono);box-shadow:0 12px 30px -10px rgba(13,12,29,.5)}
+.hx-tag{font-family:var(--display);font-weight:300;font-size:clamp(2rem,3.5vw,3.5rem);line-height:1.04;letter-spacing:-.03em}
+.hx-tag em{font-style:italic}
+.hx-role{font:500 clamp(.86rem,1.05vw,1rem)/1.5 var(--mono)}
+#home .hero-rotate{display:block;min-width:0;width:100%;height:1.55em}
+#home .hero-rotate span{color:#fff;font-weight:600}
+.hx-role2{display:block;color:rgba(255,255,255,.86);font-size:.88em}
+.hx-cta{display:flex;flex-wrap:wrap;gap:.6rem}
+.hx-btn{display:inline-flex;align-items:center;gap:.55em;min-height:50px;padding:0 1.35rem;border-radius:14px;font-weight:700;font-size:1rem;text-decoration:none;transition:transform .3s var(--spring),box-shadow .3s,background .3s}
+.hx-btn:hover{transform:translateY(-4px)}
+.hx-btn1{background:#fff;color:#3730a3;box-shadow:0 18px 40px -12px rgba(13,12,29,.6)}
+.hx-btn2{color:#fff;border:2px solid rgba(255,255,255,.7);backdrop-filter:blur(6px)}
+.hx-btn2:hover{background:rgba(255,255,255,.16)}
+.hx-right{position:absolute;right:var(--g);top:clamp(6.4rem,14vh,8.6rem);display:flex;flex-direction:column;align-items:flex-end;gap:.5rem}
+.hx-right span{background:rgba(13,12,29,.82);color:#fff;border-radius:100px;padding:.5rem .95rem;font-size:.86rem;font-weight:500;backdrop-filter:blur(8px)}
+.hx-chip{position:absolute;display:block}
+.hx-chip b{display:block;background:#fff;color:#0d0c1d;border-radius:100px;padding:.55rem 1rem;font:500 .78rem/1 var(--mono);white-space:nowrap;box-shadow:0 18px 40px -12px rgba(13,12,29,.6);animation:hxFloat 5s ease-in-out infinite alternate}
+.hx-chip.c1{left:calc(50% - min(20vw,300px));top:24%}
+.hx-chip.c2{right:calc(50% - min(23vw,340px));top:38%}
+.hx-chip.c2 b{animation-delay:-2s}
+.hx-chip.c3{left:calc(50% - min(24vw,350px));top:52%}
+.hx-chip.c3 b{animation-delay:-3.4s}
+@keyframes hxFloat{to{translate:0 -14px}}
+.hx-first{position:absolute;left:var(--g);bottom:calc(var(--hx-name-h,30vh) + clamp(.2rem,1vh,.7rem));font-family:var(--display);font-style:italic;font-weight:300;font-size:clamp(1.6rem,3.4vw,3.7rem);line-height:1.08;letter-spacing:-.03em;text-shadow:0 2px 24px rgba(13,12,29,.45)}
+@media(max-width:960px){
+  .hx-fit{line-height:.9}
+  .hx-w{display:block}
+  .ld-w{display:block}
+  .ld-fit{line-height:.92}
+  #home.hero{min-height:560px}
+  .hx-photo{height:min(76svh,160vw)}
+  .hx-fill{z-index:1}
+  .hx-stroke{display:none}
+  .hx-left{left:var(--g);right:var(--g);top:5.2rem;width:auto;gap:.6rem}
+  .hx-tag{font-size:clamp(1.9rem,8.4vw,3.2rem)}
+  .hx-role{display:none}
+  .hx-right,.hx-chip{display:none}
+  .hx-cta{width:100%;flex-wrap:nowrap}
+  .hx-btn{flex:1;justify-content:center;font-size:.94rem;padding:0 .7rem}
+  .hx-first{font-size:clamp(1.25rem,5.5vw,2.6rem)}
+}
+@media(max-width:960px) and (max-height:700px){.hx-tag{display:none}}
+@media(max-height:560px){
+  #home.hero{min-height:0}
+  .hx-photo{height:100svh}
+  .hx-w{display:inline-block}
+  .hx-right,.hx-chip,.hx-role{display:none}
+  .hx-left{top:4.4rem;right:auto;width:44vw}
+  .hx-tag{display:block;font-size:1.5rem}
+  .hx-cta{flex-wrap:wrap}
+  .hx-first{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .hx-bg .b1,.hx-bg .b2,.hx-bg .b3,.hx-chip b{animation:none}
+}
 </style>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-intro')</script>
 </head>
@@ -1641,67 +1727,34 @@ body.cursor-on #cursor,body.cursor-on #cursor-dot{opacity:1}
 </div>
 
 <!-- ══ HERO ══ -->
-<section class="hero" id="home">
-  <div class="hero-mesh"></div>
-  <div class="hero-wm para-layer" data-para="-0.06">THOMAS</div>
-
-  <div class="hero-inner">
-    <div class="hero-text">
-      <div class="hero-badge para-layer" data-para="0.04">
-        <span class="badge-dot"></span>
-        Disponible · Libreville, Gabon
+<section class="hero" id="home" aria-labelledby="hxTitle">
+  <div class="hx-bg" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="hx-glow"></i><i class="hx-vig"></i></div>
+  <h1 id="hxTitle" class="hx-sr">Sean Thomas Patrick Salem EKANG NSOLEY, développeur fullstack, cybersécurité et réseaux à Libreville</h1>
+  <div class="hx-name hx-fill" aria-hidden="true"><span class="hx-fit"><span class="hx-w">EKANG</span> <span class="hx-w">NSOLEY</span></span></div>
+  <img id="heroSrc" class="hx-photo" src="seanpp.jpeg" alt="Portrait de Sean Thomas Patrick Salem EKANG NSOLEY"/>
+  <canvas id="hxPackets" aria-hidden="true"></canvas>
+  <div class="hx-name hx-stroke" aria-hidden="true"><span class="hx-fit"><span class="hx-w">EKANG</span> <span class="hx-w">NSOLEY</span></span></div>
+  <i class="hx-flash" aria-hidden="true"></i>
+  <div class="hx-ui">
+    <div class="hx-left">
+      <div class="hx-badge hx-in"><span class="badge-dot"></span>Disponible · Libreville, Gabon</div>
+      <p class="hx-tag hx-in">Du brief à la mise en <em>production</em>.</p>
+      <div class="hx-role hx-in">
+        <span class="hero-rotate"><span>Développeur Fullstack</span><span>Expert Cybersécurité</span><span>Architecte Réseau</span></span>
+        <span class="hx-role2">Téléinformatique &amp; Génie Logiciel</span>
       </div>
-      <h1 class="hero-h1 para-layer" data-para="0.02">
-        <span>EKANG NSOLEY</span>
-        <span class="grad">Sean Thomas Patrick Salem</span>
-      </h1>
-      <div class="hero-sub para-layer" data-para="0.03">
-        <span class="hero-rotate">
-          <span>Développeur Fullstack</span>
-          <span>Expert Cybersécurité</span>
-          <span>Architecte Réseau</span>
-        </span>
-        <span class="hero-sub-rest"><span class="hs-sep">&nbsp;·&nbsp; </span>Téléinformatique &amp; Génie Logiciel</span>
-      </div>
-      <div class="hero-btns">
-        <a href="#projects" class="btn-primary">
-          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          Voir mes projets
-        </a>
-        <a href="#contact" class="btn-secondary">
-          Me contacter
-          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-      <div class="hero-pills">
-        <div class="pill"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Open to work</div>
-        <div class="pill"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Sécurité by design</div>
-        <div class="pill"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Code propre · Docs incluses</div>
+      <div class="hx-cta hx-in">
+        <a href="#projects" class="hx-btn hx-btn1">Voir mes projets <span aria-hidden="true">→</span></a>
+        <a href="#contact" class="hx-btn hx-btn2">Me contacter</a>
       </div>
     </div>
-
-    <div class="hero-visual">
-      <div class="hero-photo-wrap">
-        <div class="hpw-glow"></div>
-        <div class="hpw-ring">
-          <div class="hpw-inner">
-            <img src="seanpp.jpeg" alt="Sean Thomas Patrick Salem EKANG NSOLEY"/>
-          </div>
-        </div>
-        <div class="hpw-badge hpw-b1">
-          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          JS · Node.js · MongoDB
-        </div>
-        <div class="hpw-badge hpw-b2">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          JWT · RBAC · OWASP
-        </div>
-        <div class="hpw-badge hpw-b3">
-          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          Linux · TCP/IP · VPN
-        </div>
-      </div>
+    <div class="hx-right hx-in">
+      <span>Open to work</span><span>Sécurité by design</span><span>Code propre · Docs incluses</span>
     </div>
+    <span class="hx-chip c1"><b>JS · Node.js · MongoDB</b></span>
+    <span class="hx-chip c2"><b>Linux · TCP/IP · VPN</b></span>
+    <span class="hx-chip c3"><b>JWT · RBAC · OWASP</b></span>
+    <p class="hx-first hx-in">Sean Thomas Patrick Salem</p>
   </div>
 </section>
 
@@ -1786,13 +1839,6 @@ body.cursor-on #cursor,body.cursor-on #cursor-dot{opacity:1}
             <div>
               <strong>Support IT — Porteo Group Gabon</strong>
               <span>Assistance informatique et accompagnement des utilisateurs</span>
-            </div>
-          </li>
-          <li>
-            <span class="now-dot active"></span>
-            <div>
-              <strong>Stage — CHUO / Ministère de la Santé</strong>
-              <span>Déploiement logiciel hospitalier · Gabon · 2026</span>
             </div>
           </li>
           <li>
@@ -2115,7 +2161,7 @@ body.cursor-on #cursor,body.cursor-on #cursor-dot{opacity:1}
             <div class="tl-title">Stage Pratique — Service Informatique CHUO</div>
             <div class="tl-org">Ministère de la Santé · CHUO</div>
             <div class="tl-desc">Participation au déploiement et aux tests du logiciel hospitalier national. Missions incluant la formation des utilisateurs, le support technique de proximité, la maintenance du parc informatique et la gestion opérationnelle du réseau au sein du CHUO.</div>
-            <span class="tl-badge g">En cours</span>
+            <span class="tl-badge">Terminé</span>
           </div>
           <div class="tl-item">
             <div class="tl-dot p"></div>
@@ -2287,7 +2333,7 @@ body.cursor-on #cursor,body.cursor-on #cursor-dot{opacity:1}
   }
 
   let assets = 0;
-  const photo = document.querySelector('.hpw-inner img');
+  const photo = document.getElementById('heroSrc');
   const need = [
     document.fonts.load('900 100px Fraunces'),
     document.fonts.load('italic 300 100px Fraunces'),
@@ -2979,53 +3025,169 @@ document.querySelectorAll('.b-vp iframe').forEach(iframe => {
 </script>
 <script>
 /* ══════════════════════════════════════
-   ENTRÉE DU HERO
+   HERO : L'AFFICHE
 ══════════════════════════════════════ */
 (function(){
   addEventListener('mousemove', function on(){ document.body.classList.add('cursor-on'); removeEventListener('mousemove', on); });
-  const G = window.gsap;
-  const root = document.documentElement;
-  if (!root.classList.contains('js-intro') || !G) { root.classList.remove('js-intro'); return; }
-  const $$ = s => [...document.querySelectorAll(s)];
-  const h1 = document.querySelector('.hero-h1');
-  const lines = h1 ? [...h1.children] : [];
-  let chars = [], grad = null;
-  lines.forEach(line => {
-    const mask = document.createElement('span'); mask.className = 'hl-mask';
-    line.before(mask); mask.append(line);
-    if (line.classList.contains('grad')) { grad = line; return; }
-    const words = line.textContent.split(' '); line.textContent = '';
-    words.forEach((w, i) => {
-      const wd = document.createElement('span'); wd.className = 'hl-w';
-      [...w].forEach(c => { const s = document.createElement('span'); s.className = 'hl-c'; s.textContent = c; wd.append(s); chars.push(s); });
-      line.append(wd); if (i < words.length - 1) line.append(' ');
-    });
-  });
-  const rest = '.hero-badge,.hero-sub,.hero-btns > *,.hero-pills > *';
-  G.set(chars, { yPercent: 120 });
-  if (grad) G.set(grad, { yPercent: 120 });
-  G.set(rest, { y: 26, opacity: 0 });
-  G.set('.hero-visual', { scale: .9, opacity: 0 });
-  G.set('.hpw-badge', { scale: 0 });
-  G.set('nav', { yPercent: -160 });
-  const wm = '.hero-wm';
-  G.set(wm, { opacity: 0 });
+  const root = document.documentElement, G = window.gsap, ST = window.ScrollTrigger;
+  const hero = document.getElementById('home'), src = document.getElementById('heroSrc'), canvas = document.getElementById('hxPackets');
+  const motion = root.classList.contains('js-intro') && !!G && !!ST;
+  if (!motion) { root.classList.remove('js-intro'); canvas.remove(); }
+  const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const clamp = (v, a, b) => Math.min(b === undefined ? 1 : b, Math.max(a || 0, v));
+  const stacked = () => innerWidth <= 960 && innerHeight > 560;
 
+  /* Le nom prend toute la largeur, à sa vraie taille optique */
+  function fitName() {
+    const fill = hero.querySelector('.hx-fill'), fit = fill.querySelector('.hx-fit');
+    const avail = (hero.clientWidth - 2 * parseFloat(getComputedStyle(fill).left)) * .985;
+    const cap = innerHeight * (stacked() ? .2 : .34);
+    let size = 120;
+    for (let k = 0; k < 6; k++) {
+      hero.style.setProperty('--hx-size', size + 'px');
+      size = Math.min(size * avail / (fit.offsetWidth || 1), cap);
+    }
+    hero.style.setProperty('--hx-size', size + 'px');
+    hero.style.setProperty('--hx-name-h', fill.offsetHeight + 'px');
+  }
+  fitName();
+  document.fonts.load('900 100px Fraunces').catch(() => {}).then(fitName);
+  document.fonts.ready.then(fitName);
+
+  let lastW = innerWidth, rt;
+  addEventListener('resize', () => {
+    if (innerWidth === lastW) return;
+    lastW = innerWidth; clearTimeout(rt);
+    rt = setTimeout(() => { fitName(); if (motion && P) { build(); render(performance.now()); ST.refresh(); } }, 160);
+  });
+  if (!motion) return;
+  G.registerPlugin(ST);
+
+  /* Le portrait en paquets */
+  const ctx = canvas.getContext('2d');
+  const ease = t => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  let P = null, W = 0, H = 0, _p = 0, _q = 0, settled = false;
+  let px = -1e4, py = -1e4, last = -1e4, energy = 0, running = false;
+
+  function build() {
+    const hr = hero.getBoundingClientRect(), r = src.getBoundingClientRect();
+    W = hr.width; H = hr.height;
+    const d = Math.min(devicePixelRatio || 1, 1.75);
+    canvas.width = W * d; canvas.height = H * d;
+    ctx.setTransform(d, 0, 0, d, 0, 0);
+    const fx = r.left - hr.left, fy = r.top - hr.top;
+    const step = Math.max(stacked() ? 3.2 : 4.2, r.width / (stacked() ? 125 : 155));
+    const cols = Math.round(r.width / step), rows = Math.round(r.height / step);
+    const off = document.createElement('canvas'); off.width = cols; off.height = rows;
+    const oc = off.getContext('2d', { willReadFrequently: true });
+    oc.drawImage(src, 0, 0, cols, rows);
+    const d2 = oc.getImageData(0, 0, cols, rows).data;
+    const lanes = Array.from({ length: 40 }, () => Math.random() * H);
+    const L = [];
+    for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
+      const i = (y * cols + x) * 4, lum = d2[i] * .3 + d2[i + 1] * .59 + d2[i + 2] * .11;
+      let k = Math.pow(1 - clamp((lum - 12) / 200), 1.5);
+      /* Les épaules se dissolvent au lieu de s'arrêter net au bord de la photo */
+      const low = clamp((y / rows - .58) / .24), side = clamp(Math.min(x, cols - 1 - x) / (cols * .2));
+      k *= 1 - low * (1 - side);
+      if (k < .05) continue;
+      const tx = fx + x * step, ty = fy + y * step;
+      L.push({ tx, ty, s: step * (.16 + .92 * k), sx: Math.random() < .5 ? -30 - Math.random() * 260 : W + 30 + Math.random() * 260, sy: lanes[Math.random() * lanes.length | 0], de: Math.random() * .32 + Math.abs(tx / W - .5) * .1, du: .42 + Math.random() * .16, dr: (.4 + Math.random()) * (Math.random() < .5 ? -1 : 1), ox: 0, oy: 0, vx: 0, vy: 0 });
+    }
+    P = L;
+  }
+
+  function render(now) {
+    if (!P) return;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0d0c1d';
+    ctx.beginPath();
+    const near = now - last < 280, R = stacked() ? 0 : 130, R2 = R * R, fade = 1 - clamp(_q * 1.1);
+    energy = 0;
+    for (const o of P) {
+      let x = o.tx, y = o.ty, s = o.s;
+      if (!settled) {
+        const t = clamp((_p - o.de) / o.du);
+        if (t <= 0) continue;
+        const a = ease(clamp(t * 2)), c = ease(clamp(t * 2 - 1));
+        x = o.sx + (x - o.sx) * a; y = o.sy + (y - o.sy) * c; s *= .45 + .55 * c;
+      }
+      if (near || o.ox || o.oy) {
+        if (near && R) {
+          const dx = x + o.ox - px, dy = y + o.oy - py, d = dx * dx + dy * dy;
+          if (d < R2) { const m = Math.sqrt(d) || 1, f = (1 - m / R) * 3.6; o.vx += dx / m * f; o.vy += dy / m * f; }
+        }
+        o.vx = (o.vx - o.ox * .07) * .84; o.vy = (o.vy - o.oy * .07) * .84;
+        o.ox += o.vx; o.oy += o.vy;
+        const e = Math.abs(o.ox) + Math.abs(o.oy) + Math.abs(o.vx) + Math.abs(o.vy);
+        if (e < .08) { o.ox = o.oy = o.vx = o.vy = 0; } else energy += e;
+        x += o.ox; y += o.oy;
+      }
+      if (_q > 0) { x += o.dr * _q * _q * W * .55; y += o.dr * .3 * _q * H; s *= fade; }
+      if (s > .15) ctx.rect(x, y, s, s);
+    }
+    ctx.fill();
+  }
+  function tick(now) {
+    render(now);
+    if (energy > .5 || now - last < 300) requestAnimationFrame(tick); else running = false;
+  }
+  function wake() { if (!running && P) { running = true; requestAnimationFrame(tick); } }
+
+  const state = { get p() { return _p; }, set p(v) { _p = v; render(performance.now()); } };
+
+  /* État initial, sous la feuille d'ouverture */
+  G.set('.hx-in', { y: 30, opacity: 0 });
+  G.set('.hx-chip', { scale: 0 });
+  G.set('.hx-stroke', { opacity: 0 });
+  G.set('nav', { yPercent: -160 });
+
+  function punch() {
+    settled = true;
+    G.fromTo('.hx-flash', { opacity: .6 }, { opacity: 0, duration: 1, ease: 'power2.out' });
+    G.fromTo(canvas, { scale: 1.04 }, { scale: 1, duration: 1, ease: 'elastic.out(1,.55)', transformOrigin: '50% 100%' });
+    G.fromTo('.hx-stroke', { opacity: 0 }, { opacity: 1, duration: .5 });
+  }
   function enter() {
     G.timeline({ defaults: { ease: 'expo.out' } })
-      .to('nav', { yPercent: 0, duration: 1, clearProps: 'transform' }, .1)
-      .to(chars, { yPercent: 0, duration: 1.05, stagger: .028 }, .2)
-      .to(grad, { yPercent: 0, duration: 1.05 }, .55)
-      .to('.hero-visual', { scale: 1, opacity: 1, duration: 1.1, clearProps: 'transform' }, .35)
-      .to(rest, { y: 0, opacity: 1, duration: .8, stagger: .06, clearProps: 'transform' }, .75)
-      .to(wm, { opacity: 1, duration: 1.6, ease: 'power1.out' }, .5)
-      .to('.hpw-badge', { scale: 1, duration: .75, ease: 'back.out(2)', stagger: .12 }, 3);
-    /* Filet de sécurité : la photo finit toujours par être visible */
-    setTimeout(() => { const img = document.querySelector('.hpw-inner img'); if (img && +getComputedStyle(img).opacity < 1) G.to(img, { opacity: 1, duration: .4 }); }, 6000);
+      .to('nav', { yPercent: 0, duration: 1, clearProps: 'transform' }, .15)
+      .to(state, { p: 1, duration: 2.5, ease: 'none' }, .1)
+      .to('.hx-in', { y: 0, opacity: 1, duration: .85, stagger: .08, clearProps: 'transform' }, .6)
+      .add(punch, 2.6)
+      .to('.hx-chip', { scale: 1, duration: .7, ease: 'back.out(2)', stagger: .12 }, 2.75);
   }
-  const loader = document.getElementById('loader');
-  if (!loader || loader.classList.contains('out')) enter();
-  else new MutationObserver((m, o) => { if (loader.classList.contains('out')) { o.disconnect(); setTimeout(enter, 420); } }).observe(loader, { attributes: true, attributeFilter: ['class'] });
+  function ready() {
+    build();
+    const loader = document.getElementById('loader');
+    if (!loader || loader.classList.contains('out')) enter();
+    else new MutationObserver((m, o) => { if (loader.classList.contains('out')) { o.disconnect(); setTimeout(enter, 380); } }).observe(loader, { attributes: true, attributeFilter: ['class'] });
+  }
+  (src.complete && src.naturalWidth ? Promise.resolve() : new Promise(r => { src.addEventListener('load', r, { once: true }); src.addEventListener('error', r, { once: true }); })).then(ready);
+
+  /* Le curseur fait vivre l'affiche */
+  if (fine) {
+    const qn = G.quickTo('.hx-name', 'x', { duration: .9, ease: 'power3' });
+    const qc = G.quickTo(canvas, 'x', { duration: 1.1, ease: 'power3' });
+    hero.addEventListener('pointermove', e => {
+      const r = hero.getBoundingClientRect();
+      px = e.clientX - r.left - (+G.getProperty(canvas, 'x') || 0); py = e.clientY - r.top; last = performance.now();
+      hero.style.setProperty('--gx', (e.clientX - r.left) + 'px');
+      hero.style.setProperty('--gy', (e.clientY - r.top) + 'px');
+      const nx = e.clientX / innerWidth - .5;
+      qn(nx * -16); qc(nx * 12);
+      if (settled) wake();
+    }, { passive: true });
+  }
+
+  /* Le défilement traverse l'affiche */
+  G.matchMedia().add('(min-width:961px) and (min-height:621px)', () => {
+    G.timeline({ scrollTrigger: { trigger: hero, start: 'top top', end: '+=90%', pin: true, scrub: true, anticipatePin: 1, refreshPriority: 1, onUpdate: s => { if (!settled) return; _q = clamp((s.progress - .05) / .8); render(performance.now()); } }, defaults: { ease: 'none' } })
+      .to('.hx-ui', { opacity: 0, y: -50, duration: .3 }, 0)
+      .to('.hx-name', { scale: 1.55, transformOrigin: '50% 100%', duration: 1 }, 0)
+      .to('.hx-name', { opacity: 0, duration: .32 }, .68)
+      .to('.hx-bg', { scale: 1.18, duration: 1 }, 0);
+    ST.sort(); ST.refresh();
+  });
 })();
 </script>
 </body>
