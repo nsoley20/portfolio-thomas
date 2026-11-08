@@ -9,7 +9,7 @@
 <meta name="author" content="Sean Thomas EKANG NSOLEY"/>
 <meta property="og:title" content="Sean Thomas EKANG NSOLEY — Développeur Fullstack · Cybersécurité · Réseaux"/>
 <meta property="og:description" content="Applications web, APIs sécurisées et architectures réseau — basé à Libreville, Gabon. Découvrez mes projets."/>
-<meta property="og:image" content="https://nsoley20.github.io/portfolio-thomas/seanpp.jpeg"/>
+<meta property="og:image" content="https://nsoleyportfolio.vercel.app/seanpp.jpeg"/>
 <meta property="og:url" content="https://nsoley20.github.io/portfolio-thomas/"/>
 <meta property="og:type" content="website"/>
 <meta property="og:locale" content="fr_FR"/>
@@ -1240,6 +1240,159 @@ section:nth-of-type(even){background:linear-gradient(180deg,var(--bg),var(--bg2)
   .hero{padding-top:7rem}
   .hero-h1{font-size:clamp(2.7rem,5.8vw,4.5rem)}
 }
+
+/* ══ Projets : aperçus, grille et mouvement ══ */
+.b-vp{height:auto;aspect-ratio:16/10}
+.b-vp img{position:absolute;top:0;left:0;width:100%;height:auto;z-index:1;will-change:transform}
+.pj-card .b-mock{transition:transform .35s var(--ease-out);transform-style:preserve-3d}
+.pj-card{position:relative}
+.pj-card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(139,92,246,.14),transparent 62%)}
+.pj-card:hover::after{opacity:1}
+@media(min-width:1101px){
+  .proj-grid{grid-template-columns:repeat(12,1fr)}
+  .pj-feat{grid-column:span 6}.pj-mid{grid-column:span 4}.pj-sm{grid-column:span 3}
+  .pj-sm .pj-desc{font-size:.8rem}
+}
+@media(max-width:1100px) and (min-width:769px){.proj-grid>.pj-card:last-child{grid-column:1/-1}}
+.char-word{display:inline-block;white-space:nowrap}
+.marquee-rev .marquee-track{animation-direction:reverse}
+.hero-h1 .grad{background-size:220% auto;animation:gradFlow 7s ease-in-out infinite alternate}
+@keyframes gradFlow{to{background-position:100% 50%}}
+.tl-item{opacity:0;transform:translateX(-18px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+.tl-item.in{opacity:1;transform:none}
+.tl-item.in .tl-dot{animation:dotPop .7s var(--spring) both}
+@keyframes dotPop{0%{transform:scale(0)}100%{transform:scale(1)}}
+.hero-photo-wrap{transition:transform .4s var(--ease-out);transform-style:preserve-3d}
+
+/* ══ Téléphones ══ */
+@media(hover:none){
+  .b-overlay{align-items:flex-end;justify-content:flex-end;padding:.55rem}
+  .b-overlay-btn{opacity:1;transform:none;padding:.42rem .7rem}
+}
+@media(max-width:768px){
+  body{font-size:16px}
+  section{padding-block:3.6rem}
+  .hero{min-height:0;padding-top:5.8rem;padding-bottom:2.6rem}
+  .hero-inner{gap:1.5rem}
+  .hero-visual{display:flex;order:-1;justify-content:flex-start}
+  .hero-photo-wrap{width:min(46vw,190px);height:auto;aspect-ratio:4/5}
+  .hpw-glow{inset:-22px}
+  .hpw-inner{border-radius:22px}
+  .hpw-badge{display:none}
+  .hero-h1{font-size:clamp(2.35rem,11.4vw,3.5rem);line-height:1.02}
+  .hero-sub{font-size:.84rem;line-height:1.55;color:var(--text2)}
+  .hero-rotate{display:block;min-width:0;width:100%;height:1.55em;font-size:1.08rem;vertical-align:baseline}
+  .hero-sub-rest{display:block}
+  .hs-sep{display:none}
+  .hero-pills{gap:.45rem}
+  .pill{font-size:.76rem;padding:.34rem .7rem}
+  .sec-title{font-size:clamp(1.9rem,8.2vw,2.6rem);line-height:1.1}
+  .sec-sub,.about-text p{font-size:1rem;line-height:1.65}
+  .sec-label,.tl-period,.pj-num,.cert-status,.lang-level,.stat-lbl,.exp-col-title,.now-card-title{font-size:.74rem}
+  .stag,.srv-tag,.pt,.tool-tag{font-size:.76rem;padding:.28rem .6rem}
+  .pj-title{font-size:1.14rem;line-height:1.25}
+  .pj-desc,.proc-desc,.tl-desc,.srv-card p,.now-list span{font-size:.94rem;line-height:1.6;color:var(--text2)}
+  .tl-title{font-size:1rem}
+  .tl-org{font-size:.88rem}
+  .reveal,.reveal-3d{transition-delay:0s!important}
+  .reveal-3d{transform:translateY(22px)}
+  .reveal-3d.in{transform:none}
+
+  /* Compétences et services en carrousel */
+  .skills-grid,.srv-grid{display:flex;gap:.8rem;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-4vw;padding:.3rem 4vw 1.1rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .skills-grid::-webkit-scrollbar,.srv-grid::-webkit-scrollbar{display:none}
+  .skills-grid>*,.srv-grid>*{flex:0 0 min(84%,340px);scroll-snap-align:center;opacity:1;transform:none;transition:none}
+
+  /* Méthode en liste */
+  .proc-track{gap:.2rem}
+  .proc-step{display:grid;grid-template-columns:54px 1fr;column-gap:1rem;text-align:left;padding:.7rem 0}
+  .proc-circle{grid-row:1/3;margin:0}
+  .proc-label{align-self:end;margin:0;font-size:1.05rem}
+
+  /* Projets */
+  .projects-overview{padding:1.2rem}
+  .proj-filter{display:grid;grid-template-columns:repeat(4,1fr);gap:.35rem}
+  .pf-btn{padding:.62rem .15rem;font-size:.74rem;text-align:center}
+  .proj-grid{gap:1.1rem}
+  .b-vp{height:auto}
+  .pj-links a,.plink{min-height:44px;display:inline-flex;align-items:center;font-size:.86rem;padding-inline:1rem}
+  .cf-input{font-size:16px}
+  .btn-send{min-height:50px}
+  .cc{min-height:60px}
+  .cc-val{overflow-wrap:anywhere}
+}
+@media(prefers-reduced-motion:reduce){
+  .marquee-track,.hero-h1 .grad,.hero-rotate span{animation:none}
+  .hero-rotate span:first-child{opacity:1;position:static}
+  .reveal,.reveal-3d,.tl-item{opacity:1;transform:none;transition:none}
+}
+
+/* ══ Projets empilés ══ */
+html,body{overflow-x:clip}
+.hero-h1{word-spacing:.14em}
+html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
+#projects{overflow:visible;padding-bottom:0}
+.cases{position:relative;margin-inline:calc(50% - 50vw);margin-top:3rem}
+.case{position:sticky;top:0;height:100svh;background:radial-gradient(70% 80% at 88% 12%,rgba(var(--glow),.34),transparent 70%),radial-gradient(50% 60% at 6% 96%,rgba(var(--glow),.16),transparent 70%),var(--case);color:#f5f4fb;overflow:clip;border-radius:32px 32px 0 0;box-shadow:0 -24px 60px rgba(13,12,29,.28)}
+.case-inner{height:100%;max-width:1520px;margin-inline:auto;padding:clamp(5.4rem,11vh,7rem) clamp(1.2rem,4vw,4rem) clamp(1.4rem,4vh,3rem);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,8fr);grid-template-rows:auto minmax(0,1fr);column-gap:clamp(1.4rem,4vw,4rem);transform-origin:50% 0}
+.case-head{grid-column:1/-1;position:relative;z-index:2}
+.case-host{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.3rem 1.4rem;font:500 .78rem/1.4 var(--mono);color:var(--ac)}
+.case-name{font-family:var(--display);font-weight:900;font-size:clamp(3.2rem,min(11vw,18.5vh),12rem);line-height:.98;letter-spacing:-.045em;white-space:nowrap;overflow:hidden;padding:.05em .06em .26em 0;margin-bottom:-.14em;background:linear-gradient(100deg,#fff 30%,var(--ac));-webkit-background-clip:text;background-clip:text;color:transparent}
+.case-name .l{display:inline-block;background:inherit;-webkit-background-clip:text;background-clip:text}
+.case-copy{align-self:end;display:flex;flex-direction:column;gap:.85rem;position:relative;z-index:2}
+.case-lead{font-family:var(--display);font-style:italic;font-weight:300;font-size:clamp(1.5rem,2.5vw,2.5rem);line-height:1.12;letter-spacing:-.02em}
+.case-text{font-size:clamp(.95rem,1.05vw,1.08rem);line-height:1.65;color:rgba(245,244,251,.76)}
+.case-stack{display:flex;flex-wrap:wrap;gap:.4rem}
+.case-stack span{font:500 .72rem/1 var(--mono);padding:.42rem .7rem;border-radius:100px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}
+.case-link{align-self:flex-start;display:inline-flex;gap:.6em;align-items:center;font-weight:700;font-size:.95rem;text-decoration:none;color:#0d0c1d;background:var(--ac);padding:.85rem 1.4rem;border-radius:12px;transition:transform .3s var(--spring),box-shadow .3s}
+.case-link:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(var(--glow),.45)}
+.case-shot{align-self:end;min-height:0;margin:0 calc(clamp(1.2rem,4vw,4rem) * -1.5) 0 0;display:flex;align-items:flex-end;max-height:100%}
+.case-shot .b-mock{width:100%;border:0;border-radius:16px 16px 0 0;background:#1c1a30;box-shadow:0 30px 80px -18px rgba(0,0,0,.65)}
+.case-shot .b-bar{background:#1c1a30;border-bottom-color:rgba(255,255,255,.06)}
+.case-shot .b-url{background:rgba(255,255,255,.06);color:rgba(255,255,255,.55);font-size:.72rem}
+.case-shot img{display:block;width:100%;height:auto}
+
+/* ══ Aussi en ligne ══ */
+.more{position:relative;z-index:1;background:var(--bg);margin-inline:calc(50% - 50vw);padding:clamp(4.5rem,9vw,8rem) 4%}
+.more-title{font-family:var(--display);font-weight:900;font-size:clamp(2.6rem,7vw,6.4rem);line-height:1;letter-spacing:-.04em;margin-bottom:clamp(1.6rem,3vw,3rem)}
+.rows{list-style:none;padding:0;margin:0}
+.row{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr) auto;gap:clamp(.8rem,2vw,2rem);align-items:baseline;padding-block:clamp(.95rem,1.5vw,1.45rem);border-top:1px solid var(--border2);text-decoration:none;color:var(--text);transition:padding .4s var(--ease-out),color .25s}
+.rows li:last-child .row{border-bottom:1px solid var(--border2)}
+.row strong{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,3vw,3rem);line-height:1.05;letter-spacing:-.03em}
+.row .what{color:var(--text2);font-size:.98rem}
+.row .city{font:400 .74rem/1.3 var(--mono);color:var(--text2)}
+.row:hover{color:var(--indigo);padding-left:clamp(.6rem,1.4vw,1.4rem)}
+[data-theme="dark"] .row:hover{color:#a5b4fc}
+.thumb{display:none}
+.peek{position:fixed;left:0;top:0;width:clamp(300px,27vw,430px);aspect-ratio:16/10.5;overflow:hidden;pointer-events:none;z-index:30;opacity:0;scale:.86;border-radius:14px;transition:opacity .25s,scale .35s var(--ease-out);box-shadow:0 26px 60px -14px rgba(13,12,29,.5);background:var(--dark)}
+.peek.on{opacity:1;scale:1}
+.peek img{display:block;width:100%;height:auto;max-width:none}
+
+#heroPackets{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
+.proc-track::before{transform:scaleX(var(--p,1));transform-origin:left}
+.about-text .ink{transition:none}
+
+@media(max-width:768px){
+  .cases{margin-top:2rem}
+  .case{position:relative;height:auto;border-radius:26px 26px 0 0}
+  .case-inner{display:flex;flex-direction:column;gap:1.1rem;padding:2.2rem 1.1rem 2.4rem}
+  .case-name{font-size:clamp(3rem,16.5vw,5.4rem);white-space:normal}
+  .case-shot{order:2;margin:0}
+  .case-shot .b-mock{border-radius:12px}
+  .case-copy{order:3}
+  .case-head{order:1}
+  .case-link{min-height:48px}
+  .case-stack span{font-size:.76rem}
+  .more{padding-inline:4vw}
+  .row{grid-template-columns:72px minmax(0,1fr);row-gap:.15rem;column-gap:.85rem;align-items:start;min-height:88px}
+  .thumb{display:block;grid-row:1/4;width:72px;height:72px;object-fit:cover;object-position:top;border-radius:10px}
+  .row .what,.row .city{grid-column:2}
+  .row:hover{padding-left:0}
+  .peek{display:none}
+}
+@media(min-width:769px) and (max-height:620px){
+  .case{position:relative;height:auto;min-height:100svh}
+}
 </style>
 </head>
 <body>
@@ -1324,7 +1477,7 @@ section:nth-of-type(even){background:linear-gradient(180deg,var(--bg),var(--bg2)
           <span>Expert Cybersécurité</span>
           <span>Architecte Réseau</span>
         </span>
-        &nbsp;·&nbsp; Téléinformatique &amp; Génie Logiciel
+        <span class="hero-sub-rest"><span class="hs-sep">&nbsp;·&nbsp; </span>Téléinformatique &amp; Génie Logiciel</span>
       </div>
       <div class="hero-btns">
         <a href="#projects" class="btn-primary">
@@ -1436,7 +1589,7 @@ section:nth-of-type(even){background:linear-gradient(180deg,var(--bg),var(--bg2)
         </div>
         <div class="stats-grid reveal reveal-delay-1">
           <div class="stat-c"><div class="stat-num" data-target="3" data-suffix="+">0</div><div class="stat-lbl">ans en dev web</div></div>
-          <div class="stat-c"><div class="stat-num" data-target="12">0</div><div class="stat-lbl">projets présentés</div></div>
+          <div class="stat-c"><div class="stat-num" data-target="11">0</div><div class="stat-lbl">projets présentés</div></div>
           <div class="stat-c"><div class="stat-num">M1</div><div class="stat-lbl">Cybersécurité</div></div>
           <div class="stat-c"><div class="stat-num">100%</div><div class="stat-lbl">livraisons réussies</div></div>
         </div>
@@ -1498,14 +1651,14 @@ section:nth-of-type(even){background:linear-gradient(180deg,var(--bg),var(--bg2)
         <div class="sk-tags">
           <span class="stag b">HTML5</span><span class="stag b">CSS3</span><span class="stag b">JavaScript</span>
           <span class="stag">TypeScript</span><span class="stag b">Responsive</span>
-          <span class="stag">UX/UI</span><span class="stag">React · Vue</span><span class="stag">Tailwind</span>
+          <span class="stag">UX/UI</span><span class="stag b">Next.js</span><span class="stag">React · Vue</span><span class="stag">Tailwind</span>
         </div>
       </div>
       <div class="sk-card reveal-3d reveal-delay-2">
         <div class="sk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><path d="M12 1v6m0 6v6"/><path d="M4.22 4.22l4.24 4.24m2.12 2.12l4.24 4.24"/><path d="M1 12h6m6 0h6"/><path d="M4.22 19.78l4.24-4.24m2.12-2.12l4.24-4.24"/></svg></div>
         <h3>Backend</h3>
         <div class="sk-tags">
-          <span class="stag b">Node.js</span><span class="stag b">Express.js</span><span class="stag b">API REST</span>
+          <span class="stag b">Node.js</span><span class="stag b">Express.js</span><span class="stag b">NestJS</span><span class="stag b">API REST</span>
           <span class="stag">Python</span><span class="stag">Middleware</span><span class="stag">Routage</span>
         </div>
       </div>
@@ -1513,7 +1666,7 @@ section:nth-of-type(even){background:linear-gradient(180deg,var(--bg),var(--bg2)
         <div class="sk-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></div>
         <h3>Base de données</h3>
         <div class="sk-tags">
-          <span class="stag b">MongoDB</span><span class="stag b">Mongoose</span>
+          <span class="stag b">PostgreSQL</span><span class="stag b">Prisma</span><span class="stag b">MongoDB</span><span class="stag b">Mongoose</span>
           <span class="stag">Schémas &amp; CRUD</span><span class="stag">Modélisation</span>
         </div>
       </div>
@@ -1641,231 +1794,116 @@ section:nth-of-type(even){background:linear-gradient(180deg,var(--bg),var(--bg2)
     <div class="reveal">
       <span class="sec-label">05 — Projets</span>
       <h2 class="sec-title">Mes réalisations</h2>
-      <p class="sec-sub">12 réalisations développées de bout en bout — survolez la preview pour ouvrir le site.</p>
+      <p class="sec-sub">Quatre produits en production, puis le reste de ce qui tourne en ligne.</p>
     </div>
 
-    <div class="projects-overview reveal">
-      <div class="project-intro">
-        <span class="project-kicker">Sélection 2024 — 2026</span>
-        <strong>Des interfaces utiles, pensées pour être vues et utilisées.</strong>
-        <span>Du site vitrine à l'application métier, chaque projet combine clarté visuelle, responsive design et attention aux détails.</span>
-      </div>
-      <div class="project-metrics">
-        <div>        <strong>12</strong><span>projets</span></div>
-        <div><strong>03</strong><span>expertises</span></div>
-        <div><strong>100%</strong><span>responsive</span></div>
-      </div>
     </div>
 
-    <div class="proj-filter" role="group" aria-label="Filtrer les projets">
-      <button class="pf-btn active" data-filter="all">Tous</button>
-      <button class="pf-btn" data-filter="fullstack">Fullstack</button>
-      <button class="pf-btn" data-filter="vitrine">Vitrine</button>
-      <button class="pf-btn" data-filter="securite">Sécurité</button>
+  <div class="cases">
+
+    <article class="case" style="--case:#07140f;--glow:16,185,129;--ac:#34d399">
+      <div class="case-inner">
+        <header class="case-head">
+          <p class="case-host"><span>ghettopay.com</span><span>Fullstack · Sécurité</span></p>
+          <h3 class="case-name">GhettoPay</h3>
+        </header>
+        <div class="case-copy">
+          <p class="case-lead">Le portefeuille mobile gabonais.</p>
+          <p class="case-text">Recharge depuis Airtel Money ou Moov Money, envoi par numéro ou QR code, coffre d'épargne et tontines digitales. Une PWA qui s'installe sans store, pensée pour les téléphones d'entrée de gamme et utilisable hors ligne.</p>
+          <div class="case-stack"><span>TypeScript</span><span>PostgreSQL</span><span>PWA</span><span>Web Push</span></div>
+          <a class="case-link" href="https://www.ghettopay.com" target="_blank" rel="noopener">Voir le site <span aria-hidden="true">↗</span></a>
+        </div>
+        <figure class="case-shot">
+          <div class="b-mock">
+            <div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">ghettopay.com</div></div>
+            <img src="assets/work/ghettopay.webp" width="1600" height="1000" loading="lazy" decoding="async" alt="Aperçu du site GhettoPay"/>
+          </div>
+        </figure>
+      </div>
+    </article>
+
+    <article class="case" style="--case:#0d0c1d;--glow:99,102,241;--ac:#a5b4fc">
+      <div class="case-inner">
+        <header class="case-head">
+          <p class="case-host"><span>chuo-parc.vercel.app</span><span>Fullstack · Réseau · Sécurité</span></p>
+          <h3 class="case-name">CHUO Parc</h3>
+        </header>
+        <div class="case-copy">
+          <p class="case-lead">Le parc informatique du CHU d'Owendo.</p>
+          <p class="case-text">Inventaire du matériel, tickets de panne et comptes rendus d'intervention qui deviennent une base de solutions. La priorité d'un ticket est calculée, jamais déclarée, et l'application tourne sur un serveur sans accès Internet.</p>
+          <div class="case-stack"><span>Next.js</span><span>Prisma</span><span>PostgreSQL</span><span>Argon2</span></div>
+          <a class="case-link" href="https://chuo-parc.vercel.app" target="_blank" rel="noopener">Voir le site <span aria-hidden="true">↗</span></a>
+        </div>
+        <figure class="case-shot">
+          <div class="b-mock">
+            <div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">chuo-parc.vercel.app</div></div>
+            <img src="assets/work/chuo.webp" width="1600" height="1000" loading="lazy" decoding="async" alt="Aperçu du site CHUO Parc"/>
+          </div>
+        </figure>
+      </div>
+    </article>
+
+    <article class="case" style="--case:#1a0a14;--glow:244,63,94;--ac:#fda4af">
+      <div class="case-inner">
+        <header class="case-head">
+          <p class="case-host"><span>linaf-billetterie.vercel.app</span><span>Fullstack</span></p>
+          <h3 class="case-name">LINAF</h3>
+        </header>
+        <div class="case-copy">
+          <p class="case-lead">La billetterie du National Foot 1.</p>
+          <p class="case-text">Calendrier, classement, clubs, joueurs et achat de billets pour le championnat du Gabon, avec un QR code contrôlé à l'entrée du stade.</p>
+          <div class="case-stack"><span>Next.js</span><span>NestJS</span><span>Prisma</span><span>PostgreSQL</span></div>
+          <a class="case-link" href="https://linaf-billetterie.vercel.app" target="_blank" rel="noopener">Voir le site <span aria-hidden="true">↗</span></a>
+        </div>
+        <figure class="case-shot">
+          <div class="b-mock">
+            <div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">linaf-billetterie.vercel.app</div></div>
+            <img src="assets/work/linaf.webp" width="1600" height="1000" loading="lazy" decoding="async" alt="Aperçu du site LINAF"/>
+          </div>
+        </figure>
+      </div>
+    </article>
+
+    <article class="case" style="--case:#120b24;--glow:139,92,246;--ac:#c4b5fd">
+      <div class="case-inner">
+        <header class="case-head">
+          <p class="case-host"><span>music-gaboma.com</span><span>Fullstack</span></p>
+          <h3 class="case-name">Music Gaboma</h3>
+        </header>
+        <div class="case-copy">
+          <p class="case-lead">Le média de la scène musicale gabonaise.</p>
+          <p class="case-text">Sorties, interviews, classements et prods du 241, réunis sur une plateforme avec authentification et médias hébergés dans le cloud.</p>
+          <div class="case-stack"><span>Next.js</span><span>React</span><span>Neon</span><span>Cloudinary</span></div>
+          <a class="case-link" href="https://music-gaboma.com" target="_blank" rel="noopener">Voir le site <span aria-hidden="true">↗</span></a>
+        </div>
+        <figure class="case-shot">
+          <div class="b-mock">
+            <div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">music-gaboma.com</div></div>
+            <img src="assets/work/music.webp" width="1600" height="1000" loading="lazy" decoding="async" alt="Aperçu du site Music Gaboma"/>
+          </div>
+        </figure>
+      </div>
+    </article>
+  </div>
+
+  <div class="more">
+    <div class="sec-inner">
+      <h3 class="more-title">Aussi en ligne</h3>
+      <ul class="rows" id="rows">
+      <li class="reveal"><a class="row" href="https://numerikart-site.vercel.app" target="_blank" rel="noopener" data-peek="assets/work/numerikart.webp"><img class="thumb" src="assets/work/numerikart.webp" loading="lazy" alt=""/><strong>Numerik'art</strong><span class="what">Refonte du site d'une agence 360°, de WordPress à Next.js</span><span class="city">Libreville</span></a></li>
+      <li class="reveal"><a class="row" href="https://trt-factory.vercel.app" target="_blank" rel="noopener" data-peek="assets/work/trt.webp"><img class="thumb" src="assets/work/trt.webp" loading="lazy" alt=""/><strong>TRT Factory</strong><span class="what">Studio graphisme, vidéo et web, avec devis en ligne</span><span class="city">Libreville</span></a></li>
+      <li class="reveal"><a class="row" href="https://lbfc.vercel.app" target="_blank" rel="noopener" data-peek="assets/work/lbfc.webp"><img class="thumb" src="assets/work/lbfc.webp" loading="lazy" alt=""/><strong>LBFC</strong><span class="what">Lancement d'une marque de streetwear et liste d'attente</span><span class="city">Libreville</span></a></li>
+      <li class="reveal"><a class="row" href="https://eacmg-sni-owendo.vercel.app" target="_blank" rel="noopener" data-peek="assets/work/eacmg.webp"><img class="thumb" src="assets/work/eacmg.webp" loading="lazy" alt=""/><strong>EACMG SNI Owendo</strong><span class="what">Cultes, programme de la semaine et plan de lecture biblique</span><span class="city">Owendo</span></a></li>
+      <li class="reveal"><a class="row" href="https://gaki-group-landing.vercel.app" target="_blank" rel="noopener" data-peek="assets/work/gaki.webp"><img class="thumb" src="assets/work/gaki.webp" loading="lazy" alt=""/><strong>GAKI Group</strong><span class="what">Site corporate d'un groupe d'entreprises et de ses filiales</span><span class="city">Dakar</span></a></li>
+      <li class="reveal"><a class="row" href="https://studio-comel-portfolio.vercel.app" target="_blank" rel="noopener" data-peek="assets/work/comel.webp"><img class="thumb" src="assets/work/comel.webp" loading="lazy" alt=""/><strong>Studio Com'El</strong><span class="what">Vitrine d'une agence de communication digitale</span><span class="city">Dakar</span></a></li>
+      <li class="reveal"><a class="row" href="https://ccna-test-three.vercel.app" target="_blank" rel="noopener" data-peek="assets/work/ccna.webp"><img class="thumb" src="assets/work/ccna.webp" loading="lazy" alt=""/><strong>CCNA QuizPro</strong><span class="what">Entraînement aux modules CCNA et à la cybersécurité</span><span class="city">Labo perso</span></a></li>
+      </ul>
     </div>
-
-    <div class="proj-grid">
-
-      <!-- MUSIC GABOMA -->
-      <div class="pj-card reveal-3d reveal-delay-1" data-cat="vitrine">
-        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">music-gaboma.com</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#17113b,#9333ea)">MUSIC GABOMA</div><iframe src="https://music-gaboma.com/" loading="lazy" title="Music Gaboma preview" sandbox="allow-same-origin allow-scripts"></iframe><a href="https://music-gaboma.com/" class="b-overlay" target="_blank" rel="noopener"><div class="b-overlay-btn">Ouvrir le site</div></a></div></div>
-        <div class="pj-body"><div class="pj-num">01 / 12</div><div class="pj-title">Music Gaboma — Plateforme musicale</div><div class="pj-desc">Expérience web dédiée à la découverte de la musique gabonaise, avec une interface moderne et des pages de détail pour les artistes et les titres.</div><div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">UX/UI</span></div><div class="pj-links"><a href="https://music-gaboma.com/" target="_blank" rel="noopener" class="plink plink-p">Voir le site</a></div></div>
-      </div>
-
-      <!-- NUMERIKART -->
-      <div class="pj-card reveal-3d reveal-delay-2" data-cat="vitrine">
-        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">numerikart.info</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#0f172a,#0ea5e9)">NUMERIKART</div><iframe src="https://numerikart.info/" loading="lazy" title="Numerikart preview" sandbox="allow-same-origin allow-scripts"></iframe><a href="https://numerikart.info/" class="b-overlay" target="_blank" rel="noopener"><div class="b-overlay-btn">Ouvrir le site</div></a></div></div>
-        <div class="pj-body"><div class="pj-num">02 / 12</div><div class="pj-title">Numerikart — Site e-commerce</div><div class="pj-desc">Site de présentation et de vente pensé pour une expérience de shopping claire, rapide et responsive.</div><div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">Responsive</span></div><div class="pj-links"><a href="https://numerikart.info/" target="_blank" rel="noopener" class="plink plink-p">Voir le site</a></div></div>
-      </div>
-
-      <!-- CCNA TEST -->
-      <div class="pj-card azure reveal-3d reveal-delay-1" data-cat="securite">
-        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">ccna-test-three.vercel.app</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#082f49,#0284c7)">CCNA TEST</div><iframe src="https://ccna-test-three.vercel.app/" loading="lazy" title="CCNA Test preview" sandbox="allow-same-origin allow-scripts"></iframe><a href="https://ccna-test-three.vercel.app/" class="b-overlay" target="_blank" rel="noopener"><div class="b-overlay-btn">Ouvrir le site</div></a></div></div>
-        <div class="pj-body"><div class="pj-num">03 / 12</div><div class="pj-title">CCNA Test — Réseaux</div><div class="pj-desc">Plateforme d'entraînement aux notions CCNA avec questions interactives et validation des connaissances réseau.</div><div class="pj-tags"><span class="pt">Networking</span><span class="pt">Quiz</span><span class="pt">JavaScript</span><span class="pt">Responsive</span></div><div class="pj-links"><a href="https://ccna-test-three.vercel.app/" target="_blank" rel="noopener" class="plink plink-p">Voir le site</a></div></div>
-      </div>
-
-      <!-- CHUO PARC -->
-      <div class="pj-card mix reveal-3d reveal-delay-2" data-cat="fullstack">
-        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">chuo-parc.vercel.app</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#312e81,#7c3aed)">CHUO PARC</div><iframe src="https://chuo-parc.vercel.app/" loading="lazy" title="Chuo Parc preview" sandbox="allow-same-origin allow-scripts"></iframe><a href="https://chuo-parc.vercel.app/" class="b-overlay" target="_blank" rel="noopener"><div class="b-overlay-btn">Ouvrir le site</div></a></div></div>
-        <div class="pj-body"><div class="pj-num">04 / 12</div><div class="pj-title">Chuo Parc — Inventaire hospitalier</div><div class="pj-desc">Outil de suivi et d'inventaire conçu pour faciliter la gestion du matériel et des ressources d'un centre hospitalier.</div><div class="pj-tags"><span class="pt">Dashboard</span><span class="pt">CRUD</span><span class="pt">JavaScript</span><span class="pt">Responsive</span></div><div class="pj-links"><a href="https://chuo-parc.vercel.app/" target="_blank" rel="noopener" class="plink plink-p">Voir le site</a></div></div>
-      </div>
-
-      <!-- STUDIO COMEL -->
-      <div class="pj-card gold reveal-3d reveal-delay-3" data-cat="vitrine">
-        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">studio-comel-portfolio.vercel.app</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#451a03,#d97706)">STUDIO COMEL</div><iframe src="https://studio-comel-portfolio.vercel.app/" loading="lazy" title="Studio Comel preview" sandbox="allow-same-origin allow-scripts"></iframe><a href="https://studio-comel-portfolio.vercel.app/" class="b-overlay" target="_blank" rel="noopener"><div class="b-overlay-btn">Ouvrir le site</div></a></div></div>
-        <div class="pj-body"><div class="pj-num">05 / 12</div><div class="pj-title">Studio Comel — Portfolio créatif</div><div class="pj-desc">Portfolio vitrine pour présenter une activité créative, ses réalisations et son univers visuel.</div><div class="pj-tags"><span class="pt">Portfolio</span><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">Animation</span></div><div class="pj-links"><a href="https://studio-comel-portfolio.vercel.app/" target="_blank" rel="noopener" class="plink plink-p">Voir le site</a></div></div>
-      </div>
-
-      <!-- TRT FACTORY -->
-      <div class="pj-card reveal-3d reveal-delay-2" data-cat="vitrine">
-        <div class="b-mock"><div class="b-bar"><div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="b-url">trt-factory.vercel.app</div></div><div class="b-vp"><div class="b-vp-bg" style="background:linear-gradient(135deg,#111827,#475569)">TRT FACTORY</div><iframe src="https://trt-factory.vercel.app/" loading="lazy" title="TRT Factory preview" sandbox="allow-same-origin allow-scripts"></iframe><a href="https://trt-factory.vercel.app/" class="b-overlay" target="_blank" rel="noopener"><div class="b-overlay-btn">Ouvrir le site</div></a></div></div>
-        <div class="pj-body"><div class="pj-num">06 / 12</div><div class="pj-title">TRT Factory — Réalisations</div><div class="pj-desc">Présentation de réalisations et de concepts développés à partir de maquettes, avec une attention portée au rendu responsive.</div><div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">Responsive</span></div><div class="pj-links"><a href="https://trt-factory.vercel.app/" target="_blank" rel="noopener" class="plink plink-p">Voir le site</a></div></div>
-      </div>
-
-      <!-- BAMBOO EMF -->
-      <div class="pj-card reveal-3d reveal-delay-1" data-cat="fullstack securite">
-        <div class="b-mock">
-          <div class="b-bar">
-            <div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
-            <div class="b-url">bamboo-landing.html</div>
-          </div>
-          <div class="b-vp">
-            <div class="b-vp-bg" style="background:linear-gradient(135deg,#0c1a4a,#1d4ed8)">BAMBOO</div>
-            <iframe src="bamboo-landing.html" loading="lazy" title="BAMBOO EMF preview" sandbox="allow-same-origin allow-scripts"></iframe>
-            <a href="bamboo-landing.html" class="b-overlay" target="_blank" rel="noopener">
-              <div class="b-overlay-btn"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Ouvrir le site</div>
-            </a>
-          </div>
-        </div>
-        <div class="pj-body">
-          <div class="pj-num">07 / 12</div>
-          <div class="pj-title">BAMBOO EMF — Gestion RH</div>
-          <div class="pj-desc">Application complète de gestion RH pour SFE. Dashboard analytics, CRUD employés, suivi des présences, performances et rapports avec JWT et RBAC.</div>
-          <div class="pj-tags"><span class="pt">Node.js</span><span class="pt">Express</span><span class="pt">MongoDB</span><span class="pt">JWT</span><span class="pt">Chart.js</span></div>
-          <div class="pj-links">
-            <a href="bamboo-landing.html" class="plink plink-p"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>Landing</a>
-            <a href="bamboo-app.html" class="plink plink-p"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Application</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- LINAF -->
-      <div class="pj-card rose reveal-3d reveal-delay-2" data-cat="fullstack">
-        <div class="b-mock">
-          <div class="b-bar">
-            <div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
-            <div class="b-url">linaf-billetterie.vercel.app</div>
-          </div>
-          <div class="b-vp">
-            <div class="b-vp-bg" style="background:linear-gradient(135deg,#3b0a0a,#dc2626)">LINAFP</div>
-            <iframe src="https://linaf-billetterie.vercel.app/" loading="lazy" title="LINAFP preview" sandbox="allow-same-origin allow-scripts"></iframe>
-            <a href="https://linaf-billetterie.vercel.app/" class="b-overlay" target="_blank" rel="noopener">
-              <div class="b-overlay-btn"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Ouvrir le site</div>
-            </a>
-          </div>
-        </div>
-        <div class="pj-body">
-          <div class="pj-num">08 / 12</div>
-          <div class="pj-title">LINAFP — Billetterie en ligne</div>
-          <div class="pj-desc">Billetterie pour la Ligue Nationale de Football du Gabon. Calendrier, achat en ligne et tickets numériques QR Code pour les stades.</div>
-          <div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">Node.js</span></div>
-          <div class="pj-links">
-            <a href="https://linaf-billetterie.vercel.app/" target="_blank" class="plink plink-p"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>Voir</a>
-            <a href="https://github.com/nsoley20/linaf-billetterie" target="_blank" class="plink plink-g"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- OTAKU -->
-      <div class="pj-card mix reveal-3d reveal-delay-3" data-cat="vitrine">
-        <div class="b-mock">
-          <div class="b-bar">
-            <div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
-            <div class="b-url">site-otaku.vercel.app</div>
-          </div>
-          <div class="b-vp">
-            <div class="b-vp-bg" style="background:linear-gradient(135deg,#1e1b4b,#4f46e5)">OTAKU</div>
-            <iframe src="https://site-otaku.vercel.app/" loading="lazy" title="OTAKU preview" sandbox="allow-same-origin allow-scripts"></iframe>
-            <a href="https://site-otaku.vercel.app/" class="b-overlay" target="_blank" rel="noopener">
-              <div class="b-overlay-btn"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Ouvrir le site</div>
-            </a>
-          </div>
-        </div>
-        <div class="pj-body">
-          <div class="pj-num">09 / 12</div>
-          <div class="pj-title">OTAKU — Catalogue Anime &amp; Manga</div>
-          <div class="pj-desc">Catalogue d'animes avec moteur de recherche, favoris, fiches détaillées et interface inspirée de l'esthétique japonaise moderne.</div>
-          <div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">API REST</span></div>
-          <div class="pj-links">
-            <a href="https://site-otaku.vercel.app/" target="_blank" class="plink plink-p"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>Voir</a>
-            <a href="https://github.com/nsoley20/otaku-site" target="_blank" class="plink plink-g"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- TSUNAMI -->
-      <div class="pj-card azure reveal-3d reveal-delay-1" data-cat="vitrine">
-        <div class="b-mock">
-          <div class="b-bar">
-            <div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
-            <div class="b-url">tsunami-aquapark-istb.vercel.app</div>
-          </div>
-          <div class="b-vp">
-            <div class="b-vp-bg" style="background:linear-gradient(135deg,#0c1a4a,#0369a1)">TSUNAMI</div>
-            <iframe src="https://tsunami-aquapark-istb.vercel.app/" loading="lazy" title="Tsunami Aquapark preview" sandbox="allow-same-origin allow-scripts"></iframe>
-            <a href="https://tsunami-aquapark-istb.vercel.app/" class="b-overlay" target="_blank" rel="noopener">
-              <div class="b-overlay-btn"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Ouvrir le site</div>
-            </a>
-          </div>
-        </div>
-        <div class="pj-body">
-          <div class="pj-num">10 / 12</div>
-          <div class="pj-title">Tsunami Aquapark</div>
-          <div class="pj-desc">Site vitrine de l'aquapark de Libreville. Toboggans, bassins, espace enfants, restauration et événements.</div>
-          <div class="pj-tags"><span class="pt">HTML</span><span class="pt">Tailwind</span><span class="pt">CSS</span><span class="pt">JavaScript</span></div>
-          <div class="pj-links">
-            <a href="https://tsunami-aquapark-istb.vercel.app/" target="_blank" class="plink plink-p"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>Voir le site</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- WA NGAN -->
-      <div class="pj-card grn reveal-3d reveal-delay-2" data-cat="fullstack">
-        <div class="b-mock">
-          <div class="b-bar">
-            <div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
-            <div class="b-url">wa-ngan.vercel.app</div>
-          </div>
-          <div class="b-vp">
-            <div class="b-vp-bg" style="background:linear-gradient(135deg,#0a4a2e,#16a34a)">Wa Ngan</div>
-            <iframe src="https://wa-ngan.vercel.app/" loading="lazy" title="WA NGAN preview" sandbox="allow-same-origin allow-scripts"></iframe>
-            <a href="https://wa-ngan.vercel.app/" class="b-overlay" target="_blank" rel="noopener">
-              <div class="b-overlay-btn"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Ouvrir le site</div>
-            </a>
-          </div>
-        </div>
-        <div class="pj-body">
-          <div class="pj-num">11 / 12</div>
-          <div class="pj-title">WA NGAN — Vlogging Gabonais</div>
-          <div class="pj-desc">Plateforme de vlogging 100% gabonaise. Profils, vlogs, communauté et export PDF/JSON. Panneau d'administration complet avec upload médias.</div>
-          <div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">Export PDF/JSON</span><span class="pt">Admin Panel</span></div>
-          <div class="pj-links">
-            <a href="https://wa-ngan.vercel.app/" target="_blank" class="plink plink-p"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>Landing</a>
-            <a href="https://wa-ngan.vercel.app/wa-ngan-app.html" target="_blank" class="plink plink-p"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Application</a>
-            <a href="wa-ngan-admin.html" class="plink plink-g"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Admin</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- GAKI GROUP -->
-      <div class="pj-card gold reveal-3d reveal-delay-3" data-cat="vitrine">
-        <div class="b-mock">
-          <div class="b-bar">
-            <div class="b-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
-            <div class="b-url">gaki-group-landing.vercel.app</div>
-          </div>
-          <div class="b-vp">
-            <div class="b-vp-bg" style="background:linear-gradient(135deg,#78350f,#d97706)">GAKI GROUP</div>
-            <iframe src="https://gaki-group-landing.vercel.app/" loading="lazy" title="GAKI GROUP preview" sandbox="allow-same-origin allow-scripts"></iframe>
-            <a href="https://gaki-group-landing.vercel.app/" class="b-overlay" target="_blank" rel="noopener">
-              <div class="b-overlay-btn"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Ouvrir le site</div>
-            </a>
-          </div>
-        </div>
-        <div class="pj-body">
-          <div class="pj-num">12 / 12</div>
-          <div class="pj-title">GAKI GROUP — Hub de l'Excellence Africaine</div>
-          <div class="pj-desc">Site vitrine corporate pour un holding stratégique basé à Dakar. 7 filiales spécialisées : connectivité satellite, eau, finance, immobilier et formation pour la souveraineté africaine.</div>
-          <div class="pj-tags"><span class="pt">HTML5</span><span class="pt">CSS3</span><span class="pt">JavaScript</span><span class="pt">Corporate</span><span class="pt">Responsive</span></div>
-          <div class="pj-links">
-            <a href="https://gaki-group-landing.vercel.app/" target="_blank" class="plink plink-p"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>Voir le site</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <div class="peek" id="peek" aria-hidden="true"><img alt=""/></div>
   </div>
 </section>
+
+<div class="marquee-wrap marquee-rev" aria-hidden="true"><div class="marquee-track"><span class="mq-item"><span class="mq-dot"></span>GhettoPay</span><span class="mq-item"><span class="mq-dot"></span>CHUO Parc</span><span class="mq-item"><span class="mq-dot"></span>LINAF</span><span class="mq-item"><span class="mq-dot"></span>Music Gaboma</span><span class="mq-item"><span class="mq-dot"></span>Numerik'art</span><span class="mq-item"><span class="mq-dot"></span>TRT Factory</span><span class="mq-item"><span class="mq-dot"></span>LBFC</span><span class="mq-item"><span class="mq-dot"></span>EACMG</span><span class="mq-item"><span class="mq-dot"></span>GAKI Group</span><span class="mq-item"><span class="mq-dot"></span>Studio Com'El</span><span class="mq-item"><span class="mq-dot"></span>GhettoPay</span><span class="mq-item"><span class="mq-dot"></span>CHUO Parc</span><span class="mq-item"><span class="mq-dot"></span>LINAF</span><span class="mq-item"><span class="mq-dot"></span>Music Gaboma</span><span class="mq-item"><span class="mq-dot"></span>Numerik'art</span><span class="mq-item"><span class="mq-dot"></span>TRT Factory</span><span class="mq-item"><span class="mq-dot"></span>LBFC</span><span class="mq-item"><span class="mq-dot"></span>EACMG</span><span class="mq-item"><span class="mq-dot"></span>GAKI Group</span><span class="mq-item"><span class="mq-dot"></span>Studio Com'El</span></div></div>
 
 <!-- ══ EXPERIENCE ══ -->
 <section id="experience">
@@ -1976,7 +2014,7 @@ section:nth-of-type(even){background:linear-gradient(180deg,var(--bg),var(--bg2)
         <div class="contact-cards">
           <a href="mailto:nsoleypro20@gmail.com" class="cc"><div class="cc-icon" style="background:var(--purple)"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg></div><div><div class="cc-label">Email pro</div><div class="cc-val">nsoleypro20@gmail.com</div></div></a>
           <a href="https://www.linkedin.com/in/thomas-nsoley-253076247/" target="_blank" class="cc"><div class="cc-icon" style="background:#0a66c2"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div><div><div class="cc-label">LinkedIn</div><div class="cc-val">thomasnsoley</div></div></a>
-          <a href="https://github.com/thomasnsoley" target="_blank" class="cc"><div class="cc-icon" style="background:#24292e"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></div><div><div class="cc-label">GitHub</div><div class="cc-val">github.com/thomasnsoley</div></div></a>
+          <a href="https://github.com/nsoley20" target="_blank" class="cc"><div class="cc-icon" style="background:#24292e"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></div><div><div class="cc-label">GitHub</div><div class="cc-val">github.com/nsoley20</div></div></a>
           <a href="assets/CV SEAN THOMAS EKANG NSOLEY.pdf" download class="cc"><div class="cc-icon" style="background:var(--rose)"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div><div><div class="cc-label">Curriculum Vitae</div><div class="cc-val">Télécharger le CV (PDF)</div></div></a>
         </div>
       </div>
@@ -2104,7 +2142,7 @@ document.querySelectorAll('section[id]').forEach(sec => {
         if (a) a.classList.add('active');
       }
     });
-  }, { threshold: .4 }).observe(sec);
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 }).observe(sec);
 });
 
 /* ══════════════════════════════════════
@@ -2315,7 +2353,7 @@ document.querySelectorAll('.b-vp iframe').forEach(iframe => {
 ══════════════════════════════════════ */
 (function(){
   document.querySelectorAll('.sec-title').forEach(el => {
-    const text  = el.innerHTML;
+    const text  = el.innerHTML.replace(/&amp;/g, '&');
     const parts = text.split(/(<[^>]+>)/g);
     let out = '';
     let delay = 0;
@@ -2323,10 +2361,16 @@ document.querySelectorAll('.b-vp iframe').forEach(iframe => {
       if (part.startsWith('<')) {
         out += part;
       } else {
-        part.split('').forEach(ch => {
-          const safe = ch === ' ' ? '&nbsp;' : ch.replace(/&/g,'&amp;').replace(/</g,'&lt;');
-          out += `<span class="char" style="transition-delay:${delay * 28}ms">${safe}</span>`;
-          delay++;
+        part.split(/(\s+)/).forEach(tok => {
+          if (!tok) return;
+          if (/^\s+$/.test(tok)) { out += ' '; return; }
+          out += '<span class="char-word">';
+          tok.split('').forEach(ch => {
+            const safe = ch.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+            out += `<span class="char" style="transition-delay:${delay * 28}ms">${safe}</span>`;
+            delay++;
+          });
+          out += '</span>';
         });
       }
     });
@@ -2383,6 +2427,271 @@ document.querySelectorAll('.b-vp iframe').forEach(iframe => {
     document.documentElement.dataset.theme = next;
     localStorage.setItem('theme', next);
   });
+})();
+
+/* ══════════════════════════════════════
+   APERÇUS, RELIEF ET RÉVÉLATIONS
+══════════════════════════════════════ */
+(function(){
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+  /* Parcours : chaque étape apparaît à son tour */
+  const tlObs = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); tlObs.unobserve(e.target); }
+  }), { threshold: .2 });
+  document.querySelectorAll('.tl-item').forEach(el => tlObs.observe(el));
+
+  if (calm) return;
+
+  /* Aperçus : le site défile dans sa fenêtre */
+  function pan(vp, on) {
+    const im = vp.querySelector('img');
+    if (!im) return;
+    const d = im.offsetHeight - vp.offsetHeight;
+    if (d < 16) return;
+    if (on) {
+      im.style.transition = 'transform ' + Math.max(3, d / 95) + 's linear .25s';
+      im.style.transform = 'translateY(' + (-d) + 'px)';
+    } else {
+      im.style.transition = 'transform .7s cubic-bezier(.16,1,.3,1)';
+      im.style.transform = '';
+    }
+  }
+  const vps = document.querySelectorAll('.b-vp[data-pan]');
+  if (fine) {
+    vps.forEach(vp => {
+      vp.addEventListener('mouseenter', () => pan(vp, true));
+      vp.addEventListener('mouseleave', () => pan(vp, false));
+    });
+    /* Cartes : léger relief sous le curseur */
+    document.querySelectorAll('.pj-card').forEach(card => {
+      const mock = card.querySelector('.b-mock');
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+        card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+        mock.style.transform = 'perspective(900px) rotateX(' + ((.5 - y) * 5).toFixed(2) + 'deg) rotateY(' + ((x - .5) * 7).toFixed(2) + 'deg)';
+      });
+      card.addEventListener('mouseleave', () => { mock.style.transform = ''; });
+    });
+    /* Photo du hero : suit doucement le curseur */
+    const hero = document.getElementById('home'), photo = document.querySelector('.hero-photo-wrap');
+    if (hero && photo) {
+      hero.addEventListener('mousemove', e => {
+        const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
+        photo.style.transform = 'perspective(1000px) rotateY(' + (x * 9).toFixed(2) + 'deg) rotateX(' + (-y * 7).toFixed(2) + 'deg)';
+      });
+      hero.addEventListener('mouseleave', () => { photo.style.transform = ''; });
+    }
+  } else {
+    const vpObs = new IntersectionObserver(es => es.forEach(e => pan(e.target, e.isIntersecting)), { threshold: .7 });
+    vps.forEach(vp => vpObs.observe(vp));
+  }
+
+  /* Bandeaux : accélèrent avec le défilement */
+  const tracks = [...document.querySelectorAll('.marquee-track')].flatMap(t => t.getAnimations());
+  if (tracks.length) {
+    let last = scrollY, rate = 1, ticking = false;
+    const decay = () => {
+      rate += (1 - rate) * .08;
+      tracks.forEach(a => { a.playbackRate = rate; });
+      if (Math.abs(rate - 1) > .02) requestAnimationFrame(decay); else { ticking = false; }
+    };
+    addEventListener('scroll', () => {
+      const v = Math.abs(scrollY - last); last = scrollY;
+      rate = Math.min(5, 1 + v * .06);
+      if (!ticking) { ticking = true; requestAnimationFrame(decay); }
+    }, { passive: true });
+  }
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+/* ══════════════════════════════════════
+   CHORÉGRAPHIE : PORTRAIT, SCROLL, PROJETS
+══════════════════════════════════════ */
+(function(){
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const G = window.gsap, ST = window.ScrollTrigger;
+  if (calm || !G || !ST) return;
+  G.registerPlugin(ST);
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => [...(r || document).querySelectorAll(s)];
+  const clamp = (v, a, b) => Math.min(b === undefined ? 1 : b, Math.max(a || 0, v));
+
+  /* ── Portrait : des paquets convergent vers la photo ── */
+  const hero = $('#home'), frame = $('.hero-photo-wrap'), photo = $('.hpw-inner img');
+  let P = null, W = 0, H = 0, ctx = null, canvas = null, _p = 0, _q = 0, on = false;
+
+  function build() {
+    if (!frame || !frame.offsetWidth || !photo.naturalWidth) return false;
+    const hr = hero.getBoundingClientRect(), fr = frame.getBoundingClientRect();
+    W = hr.width; H = hr.height;
+    const dpr = Math.min(devicePixelRatio || 1, 1.75);
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const fx = fr.left - hr.left, fy = fr.top - hr.top, step = Math.max(3.2, fr.width / 66);
+    const cols = Math.round(fr.width / step), rows = Math.round(fr.height / step);
+    const off = document.createElement('canvas'); off.width = cols; off.height = rows;
+    const oc = off.getContext('2d', { willReadFrequently: true });
+    const nw = photo.naturalWidth, nh = photo.naturalHeight, ar = fr.width / fr.height;
+    const sw = Math.min(nw, nh * ar), sh = sw / ar;
+    oc.drawImage(photo, (nw - sw) / 2, 0, sw, sh, 0, 0, cols, rows);
+    const d = oc.getImageData(0, 0, cols, rows).data;
+    const lanes = Array.from({ length: 34 }, () => Math.random() * H);
+    const list = [];
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      const i = (r * cols + c) * 4, lum = d[i] * .3 + d[i + 1] * .59 + d[i + 2] * .11;
+      const k = Math.pow(1 - clamp((lum - 12) / 200), 1.4);
+      if (k < .06) continue;
+      const x = fx + c * step, y = fy + r * step, g = (c / cols + r / rows) / 2;
+      list.push({ x, y, s: step * (.2 + .9 * k), g: g < .36 ? 0 : g < .68 ? 1 : 2, sx: Math.random() < .8 ? -30 - Math.random() * 240 : W + 30 + Math.random() * 180, sy: lanes[Math.random() * lanes.length | 0], de: Math.random() * .34 + (x / W) * .08, du: .42 + Math.random() * .16, dr: (.4 + Math.random()) * (Math.random() < .5 ? -1 : 1) });
+    }
+    P = list;
+    return true;
+  }
+  const ease = t => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const inks = ['#4f46e5', '#8b5cf6', '#f43f5e'];
+  function draw() {
+    if (!P) return;
+    ctx.clearRect(0, 0, W, H);
+    if (_p <= 0 && _q <= 0) return;
+    const fade = 1 - clamp(_q * 1.1);
+    for (let b = 0; b < 3; b++) {
+      ctx.fillStyle = inks[b]; ctx.beginPath();
+      for (const o of P) {
+        if (o.g !== b) continue;
+        let x = o.x, y = o.y, s = o.s;
+        if (_q > 0) { x += o.dr * _q * _q * W * .5; y += o.dr * .28 * _q * H; s *= fade; }
+        else {
+          const t = clamp((_p - o.de) / o.du); if (t <= 0) continue;
+          const a = ease(clamp(t * 2)), c = ease(clamp(t * 2 - 1));
+          x = o.sx + (x - o.sx) * a; y = o.sy + (y - o.sy) * c; s *= .45 + .55 * c;
+        }
+        if (s > .15) ctx.rect(x, y, s, s);
+      }
+      ctx.fill();
+    }
+  }
+
+  function startPortrait() {
+    if (!frame || !frame.offsetWidth) return;
+    canvas = document.createElement('canvas'); canvas.id = 'heroPackets'; canvas.setAttribute('aria-hidden', 'true');
+    hero.append(canvas); ctx = canvas.getContext('2d');
+    const go = () => {
+      if (!build()) { G.set(photo, { opacity: 1 }); return; }
+      const st = { get p() { return _p; }, set p(v) { _p = v; draw(); } };
+      G.timeline()
+        .to(st, { p: 1, duration: 2.5, ease: 'none' })
+        .to(photo, { opacity: 1, duration: .55, ease: 'power1.out' }, 2.15)
+        .to(canvas, { opacity: 0, duration: .5 }, 2.35)
+        .add(() => { _p = 0; ctx.clearRect(0, 0, W, H); on = true; G.set(canvas, { opacity: 1 }); });
+    };
+    photo.complete && photo.naturalWidth ? go() : photo.addEventListener('load', go, { once: true });
+  }
+  if (frame && frame.offsetWidth && photo) {
+    G.set(photo, { opacity: 0 });
+    const loader = $('#loader');
+    if (!loader || loader.classList.contains('out')) startPortrait();
+    else new MutationObserver((m, o) => { if (loader.classList.contains('out')) { o.disconnect(); setTimeout(startPortrait, 220); } }).observe(loader, { attributes: true, attributeFilter: ['class'] });
+  }
+
+  /* ── Défilement doux ── */
+  if (fine && window.Lenis) {
+    const lenis = new Lenis({ lerp: .11 });
+    lenis.on('scroll', ST.update);
+    G.ticker.add(t => lenis.raf(t * 1000));
+    G.ticker.lagSmoothing(0);
+    document.addEventListener('click', e => {
+      const a = e.target.closest('a[href^="#"]');
+      if (!a || a.getAttribute('href').length < 2) return;
+      const t = $(a.getAttribute('href'));
+      if (!t) return;
+      e.preventDefault();
+      lenis.scrollTo(t, { duration: 1.2, offset: -10 });
+    });
+    const back = $('#backTop');
+    if (back) back.onclick = () => lenis.scrollTo(0, { duration: 1.4 });
+  }
+
+  /* ── Le texte de présentation s'encre à la lecture ── */
+  $$('.about-text p').forEach(p => {
+    const walk = n => [...n.childNodes].forEach(c => {
+      if (c.nodeType === 3) {
+        const f = document.createDocumentFragment();
+        c.textContent.split(/(\s+)/).forEach(t => {
+          if (!t) return;
+          if (/^\s+$/.test(t)) { f.append(' '); return; }
+          const s = document.createElement('span'); s.className = 'ink'; s.textContent = t; f.append(s);
+        });
+        c.replaceWith(f);
+      } else if (c.nodeType === 1) walk(c);
+    });
+    walk(p);
+    G.fromTo($$('.ink', p), { opacity: .22 }, { opacity: 1, stagger: .1, ease: 'none', scrollTrigger: { trigger: p, start: 'top 82%', end: 'bottom 58%', scrub: .4 } });
+  });
+
+  const mm = G.matchMedia();
+  mm.add('(min-width:769px) and (min-height:621px)', () => {
+    /* Sortie du hero : la photo repart en paquets */
+    if (frame && frame.offsetWidth) {
+      const tl = G.timeline({ scrollTrigger: { trigger: hero, start: 'top top', end: '+=75%', pin: true, scrub: true, anticipatePin: 1, onUpdate: s => { if (!on) return; _q = clamp((s.progress - .08) / .8); draw(); } }, defaults: { ease: 'none' } });
+      tl.to(photo, { opacity: 0, duration: .22 }, .05)
+        .to('.hpw-ring,.hpw-glow,.hpw-badge', { opacity: 0, duration: .25 }, .05)
+        .to('.hero-text', { y: -70, opacity: 0, duration: .55 }, .3);
+    }
+    /* Ligne de la méthode */
+    const track = $('.proc-track');
+    if (track) G.fromTo(track, { '--p': 0 }, { '--p': 1, ease: 'none', scrollTrigger: { trigger: track, start: 'top 80%', end: 'top 35%', scrub: true } });
+
+    /* Cartes projets empilées */
+    $$('.case').forEach((c, i, all) => {
+      const inner = $('.case-inner', c), name = $('.case-name', c);
+      const txt = name.textContent; name.textContent = '';
+      [...txt].forEach(ch => { const s = document.createElement('span'); s.className = 'l'; s.textContent = ch === ' ' ? '\u00A0' : ch; name.append(s); });
+      G.fromTo($$('.l', name), { yPercent: 118 }, { yPercent: 0, duration: 1, ease: 'expo.out', stagger: .03, scrollTrigger: { trigger: c, start: 'top 42%', once: true } });
+      G.from($$('.case-copy > *', c), { y: 30, opacity: 0, duration: .75, ease: 'expo.out', stagger: .08, scrollTrigger: { trigger: c, start: 'top 32%', once: true } });
+      G.fromTo($('.case-shot .b-mock', c), { yPercent: 16, rotate: 1.2 }, { yPercent: 0, rotate: 0, ease: 'none', scrollTrigger: { trigger: c, start: 'top bottom', end: 'top top', scrub: true } });
+      if (i < all.length - 1) G.to(inner, { scale: .93, opacity: .3, ease: 'none', scrollTrigger: { trigger: all[i + 1], start: 'top bottom', end: 'top top', scrub: true } });
+    });
+    ST.refresh();
+  });
+
+  /* Mobile : entrée simple des cartes */
+  mm.add('(max-width:768px)', () => {
+    $$('.case').forEach(c => G.from($$('.case-shot, .case-copy > *', c), { y: 26, opacity: 0, duration: .65, ease: 'expo.out', stagger: .06, scrollTrigger: { trigger: c, start: 'top 72%', once: true } }));
+  });
+
+  /* ── Aussi en ligne : aperçu qui suit le curseur ── */
+  if (fine) {
+    const peek = $('#peek'), im = $('img', peek);
+    const qx = G.quickTo(peek, 'x', { duration: .45, ease: 'power3' }), qy = G.quickTo(peek, 'y', { duration: .45, ease: 'power3' });
+    let pan = null;
+    addEventListener('pointermove', e => {
+      const w = peek.offsetWidth, h = peek.offsetHeight;
+      qx(Math.min(e.clientX + 24, innerWidth - w - 16));
+      qy(clamp(e.clientY - h / 2, 70, innerHeight - h - 16));
+    }, { passive: true });
+    $$('.row').forEach(row => {
+      row.addEventListener('pointerenter', () => {
+        im.src = row.dataset.peek; peek.classList.add('on');
+        const run = () => {
+          if (pan) pan.kill();
+          G.set(im, { y: 0 });
+          const dist = im.offsetHeight - peek.offsetHeight;
+          if (dist > 8) pan = G.to(im, { y: -dist, duration: dist / 110, ease: 'none', delay: .3, repeat: -1, yoyo: true, repeatDelay: .6 });
+        };
+        im.complete ? run() : (im.onload = run);
+      });
+      row.addEventListener('pointerleave', () => { peek.classList.remove('on'); if (pan) pan.kill(); });
+    });
+  }
+
+  addEventListener('load', () => ST.refresh());
 })();
 </script>
 </body>
