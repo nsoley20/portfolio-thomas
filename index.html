@@ -1393,6 +1393,130 @@ html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
 @media(min-width:769px) and (max-height:620px){
   .case{position:relative;height:auto;min-height:100svh}
 }
+
+/* ══ Système commun : des feuilles qui glissent les unes sur les autres ══ */
+section{padding-block:clamp(5rem,10vw,9rem)}
+.marquee-wrap{padding-bottom:36px}
+#about,#services,#projects,#process,#skills,#experience,#contact{position:relative;border-radius:36px 36px 0 0;margin-top:-36px;box-shadow:0 -18px 50px rgba(13,12,29,.09)}
+#about{background:var(--white)}
+#services{background:var(--bg2)}
+#projects{background:var(--bg);padding-top:clamp(5rem,10vw,9rem)}
+#skills{background:var(--bg)}
+#experience{background:var(--white)}
+.more{border-radius:36px 36px 0 0;margin-top:-36px;box-shadow:0 -18px 50px rgba(13,12,29,.12)}
+.sec-title{font-weight:900;font-size:clamp(2.8rem,7vw,6.4rem);line-height:1;letter-spacing:-.045em;margin-bottom:.32em}
+.sec-label{font-size:.78rem}
+.sec-sub{font-size:clamp(1rem,1.25vw,1.2rem);line-height:1.6;max-width:640px}
+.char-word .char{will-change:transform}
+
+/* Qui je suis */
+.about-text p{font-size:clamp(1rem,1.2vw,1.18rem);line-height:1.7}
+.about-text p:first-child{font-family:var(--display);font-weight:300;font-size:clamp(1.55rem,2.7vw,2.5rem);line-height:1.2;letter-spacing:-.02em;color:var(--text);margin-bottom:1.5rem}
+.about-text p:first-child strong{font-weight:700;color:var(--indigo)}
+[data-theme="dark"] .about-text p:first-child strong{color:#a5b4fc}
+.stat-c{background:none;border:0;border-radius:0;text-align:left;padding:1.15rem 0}
+.stat-c::before{display:none}
+.stat-c:hover{transform:none;box-shadow:none}
+.stat-num{font-size:clamp(2.2rem,4vw,3.4rem);letter-spacing:-.04em}
+.stat-lbl{font-size:.76rem;color:var(--text2)}
+.now-card{background:radial-gradient(90% 70% at 90% 0%,rgba(99,102,241,.42),transparent 70%),#0d0c1d;border:0;color:#f5f4fb;border-radius:24px;padding:2rem;box-shadow:0 30px 70px -24px rgba(13,12,29,.55)}
+.now-card-title{color:#a5b4fc;font-size:.76rem}
+.now-list strong{color:#fff;font-size:1rem}
+.now-list div span{color:rgba(245,244,251,.68);font-family:var(--font);font-size:.92rem;line-height:1.5}
+
+/* Ce que je fais : même langage que la liste des projets */
+#services .srv-grid{display:block;margin-top:2.6rem}
+#services .srv-card{display:grid;grid-template-columns:70px minmax(0,5fr) minmax(0,5fr);grid-template-areas:"n t d" "n t g";column-gap:clamp(1rem,3vw,3rem);align-items:start;background:none;border:0;border-top:1px solid var(--border2);border-radius:0;padding:clamp(1.5rem,2.6vw,2.6rem) 1rem;box-shadow:none;overflow:hidden;isolation:isolate;transition:color .3s,opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+#services .srv-card:last-child{border-bottom:1px solid var(--border2)}
+#services .srv-card::before{display:none}
+#services .srv-card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,var(--indigo),var(--purple) 60%,var(--rose));transform:scaleY(0);transform-origin:bottom;transition:transform .5s var(--ease-out)}
+#services .srv-card:hover{color:#fff;transform:none}
+#services .srv-card:hover::after{transform:scaleY(1)}
+#services .srv-card:hover h3,#services .srv-card:hover p,#services .srv-card:hover .srv-num{color:#fff}
+#services .srv-card:hover .srv-tag{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3);color:#fff}
+#services .srv-num{grid-area:n;position:static;font:500 .85rem/1.9 var(--mono);color:var(--indigo);opacity:1}
+#services .srv-icon{display:none}
+#services .srv-card h3{grid-area:t;font-family:var(--display);font-weight:900;font-size:clamp(1.9rem,3.8vw,3.5rem);line-height:1.02;letter-spacing:-.035em;margin:0}
+#services .srv-card p{grid-area:d;font-size:clamp(1rem,1.15vw,1.12rem);line-height:1.6;color:var(--text2);margin:0}
+#services .srv-tags{grid-area:g;margin-top:1rem}
+
+/* Comment je travaille */
+#process{background:radial-gradient(60% 70% at 85% 10%,rgba(99,102,241,.34),transparent 70%),radial-gradient(45% 60% at 5% 95%,rgba(244,63,94,.15),transparent 70%),#0d0c1d;color:#f5f4fb}
+#process .sec-title{color:#fff}
+#process .sec-label{color:#a5b4fc}
+#process .sec-sub{color:rgba(245,244,251,.74)}
+#process .sec-wm{-webkit-text-stroke-color:rgba(165,180,252,.2)}
+#process .proc-track::before{height:2px;opacity:1;background:linear-gradient(90deg,var(--indigo),var(--purple),var(--rose))}
+#process .proc-circle{background:#0d0c1d;border-color:rgba(255,255,255,.26);color:#fff;transition:background .4s,border-color .4s,box-shadow .4s,transform .4s var(--spring)}
+#process .proc-step.on .proc-circle{background:linear-gradient(135deg,var(--indigo),var(--rose));border-color:transparent;box-shadow:0 0 0 8px rgba(99,102,241,.18);transform:scale(1.1)}
+#process .proc-label{color:#fff;font-family:var(--display);font-weight:700;font-size:clamp(1.3rem,1.9vw,1.75rem);letter-spacing:-.02em}
+#process .proc-desc{color:rgba(245,244,251,.74);font-size:1rem;line-height:1.6}
+
+/* Mes outils */
+.sk-card{border-radius:20px;padding:1.7rem;isolation:isolate;transition:transform .35s var(--ease-out),box-shadow .35s,opacity .8s var(--ease-out)}
+.sk-card::after{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .3s;background:radial-gradient(360px circle at var(--mx,50%) var(--my,0%),rgba(139,92,246,.16),transparent 65%)}
+.sk-card:hover::after{opacity:1}
+.sk-card h3{font-family:var(--display);font-weight:700;font-size:clamp(1.4rem,2vw,1.9rem);letter-spacing:-.025em}
+.stag{font-size:.76rem}
+
+/* Parcours */
+#experience .timeline::before{width:2px;transform:scaleY(var(--p,1));transform-origin:top}
+.tl-item{padding-bottom:2.6rem}
+.tl-period{font-size:.78rem}
+.tl-title{font-family:var(--display);font-weight:700;font-size:clamp(1.25rem,2vw,1.85rem);line-height:1.15;letter-spacing:-.02em;color:var(--text)}
+.tl-org{font-size:.98rem;font-weight:600}
+.tl-desc{font-size:.98rem;line-height:1.6;color:var(--text2)}
+.exp-col-title{font-size:.78rem;color:var(--text2)}
+.cert-name{font-size:.95rem}
+.cert-status,.lang-level{font-size:.76rem;color:var(--text2)}
+.tool-tag{font-size:.76rem}
+
+/* Contact */
+#contact{background:radial-gradient(60% 70% at 85% 12%,rgba(139,92,246,.36),transparent 70%),radial-gradient(45% 60% at 5% 95%,rgba(244,63,94,.17),transparent 70%),#0d0c1d;overflow:hidden}
+.contact-intro p{font-size:clamp(1.1rem,1.5vw,1.4rem);line-height:1.55;color:rgba(255,255,255,.78)}
+.cc{min-height:68px;border-radius:14px}
+.cc-label{font-size:.74rem;color:rgba(255,255,255,.62)}
+.cc-val{font-size:1rem}
+.contact-form{border-radius:24px;padding:2rem}
+.cf-title{font-family:var(--display);font-weight:700;font-size:1.7rem;letter-spacing:-.02em}
+.cf-label{font-size:.74rem;color:rgba(255,255,255,.66)}
+.cf-input{font-size:1rem;color:#fff}
+.cf-input::placeholder{color:rgba(255,255,255,.42)}
+
+@media(min-width:769px){
+  .stats-grid{grid-template-columns:repeat(4,1fr);gap:0 1.4rem;border-top:1px solid var(--border2);margin-top:2.4rem}
+  #skills .skills-grid{grid-template-columns:repeat(6,1fr)}
+  #skills .sk-card{grid-column:span 2}
+  #skills .sk-card:nth-child(1),#skills .sk-card:nth-child(2){grid-column:span 3}
+  #skills .sk-card:nth-child(6){grid-column:span 6}
+}
+@media(min-width:961px){
+  #experience .exp-grid{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(3rem,7vw,7rem)}
+  #experience .exp-grid>div:last-child{position:sticky;top:6.5rem;align-self:start}
+}
+@media(max-width:768px){
+  section{padding-block:4.4rem}
+  .marquee-wrap{padding-bottom:26px}
+  #about,#services,#projects,#process,#skills,#experience,#contact,.more{border-radius:26px 26px 0 0;margin-top:-26px}
+  #projects{padding-top:4.4rem}
+  .sec-title{font-size:clamp(2.5rem,11.5vw,3.5rem);line-height:1.04}
+  .about-text p:first-child{font-size:clamp(1.45rem,6.4vw,1.9rem)}
+  #services .srv-grid{display:block;overflow:visible;margin:2rem 0 0;padding:0}
+  #services .srv-card{grid-template-columns:1fr;grid-template-areas:"n" "t" "d" "g";padding:1.5rem .2rem;row-gap:.55rem}
+  #services .srv-card h3{font-size:clamp(1.8rem,8.4vw,2.4rem)}
+  #services .srv-card:hover{color:inherit}
+  #services .srv-card::after{display:none}
+  #services .srv-card:hover h3{color:var(--text)}
+  #services .srv-card:hover p{color:var(--text2)}
+  #services .srv-card:hover .srv-num{color:var(--indigo)}
+  #services .srv-card:hover .srv-tag{background:revert-layer;color:inherit}
+  .now-card{padding:1.5rem}
+  .contact-form{padding:1.35rem}
+  .tl-item{padding-bottom:2rem}
+}
+@media(prefers-reduced-motion:reduce){
+  #experience .timeline::before,#process .proc-track::before{transform:none}
+}
 </style>
 </head>
 <body>
@@ -1429,10 +1553,10 @@ html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
   </a>
   <div class="nav-links">
     <a href="#about">À propos</a>
-    <a href="#skills">Compétences</a>
     <a href="#services">Services</a>
-    <a href="#process">Méthode</a>
     <a href="#projects">Projets</a>
+    <a href="#process">Méthode</a>
+    <a href="#skills">Compétences</a>
     <a href="#experience">Parcours</a>
     <a href="#contact">Contact</a>
   </div>
@@ -1447,10 +1571,10 @@ html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
 </nav>
 <div class="mob-overlay" id="mobNav">
   <a href="#about" onclick="closeMob()">À propos</a>
-  <a href="#skills" onclick="closeMob()">Compétences</a>
   <a href="#services" onclick="closeMob()">Services</a>
-  <a href="#process" onclick="closeMob()">Méthode</a>
   <a href="#projects" onclick="closeMob()">Projets</a>
+  <a href="#process" onclick="closeMob()">Méthode</a>
+  <a href="#skills" onclick="closeMob()">Compétences</a>
   <a href="#experience" onclick="closeMob()">Parcours</a>
   <a href="#contact" onclick="closeMob()">Contact</a>
   <a href="assets/CV SEAN THOMAS EKANG NSOLEY.pdf" download class="mob-cta" onclick="closeMob()">Télécharger CV</a>
@@ -1635,76 +1759,12 @@ html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
   </div>
 </section>
 
-<!-- ══ SKILLS ══ -->
-<section id="skills">
-  <div class="sec-inner">
-    <span class="sec-wm" aria-hidden="true">02</span>
-    <div class="reveal">
-      <span class="sec-label">02 — Compétences</span>
-      <h2 class="sec-title">Stack technique</h2>
-      <p class="sec-sub">Un ensemble de technologies couvrant le développement, les réseaux et la sécurité.</p>
-    </div>
-    <div class="skills-grid">
-      <div class="sk-card reveal-3d reveal-delay-1">
-        <div class="sk-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-        <h3>Frontend</h3>
-        <div class="sk-tags">
-          <span class="stag b">HTML5</span><span class="stag b">CSS3</span><span class="stag b">JavaScript</span>
-          <span class="stag">TypeScript</span><span class="stag b">Responsive</span>
-          <span class="stag">UX/UI</span><span class="stag b">Next.js</span><span class="stag">React · Vue</span><span class="stag">Tailwind</span>
-        </div>
-      </div>
-      <div class="sk-card reveal-3d reveal-delay-2">
-        <div class="sk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><path d="M12 1v6m0 6v6"/><path d="M4.22 4.22l4.24 4.24m2.12 2.12l4.24 4.24"/><path d="M1 12h6m6 0h6"/><path d="M4.22 19.78l4.24-4.24m2.12-2.12l4.24-4.24"/></svg></div>
-        <h3>Backend</h3>
-        <div class="sk-tags">
-          <span class="stag b">Node.js</span><span class="stag b">Express.js</span><span class="stag b">NestJS</span><span class="stag b">API REST</span>
-          <span class="stag">Python</span><span class="stag">Middleware</span><span class="stag">Routage</span>
-        </div>
-      </div>
-      <div class="sk-card reveal-3d reveal-delay-3">
-        <div class="sk-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></div>
-        <h3>Base de données</h3>
-        <div class="sk-tags">
-          <span class="stag b">PostgreSQL</span><span class="stag b">Prisma</span><span class="stag b">MongoDB</span><span class="stag b">Mongoose</span>
-          <span class="stag">Schémas &amp; CRUD</span><span class="stag">Modélisation</span>
-        </div>
-      </div>
-      <div class="sk-card r reveal-3d reveal-delay-1">
-        <div class="sk-icon r"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h3>Cybersécurité</h3>
-        <div class="sk-tags">
-          <span class="stag r">Sécurisation</span><span class="stag r">Auth JWT</span>
-          <span class="stag r">Bcrypt</span><span class="stag r">RBAC</span>
-          <span class="stag r">Sécurité réseau</span><span class="stag">OWASP</span>
-        </div>
-      </div>
-      <div class="sk-card r reveal-3d reveal-delay-2">
-        <div class="sk-icon r"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-        <h3>Réseaux &amp; Systèmes</h3>
-        <div class="sk-tags">
-          <span class="stag r">TCP/IP · DNS</span><span class="stag r">Firewall · VPN</span>
-          <span class="stag">Linux</span><span class="stag">Monitoring</span><span class="stag">Shell Bash</span>
-        </div>
-      </div>
-      <div class="sk-card c reveal-3d reveal-delay-3">
-        <div class="sk-icon c"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-        <h3>Architecture &amp; Méthodes</h3>
-        <div class="sk-tags">
-          <span class="stag">UML</span><span class="stag">Cahiers des charges</span>
-          <span class="stag c">Cloud</span><span class="stag c">Git / GitHub</span><span class="stag">Docker</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ══ SERVICES ══ -->
 <section id="services">
   <div class="sec-inner">
-    <span class="sec-wm" aria-hidden="true">03</span>
+    <span class="sec-wm" aria-hidden="true">02</span>
     <div class="reveal">
-      <span class="sec-label">03 — Services</span>
+      <span class="sec-label">02 — Services</span>
       <h2 class="sec-title">Ce que je propose</h2>
       <p class="sec-sub">Des solutions concrètes, du développement à la sécurisation.</p>
     </div>
@@ -1753,46 +1813,12 @@ html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
   </div>
 </section>
 
-<!-- ══ PROCESS ══ -->
-<section id="process">
-  <div class="sec-inner">
-    <span class="sec-wm" aria-hidden="true">04</span>
-    <div class="reveal">
-      <span class="sec-label">04 — Méthode</span>
-      <h2 class="sec-title">Comment je travaille</h2>
-      <p class="sec-sub">Un processus structuré, de la première discussion à la mise en production.</p>
-    </div>
-    <div class="proc-track">
-      <div class="proc-step reveal">
-        <div class="proc-circle">01</div>
-        <div class="proc-label">Découverte</div>
-        <div class="proc-desc">Brief client, analyse des besoins, rédaction du cahier des charges et périmètre du projet.</div>
-      </div>
-      <div class="proc-step reveal reveal-delay-1">
-        <div class="proc-circle">02</div>
-        <div class="proc-label">Architecture</div>
-        <div class="proc-desc">Maquettes UI, modélisation UML, choix de la stack technologique et plan de sécurité.</div>
-      </div>
-      <div class="proc-step reveal reveal-delay-2">
-        <div class="proc-circle">03</div>
-        <div class="proc-label">Développement</div>
-        <div class="proc-desc">Code propre et documenté, tests, authentification sécurisée, intégration des fonctionnalités.</div>
-      </div>
-      <div class="proc-step reveal reveal-delay-3">
-        <div class="proc-circle">04</div>
-        <div class="proc-label">Déploiement</div>
-        <div class="proc-desc">Mise en ligne sur Vercel/Netlify, monitoring, livraison finale et support post-lancement.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ══ PROJECTS ══ -->
 <section id="projects">
   <div class="sec-inner">
-    <span class="sec-wm" aria-hidden="true">05</span>
+    <span class="sec-wm" aria-hidden="true">03</span>
     <div class="reveal">
-      <span class="sec-label">05 — Projets</span>
+      <span class="sec-label">03 — Projets</span>
       <h2 class="sec-title">Mes réalisations</h2>
       <p class="sec-sub">Quatre produits en production, puis le reste de ce qui tourne en ligne.</p>
     </div>
@@ -1904,6 +1930,104 @@ html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
 </section>
 
 <div class="marquee-wrap marquee-rev" aria-hidden="true"><div class="marquee-track"><span class="mq-item"><span class="mq-dot"></span>GhettoPay</span><span class="mq-item"><span class="mq-dot"></span>CHUO Parc</span><span class="mq-item"><span class="mq-dot"></span>LINAF</span><span class="mq-item"><span class="mq-dot"></span>Music Gaboma</span><span class="mq-item"><span class="mq-dot"></span>Numerik'art</span><span class="mq-item"><span class="mq-dot"></span>TRT Factory</span><span class="mq-item"><span class="mq-dot"></span>LBFC</span><span class="mq-item"><span class="mq-dot"></span>EACMG</span><span class="mq-item"><span class="mq-dot"></span>GAKI Group</span><span class="mq-item"><span class="mq-dot"></span>Studio Com'El</span><span class="mq-item"><span class="mq-dot"></span>GhettoPay</span><span class="mq-item"><span class="mq-dot"></span>CHUO Parc</span><span class="mq-item"><span class="mq-dot"></span>LINAF</span><span class="mq-item"><span class="mq-dot"></span>Music Gaboma</span><span class="mq-item"><span class="mq-dot"></span>Numerik'art</span><span class="mq-item"><span class="mq-dot"></span>TRT Factory</span><span class="mq-item"><span class="mq-dot"></span>LBFC</span><span class="mq-item"><span class="mq-dot"></span>EACMG</span><span class="mq-item"><span class="mq-dot"></span>GAKI Group</span><span class="mq-item"><span class="mq-dot"></span>Studio Com'El</span></div></div>
+
+<!-- ══ PROCESS ══ -->
+<section id="process">
+  <div class="sec-inner">
+    <span class="sec-wm" aria-hidden="true">04</span>
+    <div class="reveal">
+      <span class="sec-label">04 — Méthode</span>
+      <h2 class="sec-title">Comment je travaille</h2>
+      <p class="sec-sub">Un processus structuré, de la première discussion à la mise en production.</p>
+    </div>
+    <div class="proc-track">
+      <div class="proc-step reveal">
+        <div class="proc-circle">01</div>
+        <div class="proc-label">Découverte</div>
+        <div class="proc-desc">Brief client, analyse des besoins, rédaction du cahier des charges et périmètre du projet.</div>
+      </div>
+      <div class="proc-step reveal reveal-delay-1">
+        <div class="proc-circle">02</div>
+        <div class="proc-label">Architecture</div>
+        <div class="proc-desc">Maquettes UI, modélisation UML, choix de la stack technologique et plan de sécurité.</div>
+      </div>
+      <div class="proc-step reveal reveal-delay-2">
+        <div class="proc-circle">03</div>
+        <div class="proc-label">Développement</div>
+        <div class="proc-desc">Code propre et documenté, tests, authentification sécurisée, intégration des fonctionnalités.</div>
+      </div>
+      <div class="proc-step reveal reveal-delay-3">
+        <div class="proc-circle">04</div>
+        <div class="proc-label">Déploiement</div>
+        <div class="proc-desc">Mise en ligne sur Vercel/Netlify, monitoring, livraison finale et support post-lancement.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SKILLS ══ -->
+<section id="skills">
+  <div class="sec-inner">
+    <span class="sec-wm" aria-hidden="true">05</span>
+    <div class="reveal">
+      <span class="sec-label">05 — Compétences</span>
+      <h2 class="sec-title">Stack technique</h2>
+      <p class="sec-sub">Un ensemble de technologies couvrant le développement, les réseaux et la sécurité.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="sk-card reveal-3d reveal-delay-1">
+        <div class="sk-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h3>Frontend</h3>
+        <div class="sk-tags">
+          <span class="stag b">HTML5</span><span class="stag b">CSS3</span><span class="stag b">JavaScript</span>
+          <span class="stag">TypeScript</span><span class="stag b">Responsive</span>
+          <span class="stag">UX/UI</span><span class="stag b">Next.js</span><span class="stag">React · Vue</span><span class="stag">Tailwind</span>
+        </div>
+      </div>
+      <div class="sk-card reveal-3d reveal-delay-2">
+        <div class="sk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><path d="M12 1v6m0 6v6"/><path d="M4.22 4.22l4.24 4.24m2.12 2.12l4.24 4.24"/><path d="M1 12h6m6 0h6"/><path d="M4.22 19.78l4.24-4.24m2.12-2.12l4.24-4.24"/></svg></div>
+        <h3>Backend</h3>
+        <div class="sk-tags">
+          <span class="stag b">Node.js</span><span class="stag b">Express.js</span><span class="stag b">NestJS</span><span class="stag b">API REST</span>
+          <span class="stag">Python</span><span class="stag">Middleware</span><span class="stag">Routage</span>
+        </div>
+      </div>
+      <div class="sk-card reveal-3d reveal-delay-3">
+        <div class="sk-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></div>
+        <h3>Base de données</h3>
+        <div class="sk-tags">
+          <span class="stag b">PostgreSQL</span><span class="stag b">Prisma</span><span class="stag b">MongoDB</span><span class="stag b">Mongoose</span>
+          <span class="stag">Schémas &amp; CRUD</span><span class="stag">Modélisation</span>
+        </div>
+      </div>
+      <div class="sk-card r reveal-3d reveal-delay-1">
+        <div class="sk-icon r"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Cybersécurité</h3>
+        <div class="sk-tags">
+          <span class="stag r">Sécurisation</span><span class="stag r">Auth JWT</span>
+          <span class="stag r">Bcrypt</span><span class="stag r">RBAC</span>
+          <span class="stag r">Sécurité réseau</span><span class="stag">OWASP</span>
+        </div>
+      </div>
+      <div class="sk-card r reveal-3d reveal-delay-2">
+        <div class="sk-icon r"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <h3>Réseaux &amp; Systèmes</h3>
+        <div class="sk-tags">
+          <span class="stag r">TCP/IP · DNS</span><span class="stag r">Firewall · VPN</span>
+          <span class="stag">Linux</span><span class="stag">Monitoring</span><span class="stag">Shell Bash</span>
+        </div>
+      </div>
+      <div class="sk-card c reveal-3d reveal-delay-3">
+        <div class="sk-icon c"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <h3>Architecture &amp; Méthodes</h3>
+        <div class="sk-tags">
+          <span class="stag">UML</span><span class="stag">Cahiers des charges</span>
+          <span class="stag c">Cloud</span><span class="stag c">Git / GitHub</span><span class="stag">Docker</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ══ EXPERIENCE ══ -->
 <section id="experience">
@@ -2691,6 +2815,36 @@ document.querySelectorAll('.b-vp iframe').forEach(iframe => {
     });
   }
 
+  addEventListener('load', () => ST.refresh());
+})();
+</script>
+<script>
+/* ══════════════════════════════════════
+   FIL COMMUN : MÉTHODE, PARCOURS, OUTILS
+══════════════════════════════════════ */
+(function(){
+  const G = window.gsap, ST = window.ScrollTrigger;
+  const steps = [...document.querySelectorAll('#process .proc-step')];
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !G || !ST) { steps.forEach(s => s.classList.add('on')); return; }
+  G.registerPlugin(ST);
+  const tl = document.querySelector('#experience .timeline');
+  if (tl) G.fromTo(tl, { '--p': 0 }, { '--p': 1, ease: 'none', scrollTrigger: { trigger: tl, start: 'top 72%', end: 'bottom 72%', scrub: true } });
+  const mm = G.matchMedia();
+  mm.add('(min-width:961px)', () => {
+    const track = document.querySelector('#process .proc-track');
+    if (!track) return;
+    ST.create({ trigger: track, start: 'top 80%', end: 'top 35%', scrub: true, onUpdate: s => steps.forEach((st, i) => st.classList.toggle('on', s.progress >= i / (steps.length - 1) - .04)) });
+  });
+  mm.add('(max-width:960px)', () => {
+    steps.forEach(st => ST.create({ trigger: st, start: 'top 72%', onToggle: s => st.classList.toggle('on', s.isActive || s.progress > 0), onEnter: () => st.classList.add('on') }));
+  });
+  if (matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    document.querySelectorAll('.sk-card').forEach(c => c.addEventListener('mousemove', e => {
+      const r = c.getBoundingClientRect();
+      c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    }));
+  }
   addEventListener('load', () => ST.refresh());
 })();
 </script>
