@@ -1517,25 +1517,81 @@ section{padding-block:clamp(5rem,10vw,9rem)}
 @media(prefers-reduced-motion:reduce){
   #experience .timeline::before,#process .proc-track::before{transform:none}
 }
+
+/* ══ Ouverture ══ */
+#cursor,#cursor-dot{opacity:0;transition:opacity .3s}
+body.cursor-on #cursor,body.cursor-on #cursor-dot{opacity:1}
+#loader,[data-theme="dark"] #loader{background:transparent;display:block}
+#loader.out{transform:none;transition:none;pointer-events:none}
+.ld-sheet,.ld-panel{position:absolute;inset:0;border-radius:0 0 44px 44px;transition:transform 1.05s cubic-bezier(.76,0,.24,1)}
+.ld-s3{background:linear-gradient(120deg,#f43f5e,#fb7185)}
+.ld-s2{background:linear-gradient(120deg,var(--indigo),var(--purple))}
+.ld-panel{display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;padding:clamp(1.2rem,3vw,2.6rem) clamp(1.1rem,3.4vw,3.2rem) 0;color:#f5f4fb;background:radial-gradient(60% 70% at 84% 14%,rgba(99,102,241,.45),transparent 70%),radial-gradient(50% 60% at 8% 92%,rgba(244,63,94,.24),transparent 70%),#0d0c1d}
+#loader.out .ld-panel{transform:translateY(-104%)}
+#loader.out .ld-s2{transform:translateY(-104%);transition-delay:.1s}
+#loader.out .ld-s3{transform:translateY(-104%);transition-delay:.2s}
+#ldLanes{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.ld-top{position:relative;display:flex;justify-content:space-between;gap:1rem;font:500 clamp(.7rem,.95vw,.9rem)/1.3 var(--mono);color:#a5b4fc;opacity:0;transition:opacity .6s .15s}
+#loader.ready .ld-top{opacity:1}
+.ld-main{position:relative;display:flex;flex-direction:column;padding-bottom:clamp(.6rem,1.6vh,1.2rem)}
+.ld-count{align-self:flex-end;display:flex;align-items:flex-start;font-family:var(--display);font-weight:300;font-style:italic;font-size:clamp(4rem,13vh,9rem);line-height:.9;letter-spacing:-.04em;color:#fff;font-variant-numeric:tabular-nums}
+.ld-count span{font-size:.36em;margin:.14em 0 0 .1em;color:#a5b4fc}
+.ld-mask{overflow:hidden;padding:.06em .05em .18em 0}
+.ld-bmask{margin-bottom:-.2em}
+.ld-b{display:block;font-family:var(--display);font-style:italic;font-weight:300;font-size:clamp(2.4rem,7.4vw,8rem);line-height:1.08;letter-spacing:-.03em;width:max-content;padding-right:.08em;background:linear-gradient(95deg,#a5b4fc,#c4b5fd 45%,#fb7185);-webkit-background-clip:text;background-clip:text;color:transparent;transform:translateY(120%);transition:transform 1s var(--ease-out) .42s}
+#loader.ready .ld-b{transform:none}
+.ld-a{display:block;font-family:var(--display);font-weight:900;line-height:.98;letter-spacing:-.055em;white-space:nowrap}
+.ld-fit{display:inline-block;font-size:12vw;word-spacing:.08em}
+.ld-w{display:inline-block}
+.ld-c{display:inline-block;transform:translateY(120%);transition:transform 1s var(--ease-out);transition-delay:calc(var(--i) * 26ms)}
+#loader.ready .ld-c{transform:none}
+.ld-bar{position:relative;height:5px;margin-inline:calc(clamp(1.1rem,3.4vw,3.2rem) * -1);background:rgba(255,255,255,.1)}
+.ld-bar i{display:block;height:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,var(--indigo),var(--purple),var(--rose))}
+
+/* ══ Hero ══ */
+.js-intro .hero-badge,.js-intro .hero-h1,.js-intro .hero-sub,.js-intro .hero-desc,.js-intro .hero-btns,.js-intro .hero-pills,.js-intro .hero-visual{animation:none}
+.hero-mesh{background:radial-gradient(46% 56% at 80% 34%,rgba(99,102,241,.3),transparent 70%),radial-gradient(38% 46% at 62% 88%,rgba(244,63,94,.17),transparent 72%),radial-gradient(40% 50% at 6% 18%,rgba(139,92,246,.2),transparent 72%);animation:meshDrift 15s ease-in-out infinite alternate}
+@keyframes meshDrift{to{transform:translate3d(-3%,2.5%,0) scale(1.09)}}
+.hpw-inner{background:#fff}
+.hero-rotate{height:1.55em;vertical-align:bottom}
+.hero-rotate span{line-height:1.55}
+.ld-panel{justify-content:flex-start}
+.ld-main{margin-top:auto}
+.hl-mask{display:block;overflow:hidden;padding:.1em .08em .2em 0;margin-bottom:-.14em}
+.hl-w{display:inline-block}
+.hl-c{display:inline-block}
+@media(min-width:961px){
+  .hero-inner{grid-template-columns:minmax(0,1.28fr) minmax(0,1fr)}
+  .hero-h1{font-size:clamp(3.7rem,6.2vw,5.65rem)}
+}
+@media(max-width:768px){
+  .ld-sheet,.ld-panel{border-radius:0 0 28px 28px}
+  .ld-top span:last-child{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .ld-sheet,.ld-panel,.ld-b,.ld-c,.ld-top{transition:none}
+  .hero-mesh{animation:none}
+}
 </style>
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-intro')</script>
 </head>
 <body>
 <div id="scrollProgress"></div>
 
 <!-- ══ LOADER ══ -->
-<div id="loader">
-  <div class="loader-logo">
-    <div class="loader-row" id="lr1">
-      <span class="lc">EKANG&nbsp;NSOLEY</span>
+<div id="loader" aria-hidden="true">
+  <i class="ld-sheet ld-s3"></i>
+  <i class="ld-sheet ld-s2"></i>
+  <div class="ld-panel">
+    <canvas id="ldLanes"></canvas>
+    <p class="ld-top"><span>Libreville, Gabon</span><span>Fullstack · Cybersécurité · Réseaux</span></p>
+    <div class="ld-main">
+      <div class="ld-count"><b id="loaderPct">0</b><span>%</span></div>
+      <div class="ld-mask ld-bmask"><span class="ld-b">Sean Thomas</span></div>
+      <div class="ld-mask"><span class="ld-a" id="ldName"><span class="ld-fit">EKANG NSOLEY</span></span></div>
     </div>
-    <div class="loader-row" id="lr2">
-      <span class="lc italic">Sean&nbsp;Thomas</span>
-    </div>
+    <div class="ld-bar"><i id="loaderBar"></i></div>
   </div>
-  <div class="loader-bar-wrap">
-    <div class="loader-bar" id="loaderBar"></div>
-  </div>
-  <div class="loader-pct" id="loaderPct">0%</div>
 </div>
 
 <!-- ══ GRAIN ══ -->
@@ -2179,33 +2235,96 @@ section{padding-block:clamp(5rem,10vw,9rem)}
 
 <script>
 /* ══════════════════════════════════════
-   LOADER
+   OUVERTURE
 ══════════════════════════════════════ */
 (function(){
-  const loader   = document.getElementById('loader');
-  const bar      = document.getElementById('loaderBar');
-  const pct      = document.getElementById('loaderPct');
-  const row1     = document.getElementById('lr1');
-  const row2     = document.getElementById('lr2');
+  const loader = document.getElementById('loader');
+  const num = document.getElementById('loaderPct'), bar = document.getElementById('loaderBar');
+  const fit = document.querySelector('#ldName .ld-fit');
+  const canvas = document.getElementById('ldLanes'), ctx = canvas.getContext('2d');
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let seen = false;
+  try { seen = sessionStorage.getItem('intro-seen') === '1'; sessionStorage.setItem('intro-seen', '1'); } catch (e) {}
+  const minMs = calm ? 200 : seen ? 800 : 1900;
 
-  // Animate letters in
-  setTimeout(() => { row1.classList.add('loaded'); }, 200);
-  setTimeout(() => { row2.classList.add('loaded'); }, 450);
+  /* Le nom occupe toute la largeur */
+  const text = fit.textContent; fit.textContent = '';
+  let idx = 0;
+  text.split(' ').forEach((w, wi, all) => {
+    const wd = document.createElement('span'); wd.className = 'ld-w';
+    [...w].forEach(ch => { const s = document.createElement('span'); s.className = 'ld-c'; s.style.setProperty('--i', idx++); s.textContent = ch; wd.append(s); });
+    fit.append(wd);
+    if (wi < all.length - 1) fit.append(' ');
+  });
+  function fitName() {
+    const panel = loader.querySelector('.ld-panel'), cs = getComputedStyle(panel);
+    const avail = panel.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    fit.style.fontSize = '100px';
+    const w = fit.getBoundingClientRect().width || 1;
+    fit.style.fontSize = Math.min(100 * avail / w * .975, innerHeight * .34) + 'px';
+  }
 
-  // Progress bar
-  let progress = 0;
-  const tick = setInterval(() => {
-    progress = Math.min(progress + Math.random() * 12, 100);
-    bar.style.width = progress + '%';
-    pct.textContent = Math.round(progress) + '%';
-    if (progress >= 100) {
-      clearInterval(tick);
+  /* Paquets sur leurs voies */
+  const inks = ['#6366f1', '#8b5cf6', '#f43f5e'];
+  let W = 0, H = 0, dots = [];
+  function size() {
+    const d = Math.min(devicePixelRatio || 1, 1.75);
+    W = innerWidth; H = innerHeight;
+    canvas.width = W * d; canvas.height = H * d;
+    ctx.setTransform(d, 0, 0, d, 0, 0);
+    const lanes = Array.from({ length: Math.round(H / 34) }, (_, k) => (k + .5) * H / Math.round(H / 34));
+    dots = Array.from({ length: W < 700 ? 70 : 190 }, () => ({ x: Math.random() * W, y: lanes[Math.random() * lanes.length | 0], s: 2 + Math.random() * 5, v: .5 + Math.random() * 2.4, c: Math.random() * 3 | 0, a: .25 + Math.random() * .7 }));
+  }
+
+  let assets = 0;
+  const photo = document.querySelector('.hpw-inner img');
+  const need = [
+    document.fonts.load('900 100px Fraunces'),
+    document.fonts.load('italic 300 100px Fraunces'),
+    photo && photo.decode ? photo.decode() : Promise.resolve(),
+    new Promise(r => document.readyState === 'complete' ? r() : addEventListener('load', r, { once: true }))
+  ];
+  need.forEach(p => Promise.resolve(p).catch(() => {}).then(() => { assets++; }));
+
+  const show = () => { fitName(); loader.classList.add('ready'); };
+  Promise.race([Promise.all(need.slice(0, 2)), new Promise(r => setTimeout(r, 700))]).catch(() => {}).then(show);
+  Promise.all(need.slice(0, 2)).catch(() => {}).then(fitName);
+  document.fonts.ready.then(fitName);
+  size();
+
+  const t0 = performance.now();
+  let shown = 0, done = false, alive = true;
+  (function tick(now) {
+    if (!alive) return;
+    const t = now - t0;
+    let target = Math.min(1, t / minMs);
+    if (t < 4200) target = Math.min(target, .15 + .85 * (assets / need.length));
+    shown += (target - shown) * .13;
+    if (target === 1 && shown > .992) shown = 1;
+    num.textContent = Math.round(shown * 100);
+    bar.style.transform = 'scaleX(' + shown + ')';
+    if (!calm) {
+      ctx.clearRect(0, 0, W, H);
+      const pace = 1 + shown * 5;
+      inks.forEach((ink, c) => {
+        ctx.fillStyle = ink; ctx.beginPath();
+        dots.forEach(o => {
+          if (o.c !== c) return;
+          o.x += o.v * pace; if (o.x > W + 20) o.x = -20;
+          ctx.rect(o.x, o.y, o.s * (1 + pace * .9), o.s * .55);
+        });
+        ctx.globalAlpha = .55; ctx.fill(); ctx.globalAlpha = 1;
+      });
+    }
+    if (shown >= 1 && !done) {
+      done = true;
       setTimeout(() => {
         loader.classList.add('out');
-        setTimeout(() => { loader.style.display = 'none'; }, 1000);
-      }, 300);
+        setTimeout(() => { alive = false; loader.style.display = 'none'; }, 1500);
+      }, calm ? 0 : 340);
     }
-  }, 80);
+    requestAnimationFrame(tick);
+  })(t0);
 })();
 
 /* ══════════════════════════════════════
@@ -2721,7 +2840,7 @@ document.querySelectorAll('.b-vp iframe').forEach(iframe => {
     G.set(photo, { opacity: 0 });
     const loader = $('#loader');
     if (!loader || loader.classList.contains('out')) startPortrait();
-    else new MutationObserver((m, o) => { if (loader.classList.contains('out')) { o.disconnect(); setTimeout(startPortrait, 220); } }).observe(loader, { attributes: true, attributeFilter: ['class'] });
+    else new MutationObserver((m, o) => { if (loader.classList.contains('out')) { o.disconnect(); setTimeout(startPortrait, 620); } }).observe(loader, { attributes: true, attributeFilter: ['class'] });
   }
 
   /* ── Défilement doux ── */
@@ -2764,7 +2883,7 @@ document.querySelectorAll('.b-vp iframe').forEach(iframe => {
     /* Sortie du hero : la photo repart en paquets */
     if (frame && frame.offsetWidth) {
       const tl = G.timeline({ scrollTrigger: { trigger: hero, start: 'top top', end: '+=75%', pin: true, scrub: true, anticipatePin: 1, onUpdate: s => { if (!on) return; _q = clamp((s.progress - .08) / .8); draw(); } }, defaults: { ease: 'none' } });
-      tl.to(photo, { opacity: 0, duration: .22 }, .05)
+      tl.to('.hpw-inner', { opacity: 0, duration: .22 }, .05)
         .to('.hpw-ring,.hpw-glow,.hpw-badge', { opacity: 0, duration: .25 }, .05)
         .to('.hero-text', { y: -70, opacity: 0, duration: .55 }, .3);
     }
@@ -2846,6 +2965,57 @@ document.querySelectorAll('.b-vp iframe').forEach(iframe => {
     }));
   }
   addEventListener('load', () => ST.refresh());
+})();
+</script>
+<script>
+/* ══════════════════════════════════════
+   ENTRÉE DU HERO
+══════════════════════════════════════ */
+(function(){
+  addEventListener('mousemove', function on(){ document.body.classList.add('cursor-on'); removeEventListener('mousemove', on); });
+  const G = window.gsap;
+  const root = document.documentElement;
+  if (!root.classList.contains('js-intro') || !G) { root.classList.remove('js-intro'); return; }
+  const $$ = s => [...document.querySelectorAll(s)];
+  const h1 = document.querySelector('.hero-h1');
+  const lines = h1 ? [...h1.children] : [];
+  let chars = [], grad = null;
+  lines.forEach(line => {
+    const mask = document.createElement('span'); mask.className = 'hl-mask';
+    line.before(mask); mask.append(line);
+    if (line.classList.contains('grad')) { grad = line; return; }
+    const words = line.textContent.split(' '); line.textContent = '';
+    words.forEach((w, i) => {
+      const wd = document.createElement('span'); wd.className = 'hl-w';
+      [...w].forEach(c => { const s = document.createElement('span'); s.className = 'hl-c'; s.textContent = c; wd.append(s); chars.push(s); });
+      line.append(wd); if (i < words.length - 1) line.append(' ');
+    });
+  });
+  const rest = '.hero-badge,.hero-sub,.hero-btns > *,.hero-pills > *';
+  G.set(chars, { yPercent: 120 });
+  if (grad) G.set(grad, { yPercent: 120 });
+  G.set(rest, { y: 26, opacity: 0 });
+  G.set('.hero-visual', { scale: .9, opacity: 0 });
+  G.set('.hpw-badge', { scale: 0 });
+  G.set('nav', { yPercent: -160 });
+  const wm = '.hero-wm';
+  G.set(wm, { opacity: 0 });
+
+  function enter() {
+    G.timeline({ defaults: { ease: 'expo.out' } })
+      .to('nav', { yPercent: 0, duration: 1, clearProps: 'transform' }, .1)
+      .to(chars, { yPercent: 0, duration: 1.05, stagger: .028 }, .2)
+      .to(grad, { yPercent: 0, duration: 1.05 }, .55)
+      .to('.hero-visual', { scale: 1, opacity: 1, duration: 1.1, clearProps: 'transform' }, .35)
+      .to(rest, { y: 0, opacity: 1, duration: .8, stagger: .06, clearProps: 'transform' }, .75)
+      .to(wm, { opacity: 1, duration: 1.6, ease: 'power1.out' }, .5)
+      .to('.hpw-badge', { scale: 1, duration: .75, ease: 'back.out(2)', stagger: .12 }, 3);
+    /* Filet de sécurité : la photo finit toujours par être visible */
+    setTimeout(() => { const img = document.querySelector('.hpw-inner img'); if (img && +getComputedStyle(img).opacity < 1) G.to(img, { opacity: 1, duration: .4 }); }, 6000);
+  }
+  const loader = document.getElementById('loader');
+  if (!loader || loader.classList.contains('out')) enter();
+  else new MutationObserver((m, o) => { if (loader.classList.contains('out')) { o.disconnect(); setTimeout(enter, 420); } }).observe(loader, { attributes: true, attributeFilter: ['class'] });
 })();
 </script>
 </body>
