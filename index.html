@@ -1372,7 +1372,7 @@ html.lenis,html.lenis body{height:auto;scroll-behavior:auto}
 .proc-track::before{transform:scaleX(var(--p,1));transform-origin:left}
 .about-text .ink{transition:none}
 
-@media(max-width:768px){
+@media(max-width:960px){
   .cases{margin-top:2rem}
   .case{position:relative;height:auto;border-radius:26px 26px 0 0}
   .case-inner{display:flex;flex-direction:column;gap:1.1rem;padding:2.2rem 1.1rem 2.4rem}
@@ -1582,87 +1582,68 @@ nav,nav.scrolled{background:rgba(244,243,240,.9);backdrop-filter:blur(20px);-web
 [data-theme="dark"] nav,[data-theme="dark"] nav.scrolled{background:rgba(15,14,26,.92);border-color:rgba(255,255,255,.1)}
 @media(max-width:1000px){.hamburger{display:flex}.nav-links,.nav-cta{display:none}}
 
-/* ══ Hero : l'affiche ══ */
-#home.hero,[data-theme="dark"] #home.hero{--g:clamp(1.1rem,3.4vw,3.2rem);display:block;height:100svh;min-height:520px;padding:0;overflow:hidden;background:#4338ca;color:#fff}
-.hx-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-.hx-bg{position:absolute;inset:0;background:linear-gradient(118deg,#4338ca 0%,#6d4cf0 34%,#a24ee0 62%,#f43f5e 100%)}
-.hx-bg i{position:absolute;display:block}
-.hx-bg .b1,.hx-bg .b2,.hx-bg .b3{border-radius:50%;filter:blur(70px);will-change:transform}
-.hx-bg .b1{width:58vw;height:58vw;left:-12vw;top:-22vw;background:#312e81;animation:hxA 13s ease-in-out infinite alternate}
-.hx-bg .b2{width:48vw;height:48vw;right:-10vw;top:-14vw;background:#f43f5e;opacity:.85;animation:hxB 11s ease-in-out infinite alternate}
-.hx-bg .b3{width:52vw;height:52vw;left:30vw;bottom:-30vw;background:#8b5cf6;animation:hxA 16s ease-in-out infinite alternate-reverse}
-@keyframes hxA{to{transform:translate3d(9vw,7vw,0) scale(1.14)}}
-@keyframes hxB{to{transform:translate3d(-11vw,10vw,0) scale(1.2)}}
-.hx-bg .hx-glow{left:0;top:0;width:640px;height:640px;margin:-320px 0 0 -320px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.34),transparent 66%);transform:translate(var(--gx,70vw),var(--gy,30vh))}
-.hx-bg .hx-vig{inset:0;background:linear-gradient(180deg,rgba(13,12,29,.34),transparent 26%,transparent 62%,rgba(13,12,29,.3))}
-.hx-name{position:absolute;left:var(--g);right:var(--g);bottom:calc(5px + clamp(.6rem,1.6vh,1.2rem));font-family:var(--display);font-weight:900;line-height:.98;letter-spacing:-.055em;white-space:nowrap;padding:.06em .05em .18em 0;will-change:transform}
-.hx-fit{display:inline-block;font-size:var(--hx-size,12vw);word-spacing:.08em}
-.hx-w{display:inline-block}
-.hx-fill{color:#fff}
-.hx-stroke{color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.92)}
-.hx-photo{position:absolute;left:0;right:0;bottom:0;margin-inline:auto;height:min(96svh,62vw);width:auto;aspect-ratio:928/1063;max-width:none;mix-blend-mode:multiply;filter:brightness(1.18) contrast(1.06)}
-.js-intro .hx-photo{opacity:0}
-#hxPackets{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.hx-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
-.hx-ui{position:absolute;inset:0;pointer-events:none;z-index:2}
-.hx-ui a,.hx-ui .hx-right span{pointer-events:auto}
-.hx-left{position:absolute;left:var(--g);top:clamp(6.4rem,14vh,8.6rem);width:min(27vw,390px);display:flex;flex-direction:column;align-items:flex-start;gap:clamp(.8rem,1.9vh,1.3rem)}
-.hx-badge{display:inline-flex;align-items:center;gap:.5rem;background:#fff;color:#0d0c1d;border-radius:100px;padding:.42rem 1rem;font:500 .74rem/1.2 var(--mono);box-shadow:0 12px 30px -10px rgba(13,12,29,.5)}
-.hx-tag{font-family:var(--display);font-weight:300;font-size:clamp(2rem,3.5vw,3.5rem);line-height:1.04;letter-spacing:-.03em}
-.hx-tag em{font-style:italic}
-.hx-role{font:500 clamp(.86rem,1.05vw,1rem)/1.5 var(--mono)}
-#home .hero-rotate{display:block;min-width:0;width:100%;height:1.55em}
-#home .hero-rotate span{color:#fff;font-weight:600}
-.hx-role2{display:block;color:rgba(255,255,255,.86);font-size:.88em}
-.hx-cta{display:flex;flex-wrap:wrap;gap:.6rem}
-.hx-btn{display:inline-flex;align-items:center;gap:.55em;min-height:50px;padding:0 1.35rem;border-radius:14px;font-weight:700;font-size:1rem;text-decoration:none;transition:transform .3s var(--spring),box-shadow .3s,background .3s}
-.hx-btn:hover{transform:translateY(-4px)}
-.hx-btn1{background:#fff;color:#3730a3;box-shadow:0 18px 40px -12px rgba(13,12,29,.6)}
-.hx-btn2{color:#fff;border:2px solid rgba(255,255,255,.7);backdrop-filter:blur(6px)}
-.hx-btn2:hover{background:rgba(255,255,255,.16)}
-.hx-right{position:absolute;right:var(--g);top:clamp(6.4rem,14vh,8.6rem);display:flex;flex-direction:column;align-items:flex-end;gap:.5rem}
-.hx-right span{background:rgba(13,12,29,.82);color:#fff;border-radius:100px;padding:.5rem .95rem;font-size:.86rem;font-weight:500;backdrop-filter:blur(8px)}
-.hx-chip{position:absolute;display:block}
-.hx-chip b{display:block;background:#fff;color:#0d0c1d;border-radius:100px;padding:.55rem 1rem;font:500 .78rem/1 var(--mono);white-space:nowrap;box-shadow:0 18px 40px -12px rgba(13,12,29,.6);animation:hxFloat 5s ease-in-out infinite alternate}
-.hx-chip.c1{left:calc(50% - min(20vw,300px));top:24%}
-.hx-chip.c2{right:calc(50% - min(23vw,340px));top:38%}
-.hx-chip.c2 b{animation-delay:-2s}
-.hx-chip.c3{left:calc(50% - min(24vw,350px));top:52%}
-.hx-chip.c3 b{animation-delay:-3.4s}
-@keyframes hxFloat{to{translate:0 -14px}}
-.hx-first{position:absolute;left:var(--g);bottom:calc(var(--hx-name-h,30vh) + clamp(.2rem,1vh,.7rem));font-family:var(--display);font-style:italic;font-weight:300;font-size:clamp(1.6rem,3.4vw,3.7rem);line-height:1.08;letter-spacing:-.03em;text-shadow:0 2px 24px rgba(13,12,29,.45)}
-@media(max-width:960px){
-  .hx-fit{line-height:.9}
-  .hx-w{display:block}
-  .ld-w{display:block}
-  .ld-fit{line-height:.92}
-  #home.hero{min-height:560px}
-  .hx-photo{height:min(76svh,160vw)}
-  .hx-fill{z-index:1}
-  .hx-stroke{display:none}
-  .hx-left{left:var(--g);right:var(--g);top:5.2rem;width:auto;gap:.6rem}
-  .hx-tag{font-size:clamp(1.9rem,8.4vw,3.2rem)}
-  .hx-role{display:none}
-  .hx-right,.hx-chip{display:none}
-  .hx-cta{width:100%;flex-wrap:nowrap}
-  .hx-btn{flex:1;justify-content:center;font-size:.94rem;padding:0 .7rem}
-  .hx-first{font-size:clamp(1.25rem,5.5vw,2.6rem)}
+/* ══ Responsive ══ */
+@media(max-width:400px){
+  nav{padding:0 .6rem}
+  .nav-name{font-size:.78rem;white-space:nowrap}
 }
-@media(max-width:960px) and (max-height:700px){.hx-tag{display:none}}
+@media(max-width:350px){
+  .theme-toggle{display:none}
+  .nav-name{font-size:.74rem}
+}
+@media(max-width:1000px){.stats-grid{grid-template-columns:1fr 1fr!important}}
+@media(hover:none){.hamburger,.theme-toggle{min-width:44px;min-height:44px}}
+
+/* ══ Hero : la couverture ══ */
+#home.hero,[data-theme="dark"] #home.hero{--g:clamp(1.1rem,3.4vw,3.2rem);display:block;height:100svh;min-height:520px;padding:0;overflow:hidden;background:var(--bg);color:var(--text)}
+.cv-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.cv-mesh{position:absolute;inset:0;background:radial-gradient(44% 56% at 50% 64%,rgba(139,92,246,.2),transparent 72%)}
+.cv-name{position:absolute;left:var(--g);right:var(--g);top:calc(74px + clamp(.4rem,1.6vh,1.1rem));overflow:hidden;font-family:var(--display);font-weight:900;line-height:.98;letter-spacing:-.055em;white-space:nowrap;padding:.06em .05em .1em 0;color:var(--text);text-align:center}
+.cv-fit{display:inline-block;font-size:var(--cv-size,12vw);word-spacing:.08em}
+.cv-w,.cv-c{display:inline-block}
+.cv-disc{position:absolute;left:50%;bottom:var(--cv-db,5vh);width:var(--cv-d,58vh);height:var(--cv-d,58vh);margin-left:calc(var(--cv-d,58vh) / -2);border-radius:50%;background:linear-gradient(135deg,var(--indigo),var(--purple) 55%,var(--rose))}
+#cvPackets{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#cvPortrait{position:absolute;inset:0;pointer-events:none}
+.cv-photo{position:absolute;left:0;right:0;bottom:0;margin-inline:auto;height:var(--cv-ph,80svh);width:auto;max-width:none}
+.js-intro .cv-photo{opacity:0}
+.cv-scrim{display:none}
+.cv-ui{position:absolute;inset:0;pointer-events:none}
+.cv-ui a{pointer-events:auto}
+.cv-left,.cv-right{position:absolute;bottom:clamp(1.8rem,6.5vh,3.6rem)}
+.cv-left{left:var(--g);width:30vw}
+.cv-right{right:var(--g);display:flex;flex-direction:column;align-items:flex-end;gap:1rem}
+.cv-first{margin:0;font-family:var(--display);font-style:italic;font-weight:300;font-size:clamp(2rem,3.5vw,3.5rem);line-height:1.04;letter-spacing:-.03em;background:linear-gradient(100deg,var(--indigo),var(--purple) 55%,var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.08em}
+.cv-first span{display:block}
+.cv-role{margin-top:.7rem;font:500 clamp(.92rem,1.1vw,1.08rem)/1.5 var(--mono)}
+#home .hero-rotate{display:block;min-width:0;width:100%;height:1.55em;vertical-align:baseline}
+#home .hero-rotate span{line-height:1.55}
+.cv-status{display:flex;align-items:center;gap:.55rem;margin:0;font:500 clamp(.76rem,.88vw,.88rem)/1.3 var(--mono);color:var(--text2)}
+.cv-cta{display:flex;gap:.6rem}
+.cv-cta a{white-space:nowrap;justify-content:center}
+@media(max-width:960px){.ld-w{display:block}.ld-fit{line-height:.92}}
+@media(max-width:960px) and (min-height:561px){
+  .cv-w{display:block}
+  .cv-fit{line-height:.9}
+  .cv-name{text-align:left}
+  .cv-scrim{display:block;position:absolute;left:0;right:0;bottom:0;height:38%;background:linear-gradient(180deg,transparent,rgba(13,12,29,.86))}
+  .cv-left{left:var(--g);right:var(--g);width:auto;bottom:calc(max(.9rem,env(safe-area-inset-bottom)) + 5.6rem)}
+  .cv-first{color:#fff;background:none;-webkit-text-fill-color:#fff;font-size:clamp(1.5rem,6.2vw,2.8rem);text-align:center}
+  .cv-first span{display:inline}
+  .cv-role{display:none}
+  .cv-right{left:var(--g);right:var(--g);bottom:max(.9rem,env(safe-area-inset-bottom));align-items:stretch;gap:.6rem}
+  .cv-status{justify-content:center;color:#fff}
+  .cv-cta a{flex:1;width:auto;min-height:52px;padding-inline:.5rem}
+}
 @media(max-height:560px){
-  #home.hero{min-height:0}
-  .hx-photo{height:100svh}
-  .hx-w{display:inline-block}
-  .hx-right,.hx-chip,.hx-role{display:none}
-  .hx-left{top:4.4rem;right:auto;width:44vw}
-  .hx-tag{display:block;font-size:1.5rem}
-  .hx-cta{flex-wrap:wrap}
-  .hx-first{display:none}
+  #home.hero,[data-theme="dark"] #home.hero{min-height:0}
+  .cv-status,.cv-role{display:none}
+  .cv-left{width:32vw;bottom:1rem}
+  .cv-first{font-size:1.5rem}
+  .cv-right{bottom:1rem}
 }
-@media(prefers-reduced-motion:reduce){
-  .hx-bg .b1,.hx-bg .b2,.hx-bg .b3,.hx-chip b{animation:none}
-}
-@media(max-width:360px){.hx-btn{font-size:.82rem;padding:0 .4rem;white-space:nowrap}.hx-btn1 span{display:none}.nav-name{font-size:.78rem;white-space:nowrap}}
+.cv-photo{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 11%,#000 89%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 11%,#000 89%,transparent 100%)}
+.hamburger{flex-direction:column;justify-content:center;align-items:center}
+@media(max-width:960px) and (max-height:700px){.cv-status{display:none}.cv-left{bottom:calc(max(.9rem,env(safe-area-inset-bottom)) + 3.9rem)}}
 </style>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-intro')</script>
 </head>
@@ -1728,34 +1709,26 @@ nav,nav.scrolled{background:rgba(244,243,240,.9);backdrop-filter:blur(20px);-web
 </div>
 
 <!-- ══ HERO ══ -->
-<section class="hero" id="home" aria-labelledby="hxTitle">
-  <div class="hx-bg" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="hx-glow"></i><i class="hx-vig"></i></div>
-  <h1 id="hxTitle" class="hx-sr">Sean Thomas Patrick Salem EKANG NSOLEY, développeur fullstack, cybersécurité et réseaux à Libreville</h1>
-  <div class="hx-name hx-fill" aria-hidden="true"><span class="hx-fit"><span class="hx-w">EKANG</span> <span class="hx-w">NSOLEY</span></span></div>
-  <img id="heroSrc" class="hx-photo" src="seanpp.jpeg" alt="Portrait de Sean Thomas Patrick Salem EKANG NSOLEY"/>
-  <canvas id="hxPackets" aria-hidden="true"></canvas>
-  <div class="hx-name hx-stroke" aria-hidden="true"><span class="hx-fit"><span class="hx-w">EKANG</span> <span class="hx-w">NSOLEY</span></span></div>
-  <i class="hx-flash" aria-hidden="true"></i>
-  <div class="hx-ui">
-    <div class="hx-left">
-      <div class="hx-badge hx-in"><span class="badge-dot"></span>Disponible · Libreville, Gabon</div>
-      <p class="hx-tag hx-in">Du brief à la mise en <em>production</em>.</p>
-      <div class="hx-role hx-in">
-        <span class="hero-rotate"><span>Développeur Fullstack</span><span>Expert Cybersécurité</span><span>Architecte Réseau</span></span>
-        <span class="hx-role2">Téléinformatique &amp; Génie Logiciel</span>
-      </div>
-      <div class="hx-cta hx-in">
-        <a href="#projects" class="hx-btn hx-btn1">Voir mes projets <span aria-hidden="true">→</span></a>
-        <a href="#contact" class="hx-btn hx-btn2">Me contacter</a>
+<section class="hero" id="home" aria-labelledby="cvTitle">
+  <h1 id="cvTitle" class="cv-sr">Sean Thomas Patrick Salem EKANG NSOLEY, développeur fullstack, cybersécurité et réseaux à Libreville</h1>
+  <div class="cv-mesh" aria-hidden="true"></div>
+  <div class="cv-name" aria-hidden="true"><span class="cv-fit"><span class="cv-w">EKANG</span> <span class="cv-w">NSOLEY</span></span></div>
+  <i class="cv-disc" aria-hidden="true"></i>
+  <canvas id="cvPackets" aria-hidden="true"></canvas>
+  <div id="cvPortrait"><img id="heroSrc" class="cv-photo" src="assets/portrait-cut.webp" width="928" height="1063" alt="Portrait de Sean Thomas Patrick Salem EKANG NSOLEY" fetchpriority="high"/></div>
+  <i class="cv-scrim" aria-hidden="true"></i>
+  <div class="cv-ui">
+    <div class="cv-left">
+      <p class="cv-first cv-in"><span>Sean Thomas</span> <span>Patrick Salem</span></p>
+      <div class="cv-role cv-in"><span class="hero-rotate"><span>Développeur Fullstack</span><span>Expert Cybersécurité</span><span>Architecte Réseau</span></span></div>
+    </div>
+    <div class="cv-right">
+      <p class="cv-status cv-in"><span class="badge-dot"></span>Disponible · Libreville, Gabon</p>
+      <div class="cv-cta cv-in">
+        <a href="#projects" class="btn-primary">Voir mes projets</a>
+        <a href="#contact" class="btn-secondary">Me contacter</a>
       </div>
     </div>
-    <div class="hx-right hx-in">
-      <span>Open to work</span><span>Sécurité by design</span><span>Code propre · Docs incluses</span>
-    </div>
-    <span class="hx-chip c1"><b>JS · Node.js · MongoDB</b></span>
-    <span class="hx-chip c2"><b>Linux · TCP/IP · VPN</b></span>
-    <span class="hx-chip c3"><b>JWT · RBAC · OWASP</b></span>
-    <p class="hx-first hx-in">Sean Thomas Patrick Salem</p>
   </div>
 </section>
 
@@ -2936,7 +2909,7 @@ document.querySelectorAll('.b-vp iframe').forEach(iframe => {
   });
 
   const mm = G.matchMedia();
-  mm.add('(min-width:769px) and (min-height:621px)', () => {
+  mm.add('(min-width:961px) and (min-height:621px)', () => {
     /* Sortie du hero : la photo repart en paquets */
     if (frame && frame.offsetWidth) {
       const tl = G.timeline({ scrollTrigger: { trigger: hero, start: 'top top', end: '+=75%', pin: true, scrub: true, anticipatePin: 1, onUpdate: s => { if (!on) return; _q = clamp((s.progress - .08) / .8); draw(); } }, defaults: { ease: 'none' } });
@@ -2962,7 +2935,7 @@ document.querySelectorAll('.b-vp iframe').forEach(iframe => {
   });
 
   /* Mobile : entrée simple des cartes */
-  mm.add('(max-width:768px)', () => {
+  mm.add('(max-width:960px)', () => {
     $$('.case').forEach(c => G.from($$('.case-shot, .case-copy > *', c), { y: 26, opacity: 0, duration: .65, ease: 'expo.out', stagger: .06, scrollTrigger: { trigger: c, start: 'top 72%', once: true } }));
   });
 
@@ -3026,167 +2999,147 @@ document.querySelectorAll('.b-vp iframe').forEach(iframe => {
 </script>
 <script>
 /* ══════════════════════════════════════
-   HERO : L'AFFICHE
+   HERO : LA COUVERTURE
 ══════════════════════════════════════ */
 (function(){
   addEventListener('mousemove', function on(){ document.body.classList.add('cursor-on'); removeEventListener('mousemove', on); });
   const root = document.documentElement, G = window.gsap, ST = window.ScrollTrigger;
-  const hero = document.getElementById('home'), src = document.getElementById('heroSrc'), canvas = document.getElementById('hxPackets');
+  const hero = document.getElementById('home'), src = document.getElementById('heroSrc'), canvas = document.getElementById('cvPackets');
+  const name = hero.querySelector('.cv-name'), fit = hero.querySelector('.cv-fit'), portrait = document.getElementById('cvPortrait'), disc = hero.querySelector('.cv-disc');
   const motion = root.classList.contains('js-intro') && !!G && !!ST;
   if (!motion) { root.classList.remove('js-intro'); canvas.remove(); }
   const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
   const clamp = (v, a, b) => Math.min(b === undefined ? 1 : b, Math.max(a || 0, v));
   const stacked = () => innerWidth <= 960 && innerHeight > 560;
 
-  /* Le nom prend toute la largeur, à sa vraie taille optique */
-  function fitName() {
-    const fill = hero.querySelector('.hx-fill'), fit = fill.querySelector('.hx-fit');
-    const avail = (hero.clientWidth - 2 * parseFloat(getComputedStyle(fill).left)) * .985;
-    const cap = innerHeight * (stacked() ? .2 : .34);
+  /* Le titre occupe la largeur, le portrait se cale dessous en le mordant */
+  function layout() {
+    const W = hero.clientWidth, H = hero.clientHeight;
+    const avail = (W - 2 * parseFloat(getComputedStyle(name).left)) * .985;
+    const cap = H * (stacked() ? .15 : .34);
     let size = 120;
-    for (let k = 0; k < 6; k++) {
-      hero.style.setProperty('--hx-size', size + 'px');
-      size = Math.min(size * avail / (fit.offsetWidth || 1), cap);
+    for (let k = 0; k < 6; k++) { hero.style.setProperty('--cv-size', size + 'px'); size = Math.min(size * avail / (fit.offsetWidth || 1), cap); }
+    hero.style.setProperty('--cv-size', size + 'px');
+    let ph;
+    if (stacked()) {
+      const target = name.offsetTop + name.offsetHeight - size * .3;
+      ph = Math.min((H - target) / .93, W * 1.62);
+      hero.style.setProperty('--cv-d', Math.min(ph * .72, W * .9) + 'px');
+    } else {
+      const target = name.offsetTop + size * .64;
+      ph = Math.min((H - target) / .93, W * .52 / .873);
+      hero.style.setProperty('--cv-d', ph * .72 + 'px');
     }
-    hero.style.setProperty('--hx-size', size + 'px');
-    hero.style.setProperty('--hx-name-h', fill.offsetHeight + 'px');
+    hero.style.setProperty('--cv-ph', ph + 'px');
+    hero.style.setProperty('--cv-db', ph * .06 + 'px');
   }
-  fitName();
-  document.fonts.load('900 100px Fraunces').catch(() => {}).then(fitName);
-  document.fonts.ready.then(fitName);
+  layout();
+  document.fonts.load('900 100px Fraunces').catch(() => {}).then(layout);
+  document.fonts.ready.then(layout);
 
   let lastW = innerWidth, rt;
   addEventListener('resize', () => {
     if (innerWidth === lastW) return;
     lastW = innerWidth; clearTimeout(rt);
-    rt = setTimeout(() => { fitName(); if (motion && P) { build(); render(performance.now()); ST.refresh(); } }, 160);
+    rt = setTimeout(() => { layout(); if (motion) ST.refresh(); }, 160);
   });
   if (!motion) return;
   G.registerPlugin(ST);
 
-  /* Le portrait en paquets */
+  /* Les paquets convergent vers la silhouette, puis la photo apparaît */
   const ctx = canvas.getContext('2d');
+  const inks = ['#4f46e5', '#8b5cf6', '#f43f5e'];
   const ease = t => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-  let P = null, W = 0, H = 0, _p = 0, _q = 0, settled = false;
-  let px = -1e4, py = -1e4, last = -1e4, energy = 0, running = false;
-
+  let P = [], W = 0, H = 0, _p = 0;
   function build() {
     const hr = hero.getBoundingClientRect(), r = src.getBoundingClientRect();
     W = hr.width; H = hr.height;
     const d = Math.min(devicePixelRatio || 1, 1.75);
     canvas.width = W * d; canvas.height = H * d;
     ctx.setTransform(d, 0, 0, d, 0, 0);
-    const fx = r.left - hr.left, fy = r.top - hr.top;
-    const step = Math.max(stacked() ? 3.2 : 4.2, r.width / (stacked() ? 125 : 155));
-    const cols = Math.round(r.width / step), rows = Math.round(r.height / step);
+    const step = Math.max(4, r.width / 92), cols = Math.round(r.width / step), rows = Math.round(r.height / step);
     const off = document.createElement('canvas'); off.width = cols; off.height = rows;
     const oc = off.getContext('2d', { willReadFrequently: true });
     oc.drawImage(src, 0, 0, cols, rows);
-    const d2 = oc.getImageData(0, 0, cols, rows).data;
-    const lanes = Array.from({ length: 40 }, () => Math.random() * H);
-    const L = [];
+    const px = oc.getImageData(0, 0, cols, rows).data;
+    const lanes = Array.from({ length: 34 }, () => Math.random() * H);
+    P = [];
     for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
-      const i = (y * cols + x) * 4, lum = d2[i] * .3 + d2[i + 1] * .59 + d2[i + 2] * .11;
-      let k = Math.pow(1 - clamp((lum - 12) / 200), 1.5);
-      /* Les épaules se dissolvent au lieu de s'arrêter net au bord de la photo */
-      const low = clamp((y / rows - .58) / .24), side = clamp(Math.min(x, cols - 1 - x) / (cols * .2));
-      k *= 1 - low * (1 - side);
-      if (k < .05) continue;
-      const tx = fx + x * step, ty = fy + y * step;
-      L.push({ tx, ty, s: step * (.16 + .92 * k), sx: Math.random() < .5 ? -30 - Math.random() * 260 : W + 30 + Math.random() * 260, sy: lanes[Math.random() * lanes.length | 0], de: Math.random() * .32 + Math.abs(tx / W - .5) * .1, du: .42 + Math.random() * .16, dr: (.4 + Math.random()) * (Math.random() < .5 ? -1 : 1), ox: 0, oy: 0, vx: 0, vy: 0 });
+      const i = (y * cols + x) * 4;
+      if (px[i + 3] < 90) continue;
+      const lum = px[i] * .3 + px[i + 1] * .59 + px[i + 2] * .11, k = 1 - clamp(lum / 230), g = (x / cols + y / rows) / 2;
+      P.push({ x: r.left - hr.left + x * step, y: r.top - hr.top + y * step, s: step * (.42 + .62 * k), g: g < .38 ? 0 : g < .68 ? 1 : 2, sx: Math.random() < .5 ? -30 - Math.random() * 240 : W + 30 + Math.random() * 240, sy: lanes[Math.random() * lanes.length | 0], de: Math.random() * .32, du: .44 + Math.random() * .2 });
     }
-    P = L;
   }
-
-  function render(now) {
-    if (!P) return;
+  function draw() {
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#0d0c1d';
-    ctx.beginPath();
-    const near = now - last < 280, R = stacked() ? 0 : 130, R2 = R * R, fade = 1 - clamp(_q * 1.1);
-    energy = 0;
-    for (const o of P) {
-      let x = o.tx, y = o.ty, s = o.s;
-      if (!settled) {
-        const t = clamp((_p - o.de) / o.du);
-        if (t <= 0) continue;
-        const a = ease(clamp(t * 2)), c = ease(clamp(t * 2 - 1));
-        x = o.sx + (x - o.sx) * a; y = o.sy + (y - o.sy) * c; s *= .45 + .55 * c;
+    if (_p <= 0) return;
+    inks.forEach((ink, b) => {
+      ctx.fillStyle = ink; ctx.beginPath();
+      for (const o of P) {
+        if (o.g !== b) continue;
+        const t = clamp((_p - o.de) / o.du); if (t <= 0) continue;
+        const a = ease(clamp(t * 2)), c = ease(clamp(t * 2 - 1)), s = o.s * (.5 + .5 * c);
+        ctx.rect(o.sx + (o.x - o.sx) * a, o.sy + (o.y - o.sy) * c, s, s);
       }
-      if (near || o.ox || o.oy) {
-        if (near && R) {
-          const dx = x + o.ox - px, dy = y + o.oy - py, d = dx * dx + dy * dy;
-          if (d < R2) { const m = Math.sqrt(d) || 1, f = (1 - m / R) * 3.6; o.vx += dx / m * f; o.vy += dy / m * f; }
-        }
-        o.vx = (o.vx - o.ox * .07) * .84; o.vy = (o.vy - o.oy * .07) * .84;
-        o.ox += o.vx; o.oy += o.vy;
-        const e = Math.abs(o.ox) + Math.abs(o.oy) + Math.abs(o.vx) + Math.abs(o.vy);
-        if (e < .08) { o.ox = o.oy = o.vx = o.vy = 0; } else energy += e;
-        x += o.ox; y += o.oy;
-      }
-      if (_q > 0) { x += o.dr * _q * _q * W * .55; y += o.dr * .3 * _q * H; s *= fade; }
-      if (s > .15) ctx.rect(x, y, s, s);
-    }
-    ctx.fill();
+      ctx.fill();
+    });
   }
-  function tick(now) {
-    render(now);
-    if (energy > .5 || now - last < 300) requestAnimationFrame(tick); else running = false;
-  }
-  function wake() { if (!running && P) { running = true; requestAnimationFrame(tick); } }
+  const state = { get p() { return _p; }, set p(v) { _p = v; draw(); } };
 
-  const state = { get p() { return _p; }, set p(v) { _p = v; render(performance.now()); } };
+  /* Titre lettre par lettre */
+  const chars = [];
+  hero.querySelectorAll('.cv-w').forEach(w => {
+    const t = w.textContent; w.textContent = '';
+    [...t].forEach(c => { const s = document.createElement('span'); s.className = 'cv-c'; s.textContent = c; w.append(s); chars.push(s); });
+  });
+  layout();
 
-  /* État initial, sous la feuille d'ouverture */
-  G.set('.hx-in', { y: 30, opacity: 0 });
-  G.set('.hx-chip', { scale: 0 });
-  G.set('.hx-stroke', { opacity: 0 });
-  G.set('nav', { yPercent: -160 });
-
-  function punch() {
-    settled = true;
-    G.fromTo('.hx-flash', { opacity: .6 }, { opacity: 0, duration: 1, ease: 'power2.out' });
-    G.fromTo(canvas, { scale: 1.04 }, { scale: 1, duration: 1, ease: 'elastic.out(1,.55)', transformOrigin: '50% 100%' });
-    G.fromTo('.hx-stroke', { opacity: 0 }, { opacity: 1, duration: .5 });
-  }
   function enter() {
     G.timeline({ defaults: { ease: 'expo.out' } })
       .to('nav', { yPercent: 0, duration: 1, clearProps: 'transform' }, .15)
-      .to(state, { p: 1, duration: 2.5, ease: 'none' }, .1)
-      .to('.hx-in', { y: 0, opacity: 1, duration: .85, stagger: .08, clearProps: 'transform' }, .6)
-      .add(punch, 2.6)
-      .to('.hx-chip', { scale: 1, duration: .7, ease: 'back.out(2)', stagger: .12 }, 2.75);
+      .to(chars, { yPercent: 0, duration: 1.15, stagger: .03 }, .1)
+      .to(disc, { scale: 1, duration: 1.2, ease: 'back.out(1.5)' }, .45)
+      .to(state, { p: 1, duration: 1.9, ease: 'none' }, .5)
+      .to('.cv-in', { y: 0, opacity: 1, duration: .85, stagger: .09, clearProps: 'transform' }, 1.25)
+      .to(src, { opacity: 1, duration: .55, ease: 'power1.out' }, 2.1)
+      .fromTo(src, { scale: 1.05 }, { scale: 1, duration: 1.2, transformOrigin: '50% 100%', clearProps: 'transform' }, 2.1)
+      .to(canvas, { opacity: 0, duration: .5, ease: 'none' }, 2.25)
+      .add(() => { _p = 0; ctx.clearRect(0, 0, W, H); canvas.style.display = 'none'; });
+    setTimeout(() => { if (+getComputedStyle(src).opacity < 1) G.to(src, { opacity: 1, duration: .4 }); }, 7000);
   }
   function ready() {
-    build();
+    layout(); build();
+    G.set(chars, { yPercent: 118 });
+    G.set(disc, { scale: 0 });
+    G.set('.cv-in', { y: 28, opacity: 0 });
+    G.set('nav', { yPercent: -160 });
     const loader = document.getElementById('loader');
     if (!loader || loader.classList.contains('out')) enter();
-    else new MutationObserver((m, o) => { if (loader.classList.contains('out')) { o.disconnect(); setTimeout(enter, 380); } }).observe(loader, { attributes: true, attributeFilter: ['class'] });
+    else new MutationObserver((m, o) => { if (loader.classList.contains('out')) { o.disconnect(); setTimeout(enter, 340); } }).observe(loader, { attributes: true, attributeFilter: ['class'] });
   }
   (src.complete && src.naturalWidth ? Promise.resolve() : new Promise(r => { src.addEventListener('load', r, { once: true }); src.addEventListener('error', r, { once: true }); })).then(ready);
 
-  /* Le curseur fait vivre l'affiche */
+  /* Profondeur : chaque plan suit le curseur à sa vitesse */
   if (fine) {
-    const qn = G.quickTo('.hx-name', 'x', { duration: .9, ease: 'power3' });
-    const qc = G.quickTo(canvas, 'x', { duration: 1.1, ease: 'power3' });
+    const q = (t, p, d) => G.quickTo(t, p, { duration: d, ease: 'power3' });
+    const nx = q(name, 'x', 1), dx = q(disc, 'x', 1.1), dy = q(disc, 'y', 1.1), px = q(portrait, 'x', .8), py = q(portrait, 'y', .8);
     hero.addEventListener('pointermove', e => {
-      const r = hero.getBoundingClientRect();
-      px = e.clientX - r.left - (+G.getProperty(canvas, 'x') || 0); py = e.clientY - r.top; last = performance.now();
-      hero.style.setProperty('--gx', (e.clientX - r.left) + 'px');
-      hero.style.setProperty('--gy', (e.clientY - r.top) + 'px');
-      const nx = e.clientX / innerWidth - .5;
-      qn(nx * -16); qc(nx * 12);
-      if (settled) wake();
+      const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
+      nx(x * -14); dx(x * 18); dy(y * 12); px(x * 30); py(y * 10);
     }, { passive: true });
   }
 
-  /* Le défilement traverse l'affiche */
+  /* Au défilement : le titre s'ouvre, le disque avale la page */
   G.matchMedia().add('(min-width:961px) and (min-height:621px)', () => {
-    G.timeline({ scrollTrigger: { trigger: hero, start: 'top top', end: '+=90%', pin: true, scrub: true, anticipatePin: 1, refreshPriority: 1, onUpdate: s => { if (!settled) return; _q = clamp((s.progress - .05) / .8); render(performance.now()); } }, defaults: { ease: 'none' } })
-      .to('.hx-ui', { opacity: 0, y: -50, duration: .3 }, 0)
-      .to('.hx-name', { scale: 1.55, transformOrigin: '50% 100%', duration: 1 }, 0)
-      .to('.hx-name', { opacity: 0, duration: .32 }, .68)
-      .to('.hx-bg', { scale: 1.18, duration: 1 }, 0);
+    const w = hero.querySelectorAll('.cv-w');
+    G.timeline({ scrollTrigger: { trigger: hero, start: 'top top', end: '+=110%', pin: true, scrub: .5, anticipatePin: 1, refreshPriority: 1, invalidateOnRefresh: true }, defaults: { ease: 'none' } })
+      .to('.cv-ui', { opacity: 0, y: 40, duration: .22 }, 0)
+      .to(w[0], { xPercent: -46, duration: .75 }, 0)
+      .to(w[1], { xPercent: 46, duration: .75 }, 0)
+      .to(portrait, { scale: 1.2, duration: .7, transformOrigin: '50% 100%' }, 0)
+      .to(portrait, { yPercent: 16, opacity: 0, duration: .3 }, .5)
+      .to(disc, { scale: () => Math.hypot(innerWidth, innerHeight) * 2.2 / disc.offsetWidth, duration: 1, ease: 'power2.in' }, 0);
     ST.sort(); ST.refresh();
   });
 })();
